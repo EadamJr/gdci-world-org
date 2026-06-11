@@ -2084,49 +2084,252 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // BILINGUAL LANGUAGE ROUTING
+  // BILINGUAL LANGUAGE TOGGLE (inline — single-file deployment)
+  // Switches the page between EN (LTR) and AR (RTL) without routing
+  // to a separate folder, since all content lives in one index.html.
   // ==========================================================================
-  const currentPath = window.location.pathname;
-  // If path contains "/ar/", we are in Arabic context
-  const isArabic = currentPath.includes('/ar/');
+
+  // Arabic translations for all navigable text on the page
+  const translations = {
+    en: {
+      dir: 'ltr', lang: 'en',
+      navHome: 'Home', navAbout: 'About', navResearch: 'Research',
+      navDialogue: 'Dialogue', navPeople: 'People', navEngage: 'Engage',
+      navBrandKit: 'Brand Kit',
+      heroSubtitle: 'Global Dialogue Civilization Initiative',
+      heroH1: 'Where Civilizations Meet — and Listen.',
+      heroTagline: 'An independent initiative advancing research, dialogue, and collaboration across the world's great civilizational traditions.',
+      heroCTA1: 'Explore Our Research', heroCTA2: 'About GDCI',
+      pillarsTitle: 'Our Thematic Pillars',
+      pillarsSubtitle: 'GDCI conducts research and orchestrates dialogue panels across five core dimensions of civilizational identity and exchange.',
+      p1Title: 'Memory & Heritage', p1Desc: 'Investigating historical civilizational encounters, manuscript traditions, preservation, and cultural memories.',
+      p2Title: 'Dialogue & Peace', p2Desc: 'Analyzing intercultural dialogue as a tool for conflict prevention, reconciliation, and plural diplomacy.',
+      p3Title: 'Governance & Economy', p3Desc: 'Examining structures of governance across civilizational systems and the dynamics of global multipolarity.',
+      p4Title: 'Knowledge & Exchange', p4Desc: 'Mapping educational exchanges, science/technology translations, and information flows across traditions.',
+      p5Title: 'Climate & Futures', p5Desc: 'Exploring environmental ethics in diverse cultures and strategies for civilizational resilience.',
+      researchTitle: 'Latest from GDCI',
+      researchSubtitle: 'Read recently published policy briefs, working papers, and essays by our fellows and contributing scholars.',
+      viewAll: 'View All Research Publications',
+      eventsTitle: 'Dialogue & Events',
+      eventsSubtitle: 'Join our round-tables, conferences, and annual forums bringing together global experts and policy practitioners.',
+      featuredBadge: 'Featured Forum',
+      featuredTitle: 'The 2026 Rhodes Question: Historical Memory and Civilizational Healing',
+      featuredDesc: 'Our annual flagship dialogue convening 30 scholars in Rhodes, Greece to draft the 2026 Accord on civilizational reconciliation in post-conflict borders.',
+      registerBtn: 'Register for Event',
+      missionQuote: '"Dialogue is not agreement. It is the willingness to be changed by understanding another civilization on its own terms."',
+      principle1Title: 'Intellectual Gravitas', principle1Desc: 'Rigorous academic research and peer-reviewed outputs that form a credible base for policy recommendation.',
+      principle2Title: 'Pluriversal Openness', principle2Desc: 'Structuring debates that transcend Western-centric frameworks, giving voice to distinct intellectual traditions.',
+      principle3Title: 'Long-Horizon Outlook', principle3Desc: 'Analyzing global interactions over decades and centuries rather than responding to weekly news cycles.',
+      partnersLabel: 'Our Collaborators',
+      newsletterTitle: 'Join the Conversation',
+      newsletterDesc: 'Subscribe to our monthly research digest and event announcements. No spam. Unsubscribe any time.',
+      newsletterPlaceholder: 'Your email address', newsletterBtn: 'Subscribe',
+      footerPlatform: 'Platform', footerContact: 'Contact',
+      footerAbout: 'About Initiative', footerResearch: 'Research Archives',
+      footerDialogue: 'Dialogue & Panels', footerPeople: 'Fellows & Leadership',
+      footerBrand: 'Brand Identity Kit',
+      footerTagline: 'Advancing research, dialogue, and collaboration across civilizational traditions for a shared human future.',
+      footerLegal: '© 2026 Global Dialogue Civilization Initiative. All rights reserved. Content available under Creative Commons Attribution 4.0 where indicated.',
+      footerPrivacy: 'Privacy Policy', footerTerms: 'Terms of Use', footerA11y: 'Accessibility Statement',
+      footerEmail: 'Email:',
+    },
+    ar: {
+      dir: 'rtl', lang: 'ar',
+      navHome: 'الرئيسية', navAbout: 'عن المبادرة', navResearch: 'الأبحاث',
+      navDialogue: 'الحوارات', navPeople: 'الأعضاء', navEngage: 'المشاركة',
+      navBrandKit: 'دليل الهوية',
+      heroSubtitle: 'مبادرة حوار الحضارات العالمي',
+      heroH1: 'حيث تلتقي الحضارات — وتصغي.',
+      heroTagline: 'مبادرة مستقلة تعزز البحث والحوار والتعاون عبر التقاليد الحضارية الكبرى للإنسانية.',
+      heroCTA1: 'استكشف أبحاثنا', heroCTA2: 'عن المبادرة',
+      pillarsTitle: 'محاورنا الموضوعية',
+      pillarsSubtitle: 'تُجري المبادرة أبحاثها وتنظم جلسات حوارية عبر خمسة محاور رئيسية تمس جوهر الهوية الحضارية والتبادل بين الثقافات.',
+      p1Title: 'الذاكرة والتراث', p1Desc: 'دراسة اللقاءات الحضارية التاريخية وتقاليد المخطوطات والحفظ والذاكرة الثقافية.',
+      p2Title: 'الحوار والسلام', p2Desc: 'تحليل الحوار بين الثقافات أداةً للوقاية من النزاعات والمصالحة والدبلوماسية التعددية.',
+      p3Title: 'الحوكمة والاقتصاد', p3Desc: 'فحص هياكل الحوكمة عبر الأنظمة الحضارية وديناميكيات التعددية القطبية العالمية.',
+      p4Title: 'المعرفة والتبادل', p4Desc: 'رصد التبادلات التعليمية وترجمات العلوم والتكنولوجيا وتدفقات المعلومات عبر التقاليد.',
+      p5Title: 'المناخ والمستقبل', p5Desc: 'استكشاف الأخلاق البيئية في الثقافات المتنوعة واستراتيجيات الصمود الحضاري.',
+      researchTitle: 'الجديد من المبادرة',
+      researchSubtitle: 'اقرأ أحدث أوراق السياسات وأوراق العمل والمقالات التي ينشرها زملاؤنا والباحثون المساهمون.',
+      viewAll: 'عرض جميع المنشورات البحثية',
+      eventsTitle: 'الحوارات والفعاليات',
+      eventsSubtitle: 'انضم إلى طاولاتنا المستديرة ومؤتمراتنا ومنتدياتنا السنوية التي تجمع خبراء ومختصين في السياسات من شتى أنحاء العالم.',
+      featuredBadge: 'منتدى مميز',
+      featuredTitle: 'سؤال رودس 2026: الذاكرة التاريخية والشفاء الحضاري',
+      featuredDesc: 'حوارنا السنوي الرئيسي يجمع 30 باحثاً في رودس باليونان لصياغة وثيقة 2026 حول المصالحة الحضارية في الحدود ما بعد النزاع.',
+      registerBtn: 'سجّل في الفعالية',
+      missionQuote: '"الحوار ليس توافقاً. إنه الاستعداد للتغيّر من خلال فهم حضارة أخرى بشروطها الخاصة."',
+      principle1Title: 'الرصانة الفكرية', principle1Desc: 'أبحاث أكاديمية صارمة ومُحكَّمة تُشكّل قاعدة موثوقة للتوصيات السياسية.',
+      principle2Title: 'الانفتاح التعددي', principle2Desc: 'بناء نقاشات تتجاوز الأطر الغربية المركزية وتُعطي صوتاً للتقاليد الفكرية المستقلة.',
+      principle3Title: 'النظرة بعيدة المدى', principle3Desc: 'تحليل التفاعلات العالمية على امتداد عقود وقرون بدلاً من الاستجابة لدورات الأخبار الأسبوعية.',
+      partnersLabel: 'شركاؤنا',
+      newsletterTitle: 'انضم إلى الحوار',
+      newsletterDesc: 'اشترك في ملخصنا البحثي الشهري وإعلانات الفعاليات. بدون إزعاج. إلغاء الاشتراك في أي وقت.',
+      newsletterPlaceholder: 'عنوان بريدك الإلكتروني', newsletterBtn: 'اشترك',
+      footerPlatform: 'البوابة', footerContact: 'اتصال',
+      footerAbout: 'عن المبادرة', footerResearch: 'أرشيف الأبحاث',
+      footerDialogue: 'الحوارات والجلسات', footerPeople: 'الزملاء والقيادة',
+      footerBrand: 'دليل الهوية البصرية',
+      footerTagline: 'نسعى لتعزيز البحث والحوار والتعاون عبر التقاليد الحضارية المتنوعة لبناء مستقبل بشري مشترك.',
+      footerLegal: '© ٢٠٢٦ مبادرة حوار الحضارات العالمي. جميع الحقوق محفوظة. المحتوى متاح بموجب ترخيص المشاع الإبداعي 4.0 عند الإشارة.',
+      footerPrivacy: 'سياسة الخصوصية', footerTerms: 'شروط الاستخدام', footerA11y: 'بيان إمكانية الوصول',
+      footerEmail: 'البريد:',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function applyLanguage(lang) {
+    const t = translations[lang];
+    const htmlEl = document.documentElement;
+    htmlEl.setAttribute('lang', t.lang);
+    htmlEl.setAttribute('dir', t.dir);
+    currentLang = lang;
+
+    // Helper: safely set text if element exists
+    const setText = (sel, text) => {
+      const el = document.querySelector(sel);
+      if (el) el.textContent = text;
+    };
+    const setAttr = (sel, attr, val) => {
+      const el = document.querySelector(sel);
+      if (el) el.setAttribute(attr, val);
+    };
+
+    // Nav links
+    setText('.nav-menu li:nth-child(1) a', t.navHome);
+    setText('.nav-menu li:nth-child(2) a', t.navAbout);
+    setText('.nav-menu li:nth-child(3) a', t.navResearch);
+    setText('.nav-menu li:nth-child(4) a', t.navDialogue);
+    setText('.nav-menu li:nth-child(5) a', t.navPeople);
+    setText('.nav-menu li:nth-child(6) a', t.navEngage);
+    setText('.nav-menu li:nth-child(7) a', t.navBrandKit);
+
+    // Mobile menu links
+    const mobileLinks = document.querySelectorAll('.mobile-menu li a');
+    const mobileKeys = ['navHome','navAbout','navResearch','navDialogue','navPeople','navEngage','navBrandKit'];
+    mobileLinks.forEach((el, i) => { if (mobileKeys[i]) el.textContent = t[mobileKeys[i]]; });
+
+    // Hero
+    setText('.hero-subtitle', t.heroSubtitle);
+    setText('.display-xl', t.heroH1);
+    setText('.hero-tagline', t.heroTagline);
+    const heroBtns = document.querySelectorAll('.hero-actions .btn');
+    if (heroBtns[0]) heroBtns[0].textContent = t.heroCTA1;
+    if (heroBtns[1]) heroBtns[1].textContent = t.heroCTA2;
+
+    // Pillars
+    setText('#pillars-title', t.pillarsTitle);
+    const pillarsSection = document.querySelector('.pillars-strip');
+    if (pillarsSection) {
+      const sub = pillarsSection.querySelector('.section-header p');
+      if (sub) sub.textContent = t.pillarsSubtitle;
+    }
+    const pillarTitles = document.querySelectorAll('.pillar-card-title');
+    const pillarDescs  = document.querySelectorAll('.pillar-card-desc');
+    const pTitles = [t.p1Title, t.p2Title, t.p3Title, t.p4Title, t.p5Title];
+    const pDescs  = [t.p1Desc,  t.p2Desc,  t.p3Desc,  t.p4Desc,  t.p5Desc];
+    pillarTitles.forEach((el, i) => { if (pTitles[i]) el.textContent = pTitles[i]; });
+    pillarDescs.forEach((el, i)  => { if (pDescs[i])  el.textContent = pDescs[i]; });
+
+    // Research section
+    setText('#research-title', t.researchTitle);
+    const researchSection = document.querySelector('#research-title')?.closest('section');
+    if (researchSection) {
+      const sub = researchSection.querySelector('.section-header p');
+      if (sub) sub.textContent = t.researchSubtitle;
+      const viewAllBtn = researchSection.querySelector('.btn-secondary');
+      if (viewAllBtn) viewAllBtn.textContent = t.viewAll;
+    }
+
+    // Events
+    setText('#events-title', t.eventsTitle);
+    const eventsSection = document.querySelector('#events-title')?.closest('section');
+    if (eventsSection) {
+      const sub = eventsSection.querySelector('.section-header p');
+      if (sub) sub.textContent = t.eventsSubtitle;
+      const badge = eventsSection.querySelector('.event-featured .card-tag');
+      if (badge) badge.textContent = t.featuredBadge;
+      const featH = eventsSection.querySelector('.event-featured .h4');
+      if (featH) featH.textContent = t.featuredTitle;
+      const featP = eventsSection.querySelector('.event-featured p');
+      if (featP) featP.textContent = t.featuredDesc;
+      const regBtn = eventsSection.querySelector('.event-featured .btn');
+      if (regBtn) regBtn.textContent = t.registerBtn;
+    }
+
+    // Mission strip
+    setText('.mission-quote', t.missionQuote);
+    const principles = document.querySelectorAll('.principle-item');
+    const princTitles = [t.principle1Title, t.principle2Title, t.principle3Title];
+    const princDescs  = [t.principle1Desc,  t.principle2Desc,  t.principle3Desc];
+    principles.forEach((el, i) => {
+      const ti = el.querySelector('.principle-title');
+      const de = el.querySelector('.principle-desc');
+      if (ti && princTitles[i]) ti.textContent = princTitles[i];
+      if (de && princDescs[i])  de.textContent = princDescs[i];
+    });
+
+    // Partners
+    setText('.partners-title', t.partnersLabel);
+
+    // Newsletter
+    setText('#newsletter-title', t.newsletterTitle);
+    const nlSection = document.querySelector('#newsletter-title')?.closest('section');
+    if (nlSection) {
+      const sub = nlSection.querySelector('p');
+      if (sub) sub.textContent = t.newsletterDesc;
+      const input = nlSection.querySelector('.newsletter-input');
+      if (input) input.placeholder = t.newsletterPlaceholder;
+      const btn = nlSection.querySelector('.btn-amber');
+      if (btn) btn.textContent = t.newsletterBtn;
+    }
+
+    // Footer
+    const footerBrand = document.querySelector('.footer-brand p');
+    if (footerBrand) footerBrand.textContent = t.footerTagline;
+    const footerTitles = document.querySelectorAll('.footer-title');
+    if (footerTitles[0]) footerTitles[0].textContent = t.footerPlatform;
+    if (footerTitles[1]) footerTitles[1].textContent = t.footerContact;
+    const footerLinks = document.querySelectorAll('.footer-links li a');
+    const fLinkKeys = ['footerAbout','footerResearch','footerDialogue','footerPeople','footerBrand'];
+    footerLinks.forEach((el, i) => { if (fLinkKeys[i]) el.textContent = t[fLinkKeys[i]]; });
+    const footerLegal = document.querySelector('.footer-legal');
+    if (footerLegal) footerLegal.textContent = t.footerLegal;
+    const legalLinks = document.querySelectorAll('.footer-legal-links a');
+    if (legalLinks[0]) legalLinks[0].textContent = t.footerPrivacy;
+    if (legalLinks[1]) legalLinks[1].textContent = t.footerTerms;
+    if (legalLinks[2]) legalLinks[2].textContent = t.footerA11y;
+
+    // Save preference
+    try { localStorage.setItem('gdci-lang', lang); } catch(e) {}
+  }
+
+  // Language switcher click handler
+  const isArabic = false; // single-file mode — no folder routing
   const langLinks = document.querySelectorAll('.lang-switcher a, .mobile-lang a');
 
   langLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetLang = link.getAttribute('data-lang');
-      let filename = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-      
-      // Default to index.html if filename is empty
-      if (!filename || filename === '/' || filename === 'ar') {
-        filename = 'index.html';
-      }
-
-      let basePath = currentPath.substring(0, currentPath.lastIndexOf('/'));
-
-      if (targetLang === 'ar' && !isArabic) {
-        // Redirect LTR page to RTL folder
-        // /GDCI/about.html -> /GDCI/ar/about.html
-        window.location.href = basePath + '/ar/' + filename;
-      } else if (targetLang === 'en' && isArabic) {
-        // Redirect RTL page to LTR folder
-        // /GDCI/ar/about.html -> /GDCI/about.html
-        if (basePath.endsWith('/ar')) {
-          basePath = basePath.substring(0, basePath.length - 3);
-        }
-        window.location.href = basePath + '/' + filename;
-      }
+      applyLanguage(targetLang);
+      // Update active state on all lang links
+      document.querySelectorAll('.lang-switcher a, .mobile-lang a').forEach(l => {
+        l.classList.toggle('active', l.getAttribute('data-lang') === targetLang);
+      });
     });
   });
 
-  // Highlight active language switcher element
-  langLinks.forEach(link => {
-    const targetLang = link.getAttribute('data-lang');
-    if ((targetLang === 'ar' && isArabic) || (targetLang === 'en' && !isArabic)) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
+  // Restore saved language preference on load
+  try {
+    const saved = localStorage.getItem('gdci-lang');
+    if (saved && saved !== 'en') applyLanguage(saved);
+  } catch(e) {}
+
+  // Set EN as active on initial load
+  document.querySelectorAll('.lang-switcher a, .mobile-lang a').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('data-lang') === 'en');
   });
 
   // ==========================================================================
