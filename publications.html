@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GDCI Publications — reports, research papers, policy briefs, opinion articles, and analysis on West–East civilizational dialogue.">
+
+  <title>Publications | GDCI</title>
+
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>
+    /* =========================================================
+       PUBLICATIONS PAGE — EXTRA STYLES
+       ========================================================= */
+
+    /* ---- Filter bar ---- */
+    .pub-filter-bar {
+      display: flex;
+      gap: var(--space-12);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-32);
+    }
+    .pub-filter-btn {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: var(--space-8) var(--space-16);
+      border-radius: 20px;
+      border: 1.5px solid rgba(26,107,106,0.25);
+      background: transparent;
+      color: var(--color-slate);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    .pub-filter-btn:hover,
+    .pub-filter-btn.active {
+      background: var(--color-teal);
+      border-color: var(--color-teal);
+      color: white;
+    }
+
+    /* ---- Publication card ---- */
+    .pub-card {
+      background: var(--color-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-default);
+      padding: var(--space-32);
+      display: flex;
+      gap: var(--space-24);
+      align-items: flex-start;
+      transition: var(--transition-normal);
+      margin-bottom: var(--space-24);
+    }
+    .pub-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+
+    .pub-type-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: var(--space-8) var(--space-12);
+      border-radius: var(--border-radius);
+      font-family: var(--font-utility);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .badge-report    { background: #e8f4f0; color: #1A6B6A; }
+    .badge-paper     { background: #fef6e8; color: #C4882A; }
+    .badge-brief     { background: #e8ecf2; color: #0D2B40; }
+    .badge-opinion   { background: #f0e8f4; color: #6a3b7a; }
+    .badge-analysis  { background: #e8f0e8; color: #2E7D5E; }
+    .badge-announce  { background: #f4e8e8; color: #C0392B; }
+
+    .pub-body { flex: 1; }
+    .pub-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      color: var(--color-black);
+      margin-bottom: var(--space-8);
+      line-height: 1.35;
+    }
+    .pub-title a { color: inherit; }
+    .pub-title a:hover { color: var(--color-teal); }
+    .pub-meta {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      color: var(--color-slate);
+      opacity: 0.75;
+      display: flex;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-12);
+    }
+    .pub-abstract {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+      margin-bottom: var(--space-12);
+      color: var(--color-slate);
+    }
+    .pub-actions {
+      display: flex;
+      gap: var(--space-12);
+      flex-wrap: wrap;
+    }
+    .pub-link {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-teal);
+      text-decoration: none;
+    }
+    .pub-link:hover { color: var(--color-navy); }
+
+    /* ---- Hidden/visible states ---- */
+    .pub-card[data-hidden="true"] { display: none; }
+
+    /* ---- ADMIN PANEL ---- */
+    #admin-trigger {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 500;
+      background: var(--color-navy);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: var(--space-12) var(--space-24);
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(13,43,64,0.35);
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      transition: var(--transition-fast);
+    }
+    #admin-trigger:hover { background: var(--color-teal); }
+    #admin-trigger svg { width:16px; height:16px; fill:currentColor; }
+
+    /* ---- Login modal ---- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13,43,64,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-normal);
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal-box {
+      background: var(--color-white);
+      border-radius: 8px;
+      padding: var(--space-48);
+      width: min(460px, 90vw);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+      position: relative;
+    }
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--color-black);
+      margin-bottom: var(--space-8);
+    }
+    .modal-subtitle {
+      font-size: 0.9rem;
+      color: var(--color-slate);
+      margin-bottom: var(--space-32);
+      opacity: 0.75;
+    }
+    .form-group {
+      margin-bottom: var(--space-24);
+    }
+    .form-label {
+      display: block;
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: var(--space-8);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-input {
+      width: 100%;
+      padding: var(--space-12) var(--space-16);
+      border: 1.5px solid rgba(128,128,128,0.25);
+      border-radius: var(--border-radius);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-black);
+      background: var(--color-stone);
+      transition: var(--transition-fast);
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-teal);
+      background: var(--color-white);
+    }
+    .form-input.error { border-color: var(--color-error); }
+    .form-error {
+      color: var(--color-error);
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      margin-top: var(--space-8);
+      display: none;
+    }
+    .form-error.show { display: block; }
+    .modal-close {
+      position: absolute;
+      top: var(--space-16);
+      right: var(--space-16);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-slate);
+      opacity: 0.5;
+      transition: var(--transition-fast);
+      padding: var(--space-8);
+    }
+    .modal-close:hover { opacity: 1; }
+    .modal-close svg { width:20px; height:20px; fill:currentColor; }
+
+    /* ---- Admin panel sidebar ---- */
+    #admin-panel {
+      position: fixed;
+      top: 0;
+      right: -680px;
+      width: min(680px, 95vw);
+      height: 100vh;
+      background: var(--color-white);
+      box-shadow: -8px 0 40px rgba(13,43,64,0.18);
+      z-index: 1500;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      overflow: hidden;
+    }
+    #admin-panel.open { right: 0; }
+
+    .admin-header {
+      background: var(--color-navy);
+      color: white;
+      padding: var(--space-24) var(--space-32);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .admin-header h2 {
+      color: white;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .admin-header p {
+      color: rgba(255,255,255,0.6);
+      font-family: var(--font-utility);
+      font-size: 0.8rem;
+      margin: 4px 0 0 0;
+    }
+    .admin-close {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: white;
+      transition: var(--transition-fast);
+    }
+    .admin-close:hover { background: rgba(255,255,255,0.2); }
+    .admin-close svg { width:16px; height:16px; fill:currentColor; }
+
+    .admin-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(128,128,128,0.15);
+      flex-shrink: 0;
+      background: var(--color-stone);
+    }
+    .admin-tab {
+      flex: 1;
+      padding: var(--space-16);
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--color-slate);
+      border-bottom: 2px solid transparent;
+      transition: var(--transition-fast);
+    }
+    .admin-tab.active {
+      color: var(--color-teal);
+      border-bottom-color: var(--color-teal);
+      background: var(--color-white);
+    }
+
+    .admin-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-32);
+    }
+
+    /* ---- Admin tab panes ---- */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    .admin-section-title {
+      font-family: var(--font-utility);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-teal);
+      margin-bottom: var(--space-16);
+      padding-bottom: var(--space-8);
+      border-bottom: 1px solid rgba(26,107,106,0.15);
+    }
+
+    .admin-list {
+      list-style: none;
+      margin-bottom: var(--space-32);
+    }
+    .admin-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-12) var(--space-16);
+      background: var(--color-stone);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-8);
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+    }
+    .admin-list-item .item-label { font-weight: 500; }
+    .admin-list-item .item-meta { color: var(--color-slate); opacity: 0.7; font-size: 0.8rem; }
+    .admin-list-item .item-actions { display: flex; gap: var(--space-8); }
+    .btn-icon {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-4);
+      border-radius: 4px;
+      color: var(--color-slate);
+      transition: var(--transition-fast);
+    }
+    .btn-icon:hover { color: var(--color-error); background: rgba(192,57,43,0.1); }
+    .btn-icon.edit:hover { color: var(--color-teal); background: rgba(26,107,106,0.1); }
+    .btn-icon svg { width:15px; height:15px; fill:currentColor; display:block; }
+
+    .add-form {
+      background: var(--color-stone);
+      border-radius: var(--border-radius);
+      padding: var(--space-24);
+      margin-bottom: var(--space-32);
+    }
+    .add-form-title {
+      font-family: var(--font-utility);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-slate);
+      margin-bottom: var(--space-16);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-select {
+      width: 100%;
+      padding: var(--space-12) var(--space-16);
+      border: 1.5px solid rgba(128,128,128,0.25);
+      border-radius: var(--border-radius);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--color-black);
+      background: var(--color-white);
+      transition: var(--transition-fast);
+    }
+    .form-select:focus {
+      outline: none;
+      border-color: var(--color-teal);
+    }
+    .form-textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: var(--space-12) var(--space-16);
+      border: 1.5px solid rgba(128,128,128,0.25);
+      border-radius: var(--border-radius);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      color: var(--color-black);
+      background: var(--color-white);
+      resize: vertical;
+      transition: var(--transition-fast);
+    }
+    .form-textarea:focus { outline: none; border-color: var(--color-teal); }
+
+    .btn-sm {
+      padding: var(--space-8) var(--space-16);
+      font-size: 0.8125rem;
+    }
+
+    .admin-pub-item {
+      background: var(--color-stone);
+      border-radius: var(--border-radius);
+      padding: var(--space-16) var(--space-20);
+      margin-bottom: var(--space-12);
+      border-left: 3px solid var(--color-teal);
+    }
+    .admin-pub-item .pub-item-title {
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: var(--space-4);
+      color: var(--color-black);
+    }
+    .admin-pub-item .pub-item-meta {
+      font-family: var(--font-utility);
+      font-size: 0.8rem;
+      color: var(--color-slate);
+      opacity: 0.75;
+      display: flex;
+      gap: var(--space-12);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-8);
+    }
+    .admin-pub-actions {
+      display: flex;
+      gap: var(--space-8);
+      margin-top: var(--space-8);
+    }
+
+    .success-toast {
+      position: fixed;
+      bottom: 80px;
+      right: 28px;
+      background: var(--color-success);
+      color: white;
+      padding: var(--space-12) var(--space-24);
+      border-radius: var(--border-radius);
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      font-weight: 500;
+      z-index: 3000;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: var(--transition-normal);
+      pointer-events: none;
+    }
+    .success-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- Panel overlay backdrop ---- */
+    #panel-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(13,43,64,0.35);
+      z-index: 1499;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition-normal);
+    }
+    #panel-backdrop.open { opacity: 1; pointer-events: all; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 640px) {
+      .pub-card { flex-direction: column; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="site-header scrolled">
+    <div class="container header-container">
+      <a href="index.html" class="nav-logo" aria-label="GDCI Home">
+        <svg viewBox="0 0 200 200" width="40" height="40" aria-hidden="true" style="fill: var(--color-teal);">
+          <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round" />
+          <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round" />
+          <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round" />
+          <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round" />
+          <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round" />
+          <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round" />
+          <line x1="30" y1="150" x2="170" y2="150" stroke="#C4882A" stroke-width="2.5" opacity="0.5" />
+        </svg>
+        <span>GDCI</span>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="dialogue.html" class="nav-link">Dialogues</a></li>
+          <li><a href="publications.html" class="nav-link active">Publications</a></li>
+          <li><a href="people.html" class="nav-link">People</a></li>
+          <li><a href="engage.html" class="nav-link">Engage</a></li>
+          <li>
+            <div class="lang-switcher" role="navigation" aria-label="Language switcher">
+              <a href="#" data-lang="en" class="active">EN</a>
+              <span>|</span>
+              <a href="#" data-lang="ar">AR</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="mobile-nav-toggle" aria-expanded="false" aria-controls="mobile-overlay" aria-label="Toggle navigation">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Overlay -->
+  <div id="mobile-overlay" class="mobile-overlay" aria-hidden="true">
+    <ul class="mobile-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="dialogue.html">Dialogues</a></li>
+      <li><a href="publications.html" class="active">Publications</a></li>
+      <li><a href="people.html">People</a></li>
+      <li><a href="engage.html">Engage</a></li>
+    </ul>
+    <div class="mobile-lang">
+      <a href="#" data-lang="en" class="active">English</a>
+      <span>|</span>
+      <a href="#" data-lang="ar">العربية</a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN CONTENT
+       ========================================================================== -->
+  <main>
+
+    <!-- Page Hero -->
+    <section class="page-hero" aria-label="Publications introduction">
+      <div class="container">
+        <p class="hero-eyebrow" style="color:var(--color-amber);">Knowledge Hub</p>
+        <h1 class="display-l">Publications</h1>
+        <p style="max-width:640px; font-size:1.05rem; opacity:0.85;">
+          Reports, research papers, policy briefs, opinion articles, and analysis produced by GDCI fellows and affiliated scholars on West–East civilizational dialogue, intercultural relations, and Middle East–Global North engagement.
+        </p>
+      </div>
+    </section>
+
+    <!-- Publications Listing -->
+    <section class="section-padding" aria-labelledby="pub-list-title" style="background:var(--color-stone);">
+      <div class="container">
+
+        <!-- Filter bar -->
+        <div class="pub-filter-bar" role="group" aria-label="Filter by publication type">
+          <button class="pub-filter-btn active" data-filter="all">All</button>
+          <button class="pub-filter-btn" data-filter="report">Reports</button>
+          <button class="pub-filter-btn" data-filter="paper">Research Papers</button>
+          <button class="pub-filter-btn" data-filter="brief">Policy Briefs</button>
+          <button class="pub-filter-btn" data-filter="opinion">Opinion Articles</button>
+          <button class="pub-filter-btn" data-filter="analysis">Analysis</button>
+          <button class="pub-filter-btn" data-filter="announce">Announcements</button>
+        </div>
+
+        <!-- Publications list -->
+        <div id="pub-list" aria-live="polite">
+
+          <!-- Publication 1 -->
+          <article class="pub-card" data-type="brief">
+            <span class="pub-type-badge badge-brief">Policy Brief</span>
+            <div class="pub-body">
+              <h2 class="pub-title"><a href="#">Why Dialogue is Not Compromise: Identity, Diplomacy, and the Plural World</a></h2>
+              <div class="pub-meta">
+                <span>Dr. Layla Al-Amin</span>
+                <span>·</span>
+                <span>May 2026</span>
+                <span>·</span>
+                <span>Dialogue &amp; Peacebuilding</span>
+              </div>
+              <p class="pub-abstract">Reframing international negotiation as an instrument of mutual identity-recognition rather than concession, drawing on Islamic jurisprudence and Western liberal theory in parallel. The brief argues that productive diplomacy between the Global North and Middle East requires a departure from zero-sum frameworks toward dialogue as an epistemological practice.</p>
+              <div class="pub-actions">
+                <a href="#" class="pub-link">Download PDF →</a>
+                <a href="#" class="pub-link" style="color:var(--color-amber);">Cite</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Publication 2 -->
+          <article class="pub-card" data-type="paper">
+            <span class="pub-type-badge badge-paper">Research Paper</span>
+            <div class="pub-body">
+              <h2 class="pub-title"><a href="#">At the Margins of Empires: What History Teaches at Civilizational Borders</a></h2>
+              <div class="pub-meta">
+                <span>Prof. Erik Sandström</span>
+                <span>·</span>
+                <span>June 2026</span>
+                <span>·</span>
+                <span>Heritage &amp; History</span>
+              </div>
+              <p class="pub-abstract">A comparative analysis of historical contact zones — from Andalusia to the Levant Crusader states — where shared legal and cultural frameworks formed across religious-civilizational lines. The paper draws on archival sources in Arabic, Latin, and Hebrew to reconstruct mechanisms of coexistence that inform contemporary cross-civilizational governance.</p>
+              <div class="pub-actions">
+                <a href="#" class="pub-link">Download PDF →</a>
+                <a href="#" class="pub-link" style="color:var(--color-amber);">Cite</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Publication 3 -->
+          <article class="pub-card" data-type="report">
+            <span class="pub-type-badge badge-report">Report</span>
+            <div class="pub-body">
+              <h2 class="pub-title"><a href="#">Governance Across Traditions: Three Models of Legitimate Authority</a></h2>
+              <div class="pub-meta">
+                <span>GDCI Research Team</span>
+                <span>·</span>
+                <span>April 2026</span>
+                <span>·</span>
+                <span>Governance &amp; Economy</span>
+              </div>
+              <p class="pub-abstract">An institutional comparison of state legitimacy and constitutionalism across Chinese Confucian, classical Islamic, and European liberal models. The report proposes a cross-traditional framework for multilateral cooperation that moves beyond Western-centric assumptions in international law and governance design.</p>
+              <div class="pub-actions">
+                <a href="#" class="pub-link">Download PDF →</a>
+                <a href="#" class="pub-link" style="color:var(--color-amber);">Cite</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Publication 4 -->
+          <article class="pub-card" data-type="opinion">
+            <span class="pub-type-badge badge-opinion">Opinion</span>
+            <div class="pub-body">
+              <h2 class="pub-title"><a href="#">The Mirror Problem: How Western Media Shapes Arab Self-Perception</a></h2>
+              <div class="pub-meta">
+                <span>Nadia Osman</span>
+                <span>·</span>
+                <span>March 2026</span>
+                <span>·</span>
+                <span>Media &amp; Narratives</span>
+              </div>
+              <p class="pub-abstract">An essay examining the structural feedback loops by which Western representations of the Middle East shape — and distort — political discourse within Arab societies themselves. The author argues for media-literacy programmes specifically designed to interrupt these feedback mechanisms as a precondition for genuine dialogue.</p>
+              <div class="pub-actions">
+                <a href="#" class="pub-link">Read Online →</a>
+                <a href="#" class="pub-link" style="color:var(--color-amber);">Cite</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Publication 5 -->
+          <article class="pub-card" data-type="analysis">
+            <span class="pub-type-badge badge-analysis">Analysis</span>
+            <div class="pub-body">
+              <h2 class="pub-title"><a href="#">Youth as Mediators: A Field Assessment of Cross-Cultural Youth Dialogue Programmes</a></h2>
+              <div class="pub-meta">
+                <span>Dr. Amir Hassan &amp; Dr. Sophie Vidal</span>
+                <span>·</span>
+                <span>February 2026</span>
+                <span>·</span>
+                <span>Youth &amp; Education</span>
+              </div>
+              <p class="pub-abstract">A systematic review of 14 structured youth dialogue programmes operating between European and MENA participants from 2020–2025. The analysis identifies success conditions, failure modes, and scaling pathways for youth-centred interventions in West–East relations, drawing on survey data from over 600 young participants.</p>
+              <div class="pub-actions">
+                <a href="#" class="pub-link">Download PDF →</a>
+                <a href="#" class="pub-link" style="color:var(--color-amber);">Cite</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Publication 6 -->
+          <article class="pub-card" data-type="announce">
+            <span class="pub-type-badge badge-announce">Announcement</span>
+            <div class="pub-body">
+              <h2 class="pub-title"><a href="#">GDCI Launches the West–East Emerging Scholars Fellowship 2026</a></h2>
+              <div class="pub-meta">
+                <span>GDCI Secretariat</span>
+                <span>·</span>
+                <span>January 2026</span>
+                <span>·</span>
+                <span>Fellowships &amp; Funding</span>
+              </div>
+              <p class="pub-abstract">GDCI is opening applications for the inaugural West–East Emerging Scholars Fellowship, a 12-month residential fellowship for early-career researchers from the Global North and Middle East working on topics at the intersection of civilizational dialogue, religious studies, and international relations. Deadline: 31 August 2026.</p>
+              <div class="pub-actions">
+                <a href="engage.html" class="pub-link">Apply Now →</a>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- #pub-list -->
+
+        <p id="no-results" style="display:none; text-align:center; padding:var(--space-48); color:var(--color-slate); opacity:0.7; font-style:italic;">
+          No publications found for this filter. Try selecting another type.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <svg viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" style="fill:var(--color-teal); overflow:visible;">
+            <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2.5"/>
+          </svg>
+          <p>We advance scholarship, exchange, and structured dialogue across civilizational traditions to build a shared human future.</p>
+        </div>
+        <div>
+          <h2 class="footer-title">Navigate</h2>
+          <ul class="footer-links">
+            <li><a href="about.html">About GDCI</a></li>
+            <li><a href="research.html">Research Archive</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="dialogue.html">Dialogue Forums</a></li>
+            <li><a href="people.html">Members &amp; Fellows</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h2 class="footer-title">Contact</h2>
+          <p>Global Dialogue Civilization Initiative</p>
+          <p>Email: <a href="mailto:info@gdci-world.org" style="color:inherit;">info@gdci-world.org</a></p>
+          <div class="lang-switcher" style="display:inline-flex; border-color:rgba(255,255,255,0.15); margin-top:var(--space-16);">
+            <a href="#" data-lang="en" class="active">EN</a>
+            <span>|</span>
+            <a href="#" data-lang="ar">AR</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-legal">© 2026 Global Dialogue Civilization Initiative. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       ADMIN TRIGGER BUTTON (always visible)
+       ========================================================================== -->
+  <button id="admin-trigger" aria-label="Admin login">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+    Admin
+  </button>
+
+  <!-- ==========================================================================
+       LOGIN MODAL
+       ========================================================================== -->
+  <div id="login-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="login-title">
+    <div class="modal-box">
+      <button class="modal-close" id="login-close" aria-label="Close">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <h2 class="modal-title" id="login-title">Admin Access</h2>
+      <p class="modal-subtitle">Sign in to manage publications, authors, and content types.</p>
+
+      <div class="form-group">
+        <label class="form-label" for="admin-user">Username</label>
+        <input type="text" id="admin-user" class="form-input" placeholder="Enter admin username" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="admin-pass">Password</label>
+        <input type="password" id="admin-pass" class="form-input" placeholder="Enter password" autocomplete="current-password">
+        <p class="form-error" id="login-error">Incorrect username or password. Please try again.</p>
+      </div>
+
+      <button class="btn btn-primary" id="login-submit" style="width:100%;">Sign In</button>
+
+      <p style="font-family:var(--font-utility); font-size:0.75rem; color:var(--color-slate); opacity:0.55; margin-top:var(--space-16); text-align:center;">
+        Admin credentials are managed by the GDCI Communications Director.
+      </p>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       PANEL BACKDROP
+       ========================================================================== -->
+  <div id="panel-backdrop"></div>
+
+  <!-- ==========================================================================
+       ADMIN PANEL
+       ========================================================================== -->
+  <aside id="admin-panel" role="complementary" aria-label="Publications admin panel" aria-hidden="true">
+
+    <div class="admin-header">
+      <div>
+        <h2>Publications Admin</h2>
+        <p>Signed in as <strong>admin</strong></p>
+      </div>
+      <button class="admin-close" id="admin-panel-close" aria-label="Close admin panel">
+        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+    </div>
+
+    <div class="admin-tabs" role="tablist">
+      <button class="admin-tab active" role="tab" data-tab="publications" aria-selected="true">Publications</button>
+      <button class="admin-tab" role="tab" data-tab="authors" aria-selected="false">Authors</button>
+      <button class="admin-tab" role="tab" data-tab="types" aria-selected="false">Types</button>
+      <button class="admin-tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
+    </div>
+
+    <div class="admin-body">
+
+      <!-- =====================================================================
+           TAB: PUBLICATIONS
+           ===================================================================== -->
+      <div class="tab-pane active" id="tab-publications">
+
+        <p class="admin-section-title">Add New Publication</p>
+        <div class="add-form">
+          <p class="add-form-title">New Entry</p>
+          <div class="form-row">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-pub-type">Type</label>
+              <select class="form-select" id="new-pub-type">
+                <option value="brief">Policy Brief</option>
+                <option value="paper">Research Paper</option>
+                <option value="report">Report</option>
+                <option value="opinion">Opinion Article</option>
+                <option value="analysis">Analysis</option>
+                <option value="announce">Announcement</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-pub-date">Date</label>
+              <input type="month" id="new-pub-date" class="form-input" style="padding:10px 16px;">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:var(--space-16);">
+            <label class="form-label" for="new-pub-title">Title</label>
+            <input type="text" id="new-pub-title" class="form-input" placeholder="Full publication title">
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-pub-author">Author(s)</label>
+              <select class="form-select" id="new-pub-author">
+                <option value="">— Select author —</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-pub-theme">Theme</label>
+              <input type="text" id="new-pub-theme" class="form-input" placeholder="e.g. Media &amp; Narratives">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:var(--space-16);">
+            <label class="form-label" for="new-pub-abstract">Abstract</label>
+            <textarea class="form-textarea" id="new-pub-abstract" placeholder="Short abstract (150–250 words)"></textarea>
+          </div>
+          <div class="form-group" style="margin-top:0;">
+            <label class="form-label" for="new-pub-url">PDF / URL (optional)</label>
+            <input type="url" id="new-pub-url" class="form-input" placeholder="https://...">
+          </div>
+          <button class="btn btn-primary btn-sm" id="add-pub-btn">Add Publication</button>
+        </div>
+
+        <p class="admin-section-title">Existing Publications</p>
+        <div id="admin-pub-list">
+          <!-- Populated by JS -->
+        </div>
+
+      </div><!-- #tab-publications -->
+
+      <!-- =====================================================================
+           TAB: AUTHORS
+           ===================================================================== -->
+      <div class="tab-pane" id="tab-authors">
+
+        <p class="admin-section-title">Add Author</p>
+        <div class="add-form">
+          <p class="add-form-title">New Author</p>
+          <div class="form-row">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-author-name">Full Name</label>
+              <input type="text" id="new-author-name" class="form-input" placeholder="Dr. Firstname Lastname">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-author-title">Title / Role</label>
+              <input type="text" id="new-author-title" class="form-input" placeholder="e.g. Senior Research Fellow">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:var(--space-16);">
+            <label class="form-label" for="new-author-affiliation">Affiliation</label>
+            <input type="text" id="new-author-affiliation" class="form-input" placeholder="University or organisation">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-author-region">Region</label>
+            <select class="form-select" id="new-author-region">
+              <option value="global-north">Global North / West</option>
+              <option value="middle-east">Middle East / MENA</option>
+              <option value="both">Cross-regional</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-sm" id="add-author-btn">Add Author</button>
+        </div>
+
+        <p class="admin-section-title">Author List</p>
+        <ul class="admin-list" id="author-list">
+          <!-- Populated by JS -->
+        </ul>
+
+      </div><!-- #tab-authors -->
+
+      <!-- =====================================================================
+           TAB: PUBLICATION TYPES
+           ===================================================================== -->
+      <div class="tab-pane" id="tab-types">
+
+        <p class="admin-section-title">Add Publication Type</p>
+        <div class="add-form">
+          <p class="add-form-title">New Type</p>
+          <div class="form-row">
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-type-name">Label</label>
+              <input type="text" id="new-type-name" class="form-input" placeholder="e.g. Working Paper">
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label class="form-label" for="new-type-slug">Slug (no spaces)</label>
+              <input type="text" id="new-type-slug" class="form-input" placeholder="e.g. working-paper">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top:var(--space-16);">
+            <label class="form-label" for="new-type-color">Badge Colour</label>
+            <input type="color" id="new-type-color" class="form-input" value="#1A6B6A" style="height:44px; padding:4px 8px; cursor:pointer;">
+          </div>
+          <button class="btn btn-primary btn-sm" id="add-type-btn">Add Type</button>
+        </div>
+
+        <p class="admin-section-title">Current Types</p>
+        <ul class="admin-list" id="types-list">
+          <!-- Populated by JS -->
+        </ul>
+
+      </div><!-- #tab-types -->
+
+      <!-- =====================================================================
+           TAB: SETTINGS
+           ===================================================================== -->
+      <div class="tab-pane" id="tab-settings">
+
+        <p class="admin-section-title">Change Admin Password</p>
+        <div class="add-form">
+          <div class="form-group">
+            <label class="form-label" for="curr-pass">Current Password</label>
+            <input type="password" id="curr-pass" class="form-input" placeholder="Current password">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="new-pass">New Password</label>
+            <input type="password" id="new-pass" class="form-input" placeholder="New password (min 8 chars)">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="confirm-pass">Confirm New Password</label>
+            <input type="password" id="confirm-pass" class="form-input" placeholder="Repeat new password">
+            <p class="form-error" id="pass-error">Passwords do not match.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" id="change-pass-btn">Update Password</button>
+        </div>
+
+        <p class="admin-section-title">Danger Zone</p>
+        <div class="add-form" style="border:1px solid rgba(192,57,43,0.25);">
+          <p style="font-family:var(--font-utility); font-size:0.875rem; margin-bottom:var(--space-16);">
+            <strong>Sign out</strong> — ends your admin session on this device.
+          </p>
+          <button class="btn btn-sm" id="sign-out-btn" style="background:var(--color-error); color:white;">Sign Out</button>
+        </div>
+
+      </div><!-- #tab-settings -->
+
+    </div><!-- .admin-body -->
+  </aside>
+
+  <!-- Success toast -->
+  <div class="success-toast" id="success-toast"></div>
+
+  <!-- ==========================================================================
+       SCRIPTS
+       ========================================================================== -->
+  <script src="../assets/js/main.js"></script>
+  <script>
+  // ============================================================
+  // PUBLICATIONS PAGE JAVASCRIPT
+  // ============================================================
+  (function () {
+
+    // ---- Credentials (in production, use server-side auth) ----
+    // Admin: username = "gdci_admin" | password = "GDCI@2026secure"
+    let ADMIN_USER = 'gdci_admin';
+    let ADMIN_PASS = 'GDCI@2026secure';
+
+    // ---- State (in production, persist to a database/API) ----
+    let authors = [
+      { id: 1, name: 'Dr. Layla Al-Amin',         title: 'Senior Research Fellow',   affiliation: 'American University of Beirut', region: 'middle-east' },
+      { id: 2, name: 'Prof. Erik Sandström',       title: 'Professor of History',     affiliation: 'Uppsala University',            region: 'global-north' },
+      { id: 3, name: 'Nadia Osman',                title: 'Media Scholar',            affiliation: 'GDCI / Cairo University',       region: 'middle-east' },
+      { id: 4, name: 'Dr. Amir Hassan',            title: 'Research Fellow',          affiliation: 'GDCI',                          region: 'middle-east' },
+      { id: 5, name: 'Dr. Sophie Vidal',           title: 'Research Fellow',          affiliation: 'Sciences Po Paris',             region: 'global-north' },
+      { id: 6, name: 'GDCI Research Team',         title: 'Collective',               affiliation: 'GDCI',                          region: 'both' },
+      { id: 7, name: 'GDCI Secretariat',           title: 'Institutional',            affiliation: 'GDCI',                          region: 'both' },
+    ];
+
+    let pubTypes = [
+      { slug: 'brief',    label: 'Policy Brief',    color: '#0D2B40' },
+      { slug: 'paper',    label: 'Research Paper',  color: '#C4882A' },
+      { slug: 'report',   label: 'Report',          color: '#1A6B6A' },
+      { slug: 'opinion',  label: 'Opinion Article', color: '#6a3b7a' },
+      { slug: 'analysis', label: 'Analysis',        color: '#2E7D5E' },
+      { slug: 'announce', label: 'Announcement',    color: '#C0392B' },
+    ];
+
+    // Publications mirroring existing HTML cards
+    let publications = [
+      { id: 1, type: 'brief',    title: 'Why Dialogue is Not Compromise: Identity, Diplomacy, and the Plural World', author: 'Dr. Layla Al-Amin',   date: '2026-05', theme: 'Dialogue & Peacebuilding', abstract: 'Reframing international negotiation as an instrument of mutual identity-recognition rather than concession.', url: '#' },
+      { id: 2, type: 'paper',    title: 'At the Margins of Empires: What History Teaches at Civilizational Borders',  author: 'Prof. Erik Sandström',date: '2026-06', theme: 'Heritage & History',          abstract: 'Comparative analysis of historical contact zones where shared legal and cultural frameworks formed.',          url: '#' },
+      { id: 3, type: 'report',   title: 'Governance Across Traditions: Three Models of Legitimate Authority',          author: 'GDCI Research Team',  date: '2026-04', theme: 'Governance & Economy',        abstract: 'Institutional comparison of state legitimacy across Chinese, Islamic, and European liberal models.',          url: '#' },
+      { id: 4, type: 'opinion',  title: 'The Mirror Problem: How Western Media Shapes Arab Self-Perception',           author: 'Nadia Osman',         date: '2026-03', theme: 'Media & Narratives',          abstract: 'Essay examining structural feedback loops by which Western representations distort Arab political discourse.', url: '#' },
+      { id: 5, type: 'analysis', title: 'Youth as Mediators: A Field Assessment of Cross-Cultural Youth Dialogue Programmes', author: 'Dr. Amir Hassan', date: '2026-02', theme: 'Youth & Education',      abstract: 'Systematic review of 14 youth dialogue programmes between European and MENA participants.',                   url: '#' },
+      { id: 6, type: 'announce', title: 'GDCI Launches the West–East Emerging Scholars Fellowship 2026',                author: 'GDCI Secretariat',    date: '2026-01', theme: 'Fellowships & Funding',      abstract: 'Opening applications for the inaugural West–East Emerging Scholars Fellowship.',                              url: 'engage.html' },
+    ];
+
+    let nextId = 7;
+
+    // ---- DOM references ----
+    const adminTrigger    = document.getElementById('admin-trigger');
+    const loginModal      = document.getElementById('login-modal');
+    const loginClose      = document.getElementById('login-close');
+    const loginSubmit     = document.getElementById('login-submit');
+    const loginError      = document.getElementById('login-error');
+    const adminUserEl     = document.getElementById('admin-user');
+    const adminPassEl     = document.getElementById('admin-pass');
+    const adminPanel      = document.getElementById('admin-panel');
+    const adminPanelClose = document.getElementById('admin-panel-close');
+    const panelBackdrop   = document.getElementById('panel-backdrop');
+    const successToast    = document.getElementById('success-toast');
+    const adminPubList    = document.getElementById('admin-pub-list');
+    const authorList      = document.getElementById('author-list');
+    const typesList       = document.getElementById('types-list');
+    const filterBtns      = document.querySelectorAll('.pub-filter-btn');
+    const noResults       = document.getElementById('no-results');
+
+    // ---- Toast ----
+    function showToast(msg) {
+      successToast.textContent = msg;
+      successToast.classList.add('show');
+      setTimeout(() => successToast.classList.remove('show'), 2800);
+    }
+
+    // ---- Filter ----
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        const cards = document.querySelectorAll('#pub-list .pub-card');
+        let visible = 0;
+        cards.forEach(card => {
+          if (filter === 'all' || card.dataset.type === filter) {
+            card.removeAttribute('data-hidden');
+            visible++;
+          } else {
+            card.dataset.hidden = 'true';
+          }
+        });
+        noResults.style.display = visible === 0 ? 'block' : 'none';
+      });
+    });
+
+    // ---- Login ----
+    adminTrigger.addEventListener('click', () => {
+      loginModal.classList.add('open');
+      loginModal.setAttribute('aria-hidden', 'false');
+      adminUserEl.focus();
+    });
+
+    function closeLogin() {
+      loginModal.classList.remove('open');
+      loginModal.setAttribute('aria-hidden', 'true');
+      loginError.classList.remove('show');
+      adminUserEl.value = '';
+      adminPassEl.value = '';
+      adminPassEl.classList.remove('error');
+    }
+
+    loginClose.addEventListener('click', closeLogin);
+    loginModal.addEventListener('click', e => { if (e.target === loginModal) closeLogin(); });
+
+    loginSubmit.addEventListener('click', doLogin);
+    adminPassEl.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+    function doLogin() {
+      const u = adminUserEl.value.trim();
+      const p = adminPassEl.value;
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        closeLogin();
+        openAdminPanel();
+      } else {
+        loginError.classList.add('show');
+        adminPassEl.classList.add('error');
+        adminPassEl.value = '';
+        adminPassEl.focus();
+      }
+    }
+
+    // ---- Admin panel ----
+    function openAdminPanel() {
+      renderAdminPubList();
+      renderAuthorList();
+      renderTypesList();
+      populateAuthorDropdown();
+      adminPanel.classList.add('open');
+      adminPanel.setAttribute('aria-hidden', 'false');
+      panelBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAdminPanel() {
+      adminPanel.classList.remove('open');
+      adminPanel.setAttribute('aria-hidden', 'true');
+      panelBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    adminPanelClose.addEventListener('click', closeAdminPanel);
+    panelBackdrop.addEventListener('click', closeAdminPanel);
+
+    // ---- Tabs ----
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.admin-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected','true');
+        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // ---- Badge colour helper ----
+    function badgeClass(slug) {
+      const map = { brief:'badge-brief', paper:'badge-paper', report:'badge-report', opinion:'badge-opinion', analysis:'badge-analysis', announce:'badge-announce' };
+      return map[slug] || 'badge-brief';
+    }
+
+    function typeLabel(slug) {
+      const t = pubTypes.find(x => x.slug === slug);
+      return t ? t.label : slug;
+    }
+
+    // ---- Render admin pub list ----
+    function renderAdminPubList() {
+      adminPubList.innerHTML = '';
+      if (!publications.length) {
+        adminPubList.innerHTML = '<p style="font-size:0.875rem;opacity:0.6;font-style:italic;">No publications yet.</p>';
+        return;
+      }
+      publications.forEach(pub => {
+        const div = document.createElement('div');
+        div.className = 'admin-pub-item';
+        div.innerHTML = `
+          <div class="pub-item-title">${escapeHtml(pub.title)}</div>
+          <div class="pub-item-meta">
+            <span>${typeLabel(pub.type)}</span>
+            <span>·</span>
+            <span>${escapeHtml(pub.author)}</span>
+            <span>·</span>
+            <span>${pub.date}</span>
+          </div>
+          <div class="admin-pub-actions">
+            <button class="btn btn-sm" style="background:var(--color-error);color:white;font-size:0.75rem;" data-del-pub="${pub.id}">Delete</button>
+          </div>`;
+        adminPubList.appendChild(div);
+      });
+
+      // Delete handlers
+      adminPubList.querySelectorAll('[data-del-pub]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.delPub);
+          publications = publications.filter(p => p.id !== id);
+          renderAdminPubList();
+          showToast('Publication deleted.');
+        });
+      });
+    }
+
+    // ---- Add publication ----
+    document.getElementById('add-pub-btn').addEventListener('click', () => {
+      const title    = document.getElementById('new-pub-title').value.trim();
+      const type     = document.getElementById('new-pub-type').value;
+      const date     = document.getElementById('new-pub-date').value;
+      const author   = document.getElementById('new-pub-author').value;
+      const theme    = document.getElementById('new-pub-theme').value.trim();
+      const abstract = document.getElementById('new-pub-abstract').value.trim();
+      const url      = document.getElementById('new-pub-url').value.trim() || '#';
+
+      if (!title || !author) { alert('Please fill in at least the title and author.'); return; }
+
+      const pub = { id: nextId++, type, title, author, date: date || '2026', theme, abstract, url };
+      publications.unshift(pub);
+
+      // Inject card into page DOM
+      const pubList = document.getElementById('pub-list');
+      const card = document.createElement('article');
+      card.className = 'pub-card';
+      card.dataset.type = type;
+      card.innerHTML = `
+        <span class="pub-type-badge ${badgeClass(type)}">${escapeHtml(typeLabel(type))}</span>
+        <div class="pub-body">
+          <h2 class="pub-title"><a href="${escapeHtml(url)}">${escapeHtml(title)}</a></h2>
+          <div class="pub-meta">
+            <span>${escapeHtml(author)}</span>
+            <span>·</span>
+            <span>${escapeHtml(date)}</span>
+            ${theme ? `<span>·</span><span>${escapeHtml(theme)}</span>` : ''}
+          </div>
+          <p class="pub-abstract">${escapeHtml(abstract)}</p>
+          <div class="pub-actions">
+            <a href="${escapeHtml(url)}" class="pub-link">${type === 'announce' ? 'Read Announcement →' : 'Download PDF →'}</a>
+          </div>
+        </div>`;
+      pubList.insertBefore(card, pubList.firstChild);
+
+      // Reset form
+      document.getElementById('new-pub-title').value = '';
+      document.getElementById('new-pub-date').value = '';
+      document.getElementById('new-pub-author').value = '';
+      document.getElementById('new-pub-theme').value = '';
+      document.getElementById('new-pub-abstract').value = '';
+      document.getElementById('new-pub-url').value = '';
+
+      renderAdminPubList();
+      showToast('Publication added successfully.');
+    });
+
+    // ---- Render author list ----
+    function renderAuthorList() {
+      authorList.innerHTML = '';
+      authors.forEach(a => {
+        const li = document.createElement('li');
+        li.className = 'admin-list-item';
+        li.innerHTML = `
+          <div>
+            <div class="item-label">${escapeHtml(a.name)}</div>
+            <div class="item-meta">${escapeHtml(a.title)} — ${escapeHtml(a.affiliation)}</div>
+          </div>
+          <div class="item-actions">
+            <button class="btn-icon" title="Delete" data-del-author="${a.id}">
+              <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </div>`;
+        authorList.appendChild(li);
+      });
+
+      authorList.querySelectorAll('[data-del-author]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = parseInt(btn.dataset.delAuthor);
+          authors = authors.filter(a => a.id !== id);
+          renderAuthorList();
+          populateAuthorDropdown();
+          showToast('Author removed.');
+        });
+      });
+    }
+
+    // ---- Add author ----
+    document.getElementById('add-author-btn').addEventListener('click', () => {
+      const name        = document.getElementById('new-author-name').value.trim();
+      const title       = document.getElementById('new-author-title').value.trim();
+      const affiliation = document.getElementById('new-author-affiliation').value.trim();
+      const region      = document.getElementById('new-author-region').value;
+      if (!name) { alert('Author name is required.'); return; }
+      const maxId = authors.reduce((m, a) => Math.max(m, a.id), 0);
+      authors.push({ id: maxId + 1, name, title, affiliation, region });
+      document.getElementById('new-author-name').value = '';
+      document.getElementById('new-author-title').value = '';
+      document.getElementById('new-author-affiliation').value = '';
+      renderAuthorList();
+      populateAuthorDropdown();
+      showToast('Author added.');
+    });
+
+    function populateAuthorDropdown() {
+      const sel = document.getElementById('new-pub-author');
+      sel.innerHTML = '<option value="">— Select author —</option>';
+      authors.forEach(a => {
+        const opt = document.createElement('option');
+        opt.value = a.name;
+        opt.textContent = a.name;
+        sel.appendChild(opt);
+      });
+    }
+
+    // ---- Render types list ----
+    function renderTypesList() {
+      typesList.innerHTML = '';
+      pubTypes.forEach(t => {
+        const li = document.createElement('li');
+        li.className = 'admin-list-item';
+        li.innerHTML = `
+          <div style="display:flex;align-items:center;gap:var(--space-12);">
+            <span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:${t.color};flex-shrink:0;"></span>
+            <div>
+              <div class="item-label">${escapeHtml(t.label)}</div>
+              <div class="item-meta">slug: ${escapeHtml(t.slug)}</div>
+            </div>
+          </div>
+          <div class="item-actions">
+            <button class="btn-icon" title="Delete" data-del-type="${t.slug}">
+              <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            </button>
+          </div>`;
+        typesList.appendChild(li);
+      });
+
+      typesList.querySelectorAll('[data-del-type]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const slug = btn.dataset.delType;
+          pubTypes = pubTypes.filter(t => t.slug !== slug);
+          renderTypesList();
+          showToast('Publication type removed.');
+        });
+      });
+    }
+
+    // ---- Add type ----
+    document.getElementById('add-type-btn').addEventListener('click', () => {
+      const name  = document.getElementById('new-type-name').value.trim();
+      const slug  = document.getElementById('new-type-slug').value.trim().replace(/\s+/g,'-').toLowerCase();
+      const color = document.getElementById('new-type-color').value;
+      if (!name || !slug) { alert('Label and slug are required.'); return; }
+      if (pubTypes.find(t => t.slug === slug)) { alert('A type with this slug already exists.'); return; }
+      pubTypes.push({ slug, label: name, color });
+      const btn2 = document.createElement('button');
+      btn2.className = 'pub-filter-btn';
+      btn2.dataset.filter = slug;
+      btn2.textContent = name;
+      btn2.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn2.classList.add('active');
+        // filter logic same as above
+        document.querySelectorAll('#pub-list .pub-card').forEach(card => {
+          card.dataset.hidden = card.dataset.type === slug ? undefined : 'true';
+          if (card.dataset.type === slug) card.removeAttribute('data-hidden');
+        });
+      });
+      document.querySelector('.pub-filter-bar').appendChild(btn2);
+      document.getElementById('new-type-name').value = '';
+      document.getElementById('new-type-slug').value = '';
+      renderTypesList();
+      showToast('Publication type added.');
+    });
+
+    // ---- Change password ----
+    document.getElementById('change-pass-btn').addEventListener('click', () => {
+      const curr    = document.getElementById('curr-pass').value;
+      const newP    = document.getElementById('new-pass').value;
+      const confirm = document.getElementById('confirm-pass').value;
+      const err     = document.getElementById('pass-error');
+      if (curr !== ADMIN_PASS) { alert('Current password is incorrect.'); return; }
+      if (newP !== confirm) { err.classList.add('show'); return; }
+      if (newP.length < 8) { alert('New password must be at least 8 characters.'); return; }
+      err.classList.remove('show');
+      ADMIN_PASS = newP;
+      document.getElementById('curr-pass').value = '';
+      document.getElementById('new-pass').value = '';
+      document.getElementById('confirm-pass').value = '';
+      showToast('Password updated successfully.');
+    });
+
+    // ---- Sign out ----
+    document.getElementById('sign-out-btn').addEventListener('click', () => {
+      closeAdminPanel();
+      showToast('Signed out.');
+    });
+
+    // ---- Escape HTML ----
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+  })();
+  </script>
+
+</body>
+</html>

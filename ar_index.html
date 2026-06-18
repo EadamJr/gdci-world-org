@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="مبادرة حوار الحضارات العالمي (GDCI) — منصة مستقلة تيسّر وتدعم وتبحث وتدافع عن الحوار بين الغرب والشرق الأوسط.">
+  <title>مبادرة حوار الحضارات العالمي | GDCI</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>
+    .hero-eyebrow {
+      font-family: var(--font-utility);
+      color: var(--color-teal);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: var(--space-16);
+    }
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-24);
+      margin-top: var(--space-48);
+    }
+    @media (max-width: 1023px) { .community-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px)  { .community-grid { grid-template-columns: 1fr; } }
+    .community-card {
+      background: var(--color-white);
+      border-radius: var(--border-radius);
+      padding: var(--space-24);
+      box-shadow: var(--shadow-default);
+      border-top: 3px solid var(--color-teal);
+      transition: var(--transition-normal);
+    }
+    .community-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .community-card-icon { font-size: 1.75rem; margin-bottom: var(--space-12); }
+    .community-card h3 { font-family: var(--font-utility); font-size: 1rem; font-weight: 600; color: var(--color-black); margin-bottom: var(--space-8); }
+    .community-card p { font-size: 0.875rem; color: var(--color-slate); line-height: 1.7; margin: 0; }
+    .community-card.accent-amber { border-top-color: var(--color-amber); }
+    .community-card.accent-navy  { border-top-color: var(--color-navy); }
+    .pillars-on-white .pillar-card { background: var(--color-stone); border: 1px solid rgba(128,128,128,0.12); }
+    .pillars-on-white .pillar-card:hover { background: var(--color-white); }
+    .pillars-on-white .pillar-card-title { color: var(--color-black); }
+    .pillars-on-white .pillar-card-desc  { color: var(--color-slate); }
+    .pillars-on-white .pillars-grid { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 1023px) { .pillars-on-white .pillars-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px)  { .pillars-on-white .pillars-grid { grid-template-columns: 1fr; } }
+    .cta-band { background: var(--color-navy); text-align: center; }
+    .cta-band h2 { font-family: var(--font-display); color: white; font-size: 2.5rem; line-height: 1.3; margin-bottom: var(--space-24); }
+    .cta-band p { color: rgba(255,255,255,0.75); font-size: 1.05rem; margin-bottom: var(--space-32); max-width: 640px; margin-inline: auto; }
+    .cta-actions { display: flex; gap: var(--space-16); justify-content: center; flex-wrap: wrap; }
+    .cta-btn-ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); }
+    .cta-btn-ghost:hover { background: rgba(255,255,255,0.08); color: white; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+  <!-- رأس الصفحة -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="../index.html" class="nav-logo" aria-label="الصفحة الرئيسية">
+        <svg viewBox="0 0 200 200" width="40" height="40" aria-hidden="true" style="fill: var(--color-teal);">
+          <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <line x1="30" y1="150" x2="170" y2="150" stroke="#C4882A" stroke-width="2.5" opacity="0.5"/>
+        </svg>
+        <span>GDCI</span>
+      </a>
+
+      <nav aria-label="التصفح الرئيسي">
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link active">الرئيسية</a></li>
+          <li><a href="about.html" class="nav-link">عن المبادرة</a></li>
+          <li><a href="research.html" class="nav-link">الأبحاث</a></li>
+          <li><a href="dialogue.html" class="nav-link">الحوارات</a></li>
+          <li><a href="publications.html" class="nav-link">المنشورات</a></li>
+          <li><a href="people.html" class="nav-link">الأعضاء</a></li>
+          <li><a href="engage.html" class="nav-link">المشاركة</a></li>
+          <li>
+            <div class="lang-switcher" role="navigation" aria-label="تبديل اللغة">
+              <a href="#" data-lang="en" aria-label="English">EN</a>
+              <span>|</span>
+              <a href="#" data-lang="ar" class="active" aria-label="العربية">AR</a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <button class="mobile-nav-toggle" aria-expanded="false" aria-controls="mobile-overlay" aria-label="تبديل القائمة">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- القائمة المتحركة -->
+  <div id="mobile-overlay" class="mobile-overlay" aria-hidden="true">
+    <ul class="mobile-menu">
+      <li><a href="index.html" class="active">الرئيسية</a></li>
+      <li><a href="about.html">عن المبادرة</a></li>
+      <li><a href="research.html">الأبحاث</a></li>
+      <li><a href="dialogue.html">الحوارات</a></li>
+      <li><a href="publications.html">المنشورات</a></li>
+      <li><a href="people.html">الأعضاء</a></li>
+      <li><a href="engage.html">المشاركة</a></li>
+    </ul>
+    <div class="mobile-lang">
+      <a href="#" data-lang="en">English</a>
+      <span>|</span>
+      <a href="#" data-lang="ar" class="active">العربية</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- القسم التعريفي -->
+    <section class="hero" aria-label="مقدمة">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="hero-eyebrow">مبادرة حوار الحضارات العالمي</span>
+          <h1 class="display-xl">حيث يلتقي الغرب بالشرق... ويُصغي.</h1>
+          <p class="hero-tagline">مبادرة مستقلة تُيسّر الحوار وتدعمه وتبحث فيه وتناضل من أجله بين الشمال العالمي والشرق الأوسط — عبر الأوساط الأكاديمية والسياسة والفكر الديني والمجتمع المدني.</p>
+          <div class="hero-actions">
+            <a href="research.html" class="btn btn-primary">استكشف أبحاثنا</a>
+            <a href="about.html" class="btn btn-secondary">عن المبادرة</a>
+          </div>
+        </div>
+
+        <div class="hero-image-container" aria-hidden="true">
+          <svg viewBox="0 0 420 520" width="100%" height="100%"
+               style="background:var(--color-white); border-radius:var(--border-radius); display:block;">
+            <g fill="none" stroke="var(--color-light-teal)" stroke-width="1.2" opacity="0.55">
+              <circle cx="210" cy="260" r="185"/><circle cx="210" cy="260" r="145"/>
+              <circle cx="210" cy="260" r="105" stroke="var(--color-teal)" stroke-dasharray="5 5"/>
+              <circle cx="210" cy="260" r="65"/>
+            </g>
+            <g fill="none" stroke="var(--color-amber)" stroke-width="1.8" opacity="0.3">
+              <line x1="25" y1="260" x2="395" y2="260"/>
+              <line x1="210" y1="75" x2="210" y2="445"/>
+            </g>
+            <circle cx="135" cy="210" r="30" fill="var(--color-navy)" opacity="0.85"/>
+            <text x="135" y="214" text-anchor="middle" font-family="IBM Plex Arabic,sans-serif" font-size="8" font-weight="700" fill="white">الغرب</text>
+            <circle cx="285" cy="310" r="30" fill="var(--color-teal)" opacity="0.85"/>
+            <text x="285" y="314" text-anchor="middle" font-family="IBM Plex Arabic,sans-serif" font-size="8" font-weight="700" fill="white">الشرق</text>
+            <path d="M 163 222 Q 210 195 257 298" stroke="var(--color-amber)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="210" cy="260" r="9" fill="var(--color-amber)" opacity="0.9"/>
+            <circle cx="210" cy="260" r="4" fill="white"/>
+            <text x="135" y="255" text-anchor="middle" font-family="IBM Plex Arabic,sans-serif" font-size="7.5" fill="var(--color-slate)" opacity="0.65">الشمال العالمي</text>
+            <text x="285" y="357" text-anchor="middle" font-family="IBM Plex Arabic,sans-serif" font-size="7.5" fill="var(--color-slate)" opacity="0.65">الشرق الأوسط</text>
+            <g transform="translate(110 130)">
+              <svg viewBox="0 0 200 200" width="200" height="200" overflow="visible">
+                <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="var(--color-navy)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="var(--color-navy)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="var(--color-teal)" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="var(--color-teal)" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2"/>
+              </svg>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- رسالة المبادرة -->
+    <section class="mission-strip section-padding" aria-label="رسالة المبادرة">
+      <div class="container">
+        <span class="hero-eyebrow" style="display:block; text-align:center;">رسالتنا</span>
+        <blockquote class="mission-quote">
+          "الحوار لا يعني الاتفاق. بل هو الاستعداد للتغيير من خلال فهم حضارة أخرى وفقًا لمنظورها الخاص."
+        </blockquote>
+        <p style="text-align:center; max-width:700px; margin-inline:auto; font-size:1rem; opacity:0.85; margin-top:0;">
+          تجمع المبادرة الأكاديميين والباحثين وصنّاع السياسات وقادة الشباب والشخصيات الدينية ومنظمات المجتمع المدني من الشمال العالمي والعالم العربي والإسلامي، لبناء التفاهم المتبادل عبر انخراط صارم وراسخ ومستدام.
+        </p>
+      </div>
+    </section>
+
+    <!-- الأعمدة الأربعة -->
+    <section class="section-padding pillars-on-white" aria-labelledby="pillars-title" style="background:var(--color-white);">
+      <div class="container">
+        <div class="section-header">
+          <span class="hero-eyebrow" style="display:block; text-align:center; margin-inline:auto;">ما تقوم به المبادرة</span>
+          <h2 id="pillars-title" class="section-title">أربعة محاور للانخراط</h2>
+          <p>تعمل المبادرة عبر أربعة محاور متشابكة تحوّل الحوار من طموح إلى ممارسة منهجية راسخة.</p>
+        </div>
+        <div class="pillars-grid">
+          <article class="pillar-card pillar-card-2">
+            <div class="pillar-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3 class="pillar-card-title">التيسير</h3>
+            <p class="pillar-card-desc">عقد منتديات وطاولات مستديرة وتبادلات بين الأصوات الغربية والشرق أوسطية، لخلق البيئة المناسبة لحوار حقيقي ومتكافئ.</p>
+          </article>
+          <article class="pillar-card pillar-card-4">
+            <div class="pillar-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <h3 class="pillar-card-title">الدعم</h3>
+            <p class="pillar-card-desc">توفير الزمالات والإرشاد والدعم المؤسسي للباحثين والشباب والممارسين العاملين في مجال التواصل الحضاري.</p>
+          </article>
+          <article class="pillar-card pillar-card-1">
+            <div class="pillar-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+            </div>
+            <h3 class="pillar-card-title">البحث</h3>
+            <p class="pillar-card-desc">إنتاج أبحاث مستقلة ومحكّمة حول الأبعاد التاريخية والسياسية والثقافية والدينية للعلاقات بين الغرب والشرق.</p>
+          </article>
+          <article class="pillar-card pillar-card-3">
+            <div class="pillar-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c0 2 2.7 3 6 3s6-1 6-3v-5"/>
+              </svg>
+            </div>
+            <h3 class="pillar-card-title">المناصرة</h3>
+            <p class="pillar-card-desc">الدفاع عن السياسات والمؤسسات التي تُقلّص العداء وتعزز الاعتراف المتبادل وتوفر شروطاً هيكلية دائمة للتعاون الحضاري.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- مجتمع المبادرة -->
+    <section class="pillars-strip section-padding" aria-labelledby="community-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="hero-eyebrow" style="color:var(--color-amber); display:block; text-align:center; margin-inline:auto;">مجتمعنا</span>
+          <h2 id="community-title" class="section-title" style="color:var(--color-white);">من يُشكّل المبادرة؟</h2>
+          <p style="color:rgba(255,255,255,0.8);">GDCI مجتمع ممارسة تعددي. يتشارك أعضاؤنا الالتزام بالانخراط الصارم والمحترم والمستدام عبر الانقسامات الحضارية.</p>
+        </div>
+        <div class="community-grid">
+          <div class="community-card accent-amber">
+            <div class="community-card-icon">🎓</div>
+            <h3>الأكاديميون والباحثون</h3>
+            <p>علماء من جامعات ومراكز أبحاث في أوروبا وأمريكا الشمالية ومنطقة الشرق الأوسط وشمال أفريقيا.</p>
+          </div>
+          <div class="community-card">
+            <div class="community-card-icon">🌍</div>
+            <h3>قادة الشباب</h3>
+            <p>المهنيون الشباب والأصوات الصاعدة من جانبي الحوار الذين يمثلون الجيل القادم من بنّاة الجسور.</p>
+          </div>
+          <div class="community-card accent-navy">
+            <div class="community-card-icon">🕌</div>
+            <h3>الشخصيات الدينية</h3>
+            <p>علماء الفكر الإسلامي واللاهوتيون المسيحيون والممارسون الدينيون المتعددو الانتماء الملتزمون بحوار يحترم الاختلاف.</p>
+          </div>
+          <div class="community-card accent-amber">
+            <div class="community-card-icon">⚖️</div>
+            <h3>المدافعون عن السياسات</h3>
+            <p>دبلوماسيون ومنظمات غير حكومية وهيئات مجتمع مدني تعمل على ترجمة الحوار إلى تغيير مؤسسي دائم.</p>
+          </div>
+          <div class="community-card">
+            <div class="community-card-icon">📰</div>
+            <h3>الإعلاميون والصحفيون</h3>
+            <p>محررون وباحثون إعلاميون من المنطقتين يُشكّل تغطيتهم البيئة السردية التي ينجح فيها الحوار أو يفشل.</p>
+          </div>
+          <div class="community-card accent-navy">
+            <div class="community-card-icon">🏛️</div>
+            <h3>المجتمع المدني</h3>
+            <p>منظمات مجتمعية وشبكات مدنية تُرسّخ الحوار في الممارسة المحلية وتُوسّع نطاقه خارج المنتديات النخبوية.</p>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:var(--space-48);">
+          <a href="people.html" class="btn btn-primary">تعرّف على أعضائنا</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- آخر المنشورات -->
+    <section class="section-padding" aria-labelledby="research-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="hero-eyebrow" style="display:block; text-align:center; margin-inline:auto;">مركز المعرفة</span>
+          <h2 id="research-title" class="section-title">آخر المنشورات</h2>
+          <p>تقارير وأوراق بحثية وملخصات سياسية ومقالات رأي يُصدرها زملاء المبادرة حول العلاقات بين الغرب والشرق الأوسط.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card pillar-card-2">
+            <div class="card-content">
+              <span class="card-tag pillar-tag-2">ملخص سياسي</span>
+              <h3 class="card-title h4"><a href="publications.html">لماذا لا يعني الحوار المساومة: الهوية والدبلوماسية والعالم التعددي</a></h3>
+              <div class="card-meta"><span>د. ليلى الأمين</span><span>•</span><span>مايو ٢٠٢٦</span></div>
+              <p class="card-abstract">إعادة صياغة التفاوض الدولي بوصفه أداة للاعتراف المتبادل بالهوية لا تنازلات، مستعيناً بالفقه الإسلامي والنظرية الليبرالية الغربية.</p>
+              <a href="publications.html" class="card-link pillar-tag-2">اقرأ المنشور ←</a>
+            </div>
+          </article>
+          <article class="card pillar-card-1">
+            <div class="card-content">
+              <span class="card-tag pillar-tag-1">ورقة بحثية</span>
+              <h3 class="card-title h4"><a href="publications.html">على هوامش الإمبراطوريات: ما يعلّمه التاريخ عند الحدود الحضارية</a></h3>
+              <div class="card-meta"><span>أ. إيريك ساندستروم</span><span>•</span><span>يونيو ٢٠٢٦</span></div>
+              <p class="card-abstract">تحليل مناطق التماس التاريخية حيث تشكّلت أطر قانونية وثقافية مشتركة — مع دروس للتعايش المعاصر والحوكمة عبر الحدود الحضارية.</p>
+              <a href="publications.html" class="card-link pillar-tag-1">اقرأ المنشور ←</a>
+            </div>
+          </article>
+          <article class="card pillar-card-3">
+            <div class="card-content">
+              <span class="card-tag pillar-tag-3">تقرير</span>
+              <h3 class="card-title h4"><a href="publications.html">الحوكمة عبر التقاليد: ثلاثة نماذج للسلطة المشروعة</a></h3>
+              <div class="card-meta"><span>فريق أبحاث GDCI</span><span>•</span><span>أبريل ٢٠٢٦</span></div>
+              <p class="card-abstract">مقارنة مؤسسية لنظريات الشرعية الدستورية عبر النماذج الكونفوشيوسية الصينية والإسلامية والأوروبية الليبرالية.</p>
+              <a href="publications.html" class="card-link pillar-tag-3">اقرأ المنشور ←</a>
+            </div>
+          </article>
+        </div>
+        <div style="text-align:center; margin-top:var(--space-48);">
+          <a href="publications.html" class="btn btn-secondary">عرض كل المنشورات</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- المؤتمرات -->
+    <section class="section-padding" aria-labelledby="conferences-title" style="background:var(--color-white);">
+      <div class="container">
+        <div class="section-header">
+          <span class="hero-eyebrow" style="display:block; text-align:center; margin-inline:auto;">الحضور الدولي</span>
+          <h2 id="conferences-title" class="section-title">مؤتمرات شاركت فيها المبادرة</h2>
+          <p>تنخرط GDCI في المنتديات الدولية الكبرى حيث يُعزَّز الحوار الغربي-الشرقي على الصعيد العالمي.</p>
+        </div>
+        <div class="timeline" style="max-width:860px; margin-inline:auto;">
+          <div class="timeline-event">
+            <div class="timeline-date">نوفمبر ٢٠٢٤ — كاسكاييش، البرتغال</div>
+            <h3 class="timeline-title">المنتدى العالمي العاشر لتحالف الحضارات الأممي — "متحدون من أجل السلام"</h3>
+            <p>الفعالية الأهم لتحالف الأمم المتحدة للحضارات، جامعةً قادةً سياسيين وفاعلين دينيين وأكاديميين وشباباً ومجتمعاً مدنياً. شارك زملاء GDCI في جلسات حوار الحضارات والعلاقات الإسلامية-الغربية.</p>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">مايو ٢٠٢٤ — باكو، أذربيجان</div>
+            <h3 class="timeline-title">المنتدى العالمي السادس للحوار بين الثقافات — "الحوار من أجل السلام والأمن العالمي"</h3>
+            <p>نظّمه تحالف الأمم المتحدة للحضارات بالتعاون مع اليونسكو ومجلس أوروبا وإيسيسكو. قدّمت GDCI نتائج بشأن آليات الحوار الديني-المدني في سياقات الشرق الأوسط.</p>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">فبراير ٢٠٢٥ — أبوظبي، الإمارات</div>
+            <h3 class="timeline-title">مؤتمر الحوار الدولي للحضارات والتسامح (الدورة الثانية)</h3>
+            <p>استضافته مركز العلماء الإمارات للبحوث والدراسات، جامعاً خبراء من الأكاديميا والسياسة والمجتمع المدني لمناقشة الأسئلة الجوهرية في حوار الحضارات في ظل التوترات بين العالم العربي والغرب.</p>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">يونيو ٢٠٢٣ — مراكش، المغرب</div>
+            <h3 class="timeline-title">المؤتمر البرلماني للحوار بين الأديان — "العمل معاً من أجل مستقبلنا المشترك"</h3>
+            <p>نظّمه الاتحاد البرلماني الدولي مع برلمان المملكة المغربية. أسهمت GDCI بتوصيات سياسية حول الأطر المؤسسية للحوار الغربي-العربي في أول مؤتمر برلماني من نوعه للحوار بين الأديان.</p>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">أبريل ٢٠٢٤ — مقر اليونسكو، باريس</div>
+            <h3 class="timeline-title">منتدى مجلة يونسكو كورييه — "الحوار بين الثقافات والتعلم المتبادل: آفاق مشتركة"</h3>
+            <p>اجتماع رفيع المستوى في مقر اليونسكو لاستكشاف التبادل الحضاري من تاريخ طريق الحرير إلى الفضاء الرقمي المعاصر. قدّم باحثو GDCI دراسة مقارنة بين الأنظمة الإعلامية الغربية والشرق أوسطية.</p>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:var(--space-48);">
+          <a href="dialogue.html" class="btn btn-secondary">عرض كل الحوارات والفعاليات</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- دعوة للمشاركة -->
+    <section class="cta-band section-padding" aria-label="دعوة للمشاركة">
+      <div class="container" style="max-width:760px;">
+        <span class="hero-eyebrow" style="display:block; text-align:center; margin-inline:auto; color:var(--color-amber);">انضم إلى المبادرة</span>
+        <h2>الجسر بين الحضارات يُبنى محادثةً واحدةً في كل مرة.</h2>
+        <p>سواء كنت أكاديمياً أو قائد شباب أو شخصية دينية أو صانع سياسات — يوجد مكانٌ لك في عمل المبادرة.</p>
+        <div class="cta-actions">
+          <a href="engage.html" class="btn btn-primary">شارك معنا</a>
+          <a href="publications.html" class="btn cta-btn-ghost">اقرأ المنشورات</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- التذييل -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <svg viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" style="fill:var(--color-teal); overflow:visible;">
+            <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2.5"/>
+          </svg>
+          <p>نعزز البحث العلمي والتبادل وحوارات الحضارات لبناء مستقبل بشري مشترك، مع التركيز على التفاهم بين الغرب والشرق الأوسط.</p>
+        </div>
+        <div>
+          <h2 class="footer-title">البوابة</h2>
+          <ul class="footer-links">
+            <li><a href="about.html">عن المبادرة</a></li>
+            <li><a href="research.html">أرشيف الأبحاث</a></li>
+            <li><a href="publications.html">المنشورات</a></li>
+            <li><a href="dialogue.html">حلقات الحوار</a></li>
+            <li><a href="people.html">الأعضاء والباحثون</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h2 class="footer-title">اتصال</h2>
+          <p>مبادرة حوار الحضارات العالمي</p>
+          <p>البريد: <a href="mailto:info@gdci-world.org" style="color:inherit;">info@gdci-world.org</a></p>
+          <div class="lang-switcher" style="display:inline-flex; border-color:rgba(255,255,255,0.15); margin-top:var(--space-16);">
+            <a href="#" data-lang="en">EN</a>
+            <span>|</span>
+            <a href="#" data-lang="ar" class="active">AR</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-legal">© ٢٠٢٦ مبادرة حوار الحضارات العالمي. جميع الحقوق محفوظة.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
