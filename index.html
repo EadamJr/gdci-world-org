@@ -3,59 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Global Dialogue Civilization Initiative (GDCI) is an independent think-tank and platform promoting research, dialogue, and collaboration across the world's civilizational traditions.">
-  
+  <meta name="description" content="The Global Dialogue Civilization Initiative (GDCI) facilitates, supports, researches, and advocates for structured dialogue between the Global North and the Middle East.">
   <title>Global Dialogue Civilization Initiative | GDCI</title>
-  
-  <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  
-  <!-- Preconnect for performance -->
+
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <style>
+    .hero-eyebrow {
+      font-family: var(--font-utility);
+      color: var(--color-teal);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: var(--space-16);
+    }
+    /* Community cards — light background, NOT navy */
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-24);
+      margin-top: var(--space-48);
+    }
+    @media (max-width: 1023px) { .community-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px)  { .community-grid { grid-template-columns: 1fr; } }
+    .community-card {
+      background: var(--color-stone);
+      border-radius: var(--border-radius);
+      padding: var(--space-24);
+      border-top: 3px solid var(--color-teal);
+      transition: var(--transition-normal);
+    }
+    .community-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .community-card-icon { font-size: 1.75rem; margin-bottom: var(--space-12); }
+    .community-card h3 {
+      font-family: var(--font-utility);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-black);
+      margin-bottom: var(--space-8);
+    }
+    .community-card p { font-size: 0.875rem; color: var(--color-slate); line-height: 1.65; margin: 0; }
+    .community-card.accent-amber { border-top-color: var(--color-amber); }
+    .community-card.accent-navy  { border-top-color: var(--color-navy); }
+
+    /* Pillar cards overridden for white/stone bg */
+    .pillars-on-white .pillar-card {
+      background: var(--color-white);
+      border: 1px solid rgba(128,128,128,0.12);
+    }
+    .pillars-on-white .pillar-card:hover { background: var(--color-stone); }
+    .pillars-on-white .pillar-card-title { color: var(--color-black); }
+    .pillars-on-white .pillar-card-desc  { color: var(--color-slate); opacity: 1; }
+    .pillars-on-white .pillars-grid { grid-template-columns: repeat(4,1fr); }
+    @media (max-width: 1023px) { .pillars-on-white .pillars-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px)  { .pillars-on-white .pillars-grid { grid-template-columns: 1fr; } }
+
+    /* CTA closing band */
+    .cta-band { background: var(--color-navy); text-align: center; }
+    .cta-band h2 { font-family: var(--font-display); color: white; font-size: 2.5rem; line-height: 1.25; margin-bottom: var(--space-24); }
+    .cta-band p { color: rgba(255,255,255,0.75); font-size: 1.05rem; margin-bottom: var(--space-32); max-width: 640px; margin-inline: auto; }
+    .cta-actions { display: flex; gap: var(--space-16); justify-content: center; flex-wrap: wrap; }
+    .btn-ghost { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.35); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); color: white; transform: translateY(-2px); }
+  </style>
 </head>
 <body>
 
-  <!-- ==========================================================================
-       HEADER & NAVIGATION
-       ========================================================================== -->
-  <header class="site-header scrolled">
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
     <div class="container header-container">
       <a href="index.html" class="nav-logo" aria-label="GDCI Home">
-        <!-- Inline SVG Logo for optimal LCP performance -->
-        <svg viewBox="0 0 200 200" width="40" height="40" aria-hidden="true" style="fill: var(--color-teal);">
-          <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round" />
-          <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round" />
-          <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round" />
-          <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round" />
-          <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round" />
-          <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round" />
-          <line x1="30" y1="150" x2="170" y2="150" stroke="#C4882A" stroke-width="2.5" opacity="0.5" />
+        <svg viewBox="0 0 200 200" width="40" height="40" aria-hidden="true">
+          <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <line x1="30" y1="150" x2="170" y2="150" stroke="#C4882A" stroke-width="2.5" opacity="0.5"/>
         </svg>
         <span>GDCI</span>
       </a>
 
-      <nav aria-label="Main Navigation">
+      <nav aria-label="Main navigation">
         <ul class="nav-menu">
           <li><a href="index.html" class="nav-link active">Home</a></li>
           <li><a href="about.html" class="nav-link">About</a></li>
           <li><a href="research.html" class="nav-link">Research</a></li>
+          <li><a href="dialogue.html" class="nav-link">Dialogues</a></li>
           <li><a href="publications.html" class="nav-link">Publications</a></li>
-          <li><a href="dialogue.html" class="nav-link">Dialogue</a></li>
           <li><a href="people.html" class="nav-link">People</a></li>
           <li><a href="engage.html" class="nav-link">Engage</a></li>
           <li><a href="brandkit.html" class="nav-link">Brand Kit</a></li>
           <li>
-            <div class="lang-switcher" role="navigation" aria-label="Language switch">
-              <a href="#" data-lang="en" class="active" aria-label="English Language">EN</a>
+            <div class="lang-switcher" role="navigation" aria-label="Language">
+              <a href="#" data-lang="en" class="active">EN</a>
               <span>|</span>
-              <a href="#" data-lang="ar" aria-label="Arabic Language">AR</a>
+              <a href="#" data-lang="ar">AR</a>
             </div>
           </li>
         </ul>
       </nav>
 
-      <button class="mobile-nav-toggle" aria-expanded="false" aria-controls="mobile-overlay" aria-label="Toggle navigation menu">
+      <button class="mobile-nav-toggle" aria-expanded="false" aria-controls="mobile-overlay" aria-label="Toggle menu">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
         </svg>
@@ -63,14 +117,14 @@
     </div>
   </header>
 
-  <!-- Mobile Menu Overlay -->
+  <!-- Mobile Overlay -->
   <div id="mobile-overlay" class="mobile-overlay" aria-hidden="true">
     <ul class="mobile-menu">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="research.html">Research</a></li>
+      <li><a href="dialogue.html">Dialogues</a></li>
       <li><a href="publications.html">Publications</a></li>
-      <li><a href="dialogue.html">Dialogue</a></li>
       <li><a href="people.html">People</a></li>
       <li><a href="engage.html">Engage</a></li>
       <li><a href="brandkit.html">Brand Kit</a></li>
@@ -82,52 +136,54 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       MAIN CONTENT AREA
-       ========================================================================== -->
   <main>
-    
-    <!-- Hero Section -->
+
+    <!-- ========== HERO ========== -->
     <section class="hero" aria-label="Introduction">
       <div class="container hero-grid">
         <div class="hero-content">
-          <span class="hero-subtitle">Global Dialogue Civilization Initiative | GDCI</span>
-          <h1 class="display-xl">Bridging the West &amp; the Middle East.</h1>
-          <p class="hero-tagline">An independent initiative facilitating, supporting, researching, and advocating constructive dialogue and strategic collaboration between the Global North and the Middle East.</p>
+          <span class="hero-eyebrow">Global Dialogue Civilization Initiative</span>
+          <h1 class="display-xl">Where West&nbsp;Meets&nbsp;East — and&nbsp;Listens.</h1>
+          <p class="hero-tagline">An independent initiative facilitating, supporting, researching, and advocating for structured dialogue between the Global North and the Middle East — across academia, policy, faith, and civil society.</p>
           <div class="hero-actions">
-            <a href="publications.html" class="btn btn-primary">Explore Publications</a>
+            <a href="research.html" class="btn btn-primary">Explore Our Research</a>
             <a href="about.html" class="btn btn-secondary">About GDCI</a>
           </div>
         </div>
-        
+
         <div class="hero-image-container" aria-hidden="true">
-          <!-- Stylized abstract graphical representation representing civilizational overlap -->
-          <svg viewBox="0 0 400 500" width="100%" height="100%" style="background-color: var(--color-white); border-radius: var(--border-radius);">
-            <!-- Mesh geometric overlay pattern -->
-            <g fill="none" stroke="var(--color-light-teal)" stroke-width="1.5" opacity="0.6">
-              <circle cx="200" cy="250" r="180" />
-              <circle cx="200" cy="250" r="140" />
-              <circle cx="200" cy="250" r="100" stroke="var(--color-teal)" stroke-dasharray="4 4" />
-              <circle cx="200" cy="250" r="60" />
+          <svg viewBox="0 0 420 520" width="100%" height="100%"
+               style="background:var(--color-white);border-radius:var(--border-radius);display:block;">
+            <g fill="none" stroke="var(--color-light-teal)" stroke-width="1.2" opacity="0.55">
+              <circle cx="210" cy="260" r="185"/>
+              <circle cx="210" cy="260" r="145"/>
+              <circle cx="210" cy="260" r="105" stroke="var(--color-teal)" stroke-dasharray="5 5"/>
+              <circle cx="210" cy="260" r="65"/>
             </g>
-            <g fill="none" stroke="var(--color-amber)" stroke-width="2" opacity="0.4">
-              <!-- Radial Lines (Pattern A) -->
-              <line x1="20" y1="250" x2="380" y2="250" />
-              <line x1="200" y1="70" x2="200" y2="430" />
-              <line x1="72" y1="122" x2="328" y2="378" />
-              <line x1="72" y1="378" x2="328" y2="122" />
+            <g fill="none" stroke="var(--color-amber)" stroke-width="1.8" opacity="0.3">
+              <line x1="25" y1="260" x2="395" y2="260"/>
+              <line x1="210" y1="75" x2="210" y2="445"/>
+              <line x1="80" y1="130" x2="340" y2="390"/>
+              <line x1="80" y1="390" x2="340" y2="130"/>
             </g>
-            
-            <!-- Centered Convergent Arch Emblem -->
-            <g transform="translate(100, 125) scale(1.0)">
-              <svg viewBox="0 0 200 200" width="200" height="200" style="overflow: visible;">
-                <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="var(--color-navy)" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="var(--color-navy)" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="var(--color-teal)" stroke-width="6.5" fill="none" stroke-linecap="round" />
-                <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="var(--color-teal)" stroke-width="6.5" fill="none" stroke-linecap="round" />
-                <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round" />
-                <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round" />
-                <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2" />
+            <circle cx="135" cy="210" r="30" fill="var(--color-navy)" opacity="0.85"/>
+            <text x="135" y="214" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="white" letter-spacing="0.6">WEST</text>
+            <circle cx="285" cy="310" r="30" fill="var(--color-teal)" opacity="0.85"/>
+            <text x="285" y="314" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" font-weight="700" fill="white" letter-spacing="0.6">EAST</text>
+            <path d="M 163 222 Q 210 195 257 298" stroke="var(--color-amber)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="210" cy="260" r="9" fill="var(--color-amber)" opacity="0.9"/>
+            <circle cx="210" cy="260" r="4" fill="white"/>
+            <text x="135" y="255" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="var(--color-slate)" opacity="0.65">Global North</text>
+            <text x="285" y="357" text-anchor="middle" font-family="Inter,sans-serif" font-size="8" fill="var(--color-slate)" opacity="0.65">Middle East</text>
+            <g transform="translate(110 130)">
+              <svg viewBox="0 0 200 200" width="200" height="200" overflow="visible">
+                <path d="M 40 145 C 40 85,65 55,90 50" stroke="var(--color-navy)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M 160 145 C 160 85,135 55,110 50" stroke="var(--color-navy)" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <path d="M 55 145 C 55 95,75 62,94 56" stroke="var(--color-teal)" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M 145 145 C 145 95,125 62,106 56" stroke="var(--color-teal)" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M 85 145 C 85 120,92 80,97 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <path d="M 115 145 C 115 120,108 80,103 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round"/>
+                <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2"/>
               </svg>
             </g>
           </svg>
@@ -135,342 +191,264 @@
       </div>
     </section>
 
-    <!-- Thematic Pillars Section -->
-    <section class="pillars-strip section-padding" aria-labelledby="pillars-title">
+    <!-- ========== MISSION ========== -->
+    <section class="mission-strip section-padding" aria-label="Mission">
+      <div class="container">
+        <span class="hero-eyebrow" style="text-align:center;">Our Mission</span>
+        <blockquote class="mission-quote">
+          "Dialogue is not agreement. It is the willingness to be changed by understanding another civilization on its own terms."
+        </blockquote>
+        <p style="text-align:center;max-width:700px;margin-inline:auto;font-size:1rem;opacity:0.85;margin-top:0;">
+          GDCI brings together academics, researchers, policymakers, youth leaders, religious figures, and civil society advocates from the Global North and the Arab and Islamic world to build mutual understanding through rigorous, respectful, and sustained engagement.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== FOUR PILLARS ========== -->
+    <section class="section-padding pillars-on-white" aria-labelledby="pillars-title" style="background:var(--color-white);">
       <div class="container">
         <div class="section-header">
-          <h2 id="pillars-title" class="section-title text-white">Our Strategic Dialogue Pillars</h2>
-          <p class="text-white" style="opacity: 0.9; max-width: 800px; margin: 0 auto;">GDCI convenes academics, researchers, youth leaders, religious figures, and policy advocates to bridge the Global North (West) and the Middle East (East) across five critical areas of focus.</p>
+          <span class="hero-eyebrow" style="text-align:center;">What GDCI Does</span>
+          <h2 id="pillars-title" class="section-title">Four Pillars of Engagement</h2>
+          <p>GDCI operates across four interconnected fields of action that transform dialogue from aspiration into structured practice.</p>
         </div>
-        
         <div class="pillars-grid">
-          <!-- Pillar 1 -->
-          <article class="pillar-card pillar-card-1">
-            <div class="pillar-card-icon">
-              <!-- Outline Book / Manuscript icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-              </svg>
-            </div>
-            <h3 class="pillar-card-title">Memory &amp; Heritage</h3>
-            <p class="pillar-card-desc">Investigating historical civilizational encounters and manuscript traditions between the West and the Middle East to cultivate mutual appreciation.</p>
-          </article>
-          
-          <!-- Pillar 2 -->
           <article class="pillar-card pillar-card-2">
             <div class="pillar-card-icon">
-              <!-- Outline Peace / Converging paths icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 2L2 22" />
-                <path d="M2 2l20 20" />
-                <circle cx="12" cy="12" r="4" fill="var(--color-stone)" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
             </div>
-            <h3 class="pillar-card-title">Diplomacy &amp; Peace</h3>
-            <p class="pillar-card-desc">Engaging researchers and advocates in studying dialogue pathways, peace-building, and conflict resolution between the West and the Middle East.</p>
+            <h3 class="pillar-card-title">Facilitate</h3>
+            <p class="pillar-card-desc">Convening structured forums, roundtables, and exchanges between Western and Middle Eastern voices — creating conditions where authentic, equitable dialogue can take root.</p>
           </article>
-          
-          <!-- Pillar 3 -->
-          <article class="pillar-card pillar-card-3">
-            <div class="pillar-card-icon">
-              <!-- Outline Balance / Governance icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="2" x2="12" y2="22" />
-                <line x1="5" y1="7" x2="19" y2="7" />
-                <path d="M19 7c0 5-2 9-7 9s-7-4-7-9" />
-              </svg>
-            </div>
-            <h3 class="pillar-card-title">Governance &amp; Economy</h3>
-            <p class="pillar-card-desc">Examining structures of political governance and economic relations between the Global North and Middle Eastern nations in a multipolar world.</p>
-          </article>
-          
-          <!-- Pillar 4 -->
           <article class="pillar-card pillar-card-4">
             <div class="pillar-card-icon">
-              <!-- Outline Exchange / Education icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                <path d="M6 12v5c0 2 2.7 3 6 3s6-1 6-3v-5" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
               </svg>
             </div>
-            <h3 class="pillar-card-title">Youth &amp; Exchange</h3>
-            <p class="pillar-card-desc">Fostering educational initiatives and exchange programs to connect youth leaders and students from Western and Middle Eastern universities.</p>
+            <h3 class="pillar-card-title">Support</h3>
+            <p class="pillar-card-desc">Providing fellowships, mentorship, and institutional backing to scholars, youth, and practitioners doing the difficult work of cross-civilizational engagement.</p>
           </article>
-          
-          <!-- Pillar 5 -->
-          <article class="pillar-card pillar-card-5">
+          <article class="pillar-card pillar-card-1">
             <div class="pillar-card-icon">
-              <!-- Outline Globe / Environment icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                <path d="M2 12h20" />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
             </div>
-            <h3 class="pillar-card-title">Faith &amp; Advocacy</h3>
-            <p class="pillar-card-desc">Convening religious figures and community advocates to counter misconceptions, promote tolerance, and address shared social issues.</p>
+            <h3 class="pillar-card-title">Research</h3>
+            <p class="pillar-card-desc">Producing independent, peer-reviewed research on the historical, political, cultural, and religious dimensions of West–East relations to ground dialogue in evidence.</p>
+          </article>
+          <article class="pillar-card pillar-card-3">
+            <div class="pillar-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c0 2 2.7 3 6 3s6-1 6-3v-5"/>
+              </svg>
+            </div>
+            <h3 class="pillar-card-title">Advocate</h3>
+            <p class="pillar-card-desc">Championing policies and institutions that reduce hostility, foster mutual recognition, and create lasting structural conditions for civilizational cooperation.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- Latest Research Section -->
+    <!-- ========== COMMUNITY ========== -->
+    <section class="pillars-strip section-padding" aria-labelledby="community-title">
+      <div class="container">
+        <div class="section-header">
+          <span class="hero-eyebrow" style="color:var(--color-amber);text-align:center;">Our Community</span>
+          <h2 id="community-title" class="section-title" style="color:white;">Who Makes Up GDCI</h2>
+          <p style="color:rgba(255,255,255,0.8);">GDCI is a pluralist community of practice — bringing together diverse voices committed to rigorous, respectful engagement across the West–East divide.</p>
+        </div>
+        <div class="community-grid">
+          <div class="community-card accent-amber">
+            <div class="community-card-icon">🎓</div>
+            <h3>Academics &amp; Researchers</h3>
+            <p>Scholars from universities and think-tanks in Europe, North America, and the MENA region producing rigorous comparative research.</p>
+          </div>
+          <div class="community-card">
+            <div class="community-card-icon">🌍</div>
+            <h3>Youth Leaders</h3>
+            <p>Young professionals and emerging voices from both sides of the dialogue who represent the next generation of bridge-builders.</p>
+          </div>
+          <div class="community-card accent-navy">
+            <div class="community-card-icon">🕌</div>
+            <h3>Religious Figures</h3>
+            <p>Islamic scholars, Christian theologians, and interfaith practitioners committed to dialogue that neither compromises nor avoids difference.</p>
+          </div>
+          <div class="community-card accent-amber">
+            <div class="community-card-icon">⚖️</div>
+            <h3>Policy Advocates</h3>
+            <p>Diplomats, NGO leaders, and civil-society organisations working to translate dialogue into durable institutional change.</p>
+          </div>
+          <div class="community-card">
+            <div class="community-card-icon">📰</div>
+            <h3>Media &amp; Journalists</h3>
+            <p>Reporters and media scholars whose coverage shapes the narrative environment in which West–East dialogue succeeds or fails.</p>
+          </div>
+          <div class="community-card accent-navy">
+            <div class="community-card-icon">🏛️</div>
+            <h3>Civil Society</h3>
+            <p>Community organisations and civic networks that embed dialogue in local practice beyond elite forums.</p>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:var(--space-48);">
+          <a href="people.html" class="btn btn-primary">Meet Our Members</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== LATEST PUBLICATIONS ========== -->
     <section class="section-padding" aria-labelledby="research-title">
       <div class="container">
         <div class="section-header">
+          <span class="hero-eyebrow" style="text-align:center;">Knowledge Hub</span>
           <h2 id="research-title" class="section-title">Latest Publications</h2>
-          <p>Read recently published policy briefs, working papers, and essays by our fellows and contributing scholars on West-East relations.</p>
+          <p>Reports, research papers, policy briefs, and opinion articles by GDCI fellows on West–Middle East relations and civilizational dialogue.</p>
         </div>
-
         <div class="card-grid">
-          <!-- Research Card 1 (Pillar 1) -->
-          <article class="card pillar-card-1">
-            <div class="card-content">
-              <span class="card-tag pillar-tag-1">Memory &amp; Heritage</span>
-              <h3 class="card-title h4"><a href="publications.html">Echoes of Al-Andalus: Fostering Mediterranean Understanding</a></h3>
-              <div class="card-meta">
-                <span>Research Paper</span>
-                <span>•</span>
-                <span>June 2026</span>
-              </div>
-              <p class="card-abstract">An exploration of historical collaborative spaces in medieval Europe and the Middle East, offering a conceptual blueprint for modern diplomatic dialogue.</p>
-              <a href="publications.html" class="card-link pillar-tag-1">Read Publication →</a>
-            </div>
-          </article>
-
-          <!-- Research Card 2 (Pillar 2) -->
           <article class="card pillar-card-2">
             <div class="card-content">
-              <span class="card-tag pillar-tag-2">Diplomacy &amp; Peace</span>
-              <h3 class="card-title h4"><a href="publications.html">Strategic Neutrality in Gulf Security: Fostering Trust</a></h3>
-              <div class="card-meta">
-                <span>Policy Brief</span>
-                <span>•</span>
-                <span>May 2026</span>
-              </div>
-              <p class="card-abstract">A research paper analyzing the role of non-aligned mediators in facilitating productive security negotiations between Western institutions and Middle Eastern powers.</p>
+              <span class="card-tag pillar-tag-2">Policy Brief</span>
+              <h3 class="card-title h4"><a href="publications.html">Why Dialogue is Not Compromise: Identity, Diplomacy, and the Plural World</a></h3>
+              <div class="card-meta"><span>Dr. Layla Al-Amin</span><span>•</span><span>May 2026</span></div>
+              <p class="card-abstract">Reframing international negotiation as mutual identity-recognition rather than concession, drawing on Islamic jurisprudence and Western liberal theory in parallel.</p>
               <a href="publications.html" class="card-link pillar-tag-2">Read Publication →</a>
             </div>
           </article>
-
-          <!-- Research Card 3 (Pillar 3) -->
+          <article class="card pillar-card-1">
+            <div class="card-content">
+              <span class="card-tag pillar-tag-1">Research Paper</span>
+              <h3 class="card-title h4"><a href="publications.html">At the Margins of Empires: What History Teaches at Civilizational Borders</a></h3>
+              <div class="card-meta"><span>Prof. Erik Sandström</span><span>•</span><span>June 2026</span></div>
+              <p class="card-abstract">Analysis of historical contact zones where shared legal and cultural frameworks formed — offering lessons for contemporary pluralism and cross-border governance.</p>
+              <a href="publications.html" class="card-link pillar-tag-1">Read Publication →</a>
+            </div>
+          </article>
           <article class="card pillar-card-3">
             <div class="card-content">
-              <span class="card-tag pillar-tag-3">Governance &amp; Economy</span>
-              <h3 class="card-title h4"><a href="publications.html">Reimagining Trade Routes: The New West-East Corridor</a></h3>
-              <div class="card-meta">
-                <span>Research Report</span>
-                <span>•</span>
-                <span>April 2026</span>
-              </div>
-              <p class="card-abstract">An economic report assessing the geopolitics of trade agreements between European Union partners and GCC states in a changing global economy.</p>
+              <span class="card-tag pillar-tag-3">Report</span>
+              <h3 class="card-title h4"><a href="publications.html">Governance Across Traditions: Three Models of Legitimate Authority</a></h3>
+              <div class="card-meta"><span>GDCI Research Team</span><span>•</span><span>April 2026</span></div>
+              <p class="card-abstract">Tracing theories of state legitimacy across Chinese, Islamic, and European historical models to build frameworks for international cooperation.</p>
               <a href="publications.html" class="card-link pillar-tag-3">Read Publication →</a>
             </div>
           </article>
         </div>
-        
-        <div style="text-align: center; margin-top: var(--space-48);">
+        <div style="text-align:center;margin-top:var(--space-48);">
           <a href="publications.html" class="btn btn-secondary">View All Publications</a>
         </div>
       </div>
     </section>
 
-    <!-- Conference Participation Section -->
-    <section class="events-section section-padding" aria-labelledby="events-title">
+    <!-- ========== CONFERENCES ========== -->
+    <section class="section-padding" aria-labelledby="conf-title" style="background:var(--color-white);">
       <div class="container">
         <div class="section-header">
-          <h2 id="events-title" class="section-title">Conference Participation &amp; Engagement</h2>
-          <p>Over the past three years (2023–2026), GDCI has actively participated in key global forums to advocate, support, and share research on West-East and Middle Eastern dialogue.</p>
+          <span class="hero-eyebrow" style="text-align:center;">Global Presence</span>
+          <h2 id="conf-title" class="section-title">Conferences We've Participated In</h2>
+          <p>GDCI engages in major international forums advancing West–East dialogue and civilizational cooperation on the global stage.</p>
         </div>
-
-        <div class="conferences-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-24);">
-          <!-- Conference 1 -->
-          <article class="card" style="border-top: 3px solid var(--color-teal); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: var(--color-light-teal); color: var(--color-teal); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Rabat, Morocco • 2026</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">Paris Peace Forum Spring Meeting</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI brought together youth leaders and academics in Morocco to address cross-continental climate cooperation and security policies connecting Europe, Africa, and the Middle East.</p>
-            </div>
-          </article>
-
-          <!-- Conference 2 -->
-          <article class="card" style="border-top: 3px solid var(--color-amber); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: #FDF3E7; color: var(--color-amber); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Abu Dhabi, UAE • 2026</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">International Dialogue of Civilizations &amp; Tolerance</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI religious figures and cultural advocates led panels on bridging cultural representations, exploring the role of new media in bridging misconceptions between Western and Eastern communities.</p>
-            </div>
-          </article>
-
-          <!-- Conference 3 -->
-          <article class="card" style="border-top: 3px solid var(--color-navy); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: #E8EEF5; color: var(--color-navy); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Doha, Qatar • 2025</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">The Doha Forum 2025</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">Focusing on "Justice in Action", GDCI researchers co-hosted a round-table on restructuring diplomatic dialogues to incorporate diverse civilizational value systems from the Global North and South.</p>
-            </div>
-          </article>
-
-          <!-- Conference 4 -->
-          <article class="card" style="border-top: 3px solid var(--color-teal); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: var(--color-light-teal); color: var(--color-teal); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Manama, Bahrain • 2025</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">IISS Manama Dialogue 2025</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI's policy advocates and academics contributed to security panels, exploring multilateral security architectures and trust-building measures between Western powers and regional Middle Eastern states.</p>
-            </div>
-          </article>
-
-          <!-- Conference 5 -->
-          <article class="card" style="border-top: 3px solid var(--color-amber); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: #FDF3E7; color: var(--color-amber); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Rome, Italy • 2024</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">Rome MED - Mediterranean Dialogues</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI senior researchers presented working papers on security, migration, and trade corridors in the Mediterranean, promoting cooperative strategies between EU countries and Middle Eastern neighbors.</p>
-            </div>
-          </article>
+        <div class="timeline" style="max-width:860px;margin-inline:auto;">
+          <div class="timeline-event">
+            <div class="timeline-date">November 2024 — Cascais, Portugal</div>
+            <h3 class="timeline-title">10th UNAOC Global Forum — "United in Peace: Restoring Trust, Reshaping the Future"</h3>
+            <p>The flagship event of the UN Alliance of Civilizations, convening political leaders, religious actors, academia, youth, and civil society globally. GDCI fellows participated in panels on intercultural dialogue and Western–Islamic world relations.</p>
+            <a href="https://www.unaoc.org/global-forums/" target="_blank" rel="noopener" class="card-link pillar-tag-2">Learn more →</a>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">May 2024 — Baku, Azerbaijan</div>
+            <h3 class="timeline-title">6th World Forum on Intercultural Dialogue — "Dialogue for Peace and Global Security"</h3>
+            <p>Co-organised by Azerbaijan, UNESCO, UNAOC, the Council of Europe, and ICESCO. GDCI presented findings on religious-civic dialogue mechanisms in MENA contexts.</p>
+            <a href="https://www.unaoc.org/event/6th-world-forum-on-intercultural-dialogue-baku/" target="_blank" rel="noopener" class="card-link pillar-tag-2">Learn more →</a>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">February 2025 — Abu Dhabi, UAE</div>
+            <h3 class="timeline-title">International Dialogue of Civilizations and Tolerance Conference (2nd Edition)</h3>
+            <p>Hosted by the Emirates Scholar Center, gathering experts from academia, politics, and civil society to examine core questions in civilizational dialogue — particularly West–Arab tensions.</p>
+            <a href="https://www.emiratesscholar.com/event/international-dialogue-of-civilization-and-tolerance-conference-2024/" target="_blank" rel="noopener" class="card-link pillar-tag-2">Learn more →</a>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">June 2023 — Marrakesh, Morocco</div>
+            <h3 class="timeline-title">Parliamentary Conference on Interfaith Dialogue — "Working Together for Our Common Future"</h3>
+            <p>Organised by the Inter-Parliamentary Union and the Parliament of Morocco. GDCI contributed policy recommendations on institutional frameworks for West–Arab dialogue.</p>
+            <a href="https://www.ipu.org/news/news-in-brief/2024-05/power-interfaith-and-intercultural-dialogue-how-parliaments-are-joining-conversation" target="_blank" rel="noopener" class="card-link pillar-tag-2">Learn more →</a>
+          </div>
+          <div class="timeline-event">
+            <div class="timeline-date">April 2024 — UNESCO HQ, Paris</div>
+            <h3 class="timeline-title">UNESCO Courier Forum — "Intercultural Dialogue and Mutual Learning: Shared Horizons"</h3>
+            <p>A high-level convening exploring cross-civilizational exchange from Silk Road history to contemporary digital public spheres. GDCI researchers presented a comparative study of Western and Middle Eastern media ecosystems.</p>
+            <a href="https://www.unesco.org/en/articles/unesco-courier-forum-intercultural-dialogue-and-mutual-learning-shared-horizons" target="_blank" rel="noopener" class="card-link pillar-tag-2">Learn more →</a>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:var(--space-48);">
+          <a href="dialogue.html" class="btn btn-secondary">View All Dialogues &amp; Events</a>
         </div>
       </div>
     </section>
 
-    <!-- Mission quote strip -->
-    <section class="mission-strip section-padding" aria-label="Founding Principle Quote">
-      <div class="container">
-        <blockquote class="mission-quote">
-          "Dialogue is not agreement. It is the willingness to be changed by understanding another civilization on its own terms."
-        </blockquote>
-        <div class="principles-grid">
-          <div class="principle-item">
-            <div class="principle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
-            </div>
-            <h3 class="principle-title">Intellectual Gravitas</h3>
-            <p class="principle-desc">Rigorous academic research and peer-reviewed outputs that form a credible base for policy recommendation.</p>
-          </div>
-          <div class="principle-item">
-            <div class="principle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 1 10-10 10 10 0 0 1-10 10zm-1-6h2v-2h-2zm1-8a3 3 0 0 0-3 3h2a1 1 0 1 1 1 1h-2v2h2a3 3 0 0 0 3-3z"/></svg>
-            </div>
-            <h3 class="principle-title">Pluriversal Openness</h3>
-            <p class="principle-desc">Structuring debates that transcend Western-centric frameworks, giving voice to distinct intellectual traditions.</p>
-          </div>
-          <div class="principle-item">
-            <div class="principle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm1 14h-2v-2h2zm0-4h-2V7h2z"/></svg>
-            </div>
-            <h3 class="principle-title">Long-Horizon Outlook</h3>
-            <p class="principle-desc">Analyzing global interactions over decades and centuries rather than responding to weekly news cycles.</p>
-          </div>
+    <!-- ========== CTA ========== -->
+    <section class="cta-band section-padding" aria-label="Call to action">
+      <div class="container" style="max-width:760px;">
+        <span class="hero-eyebrow" style="text-align:center;color:var(--color-amber);">Join the Initiative</span>
+        <h2>The bridge between civilizations is built one conversation at a time.</h2>
+        <p>Whether you are an academic, a youth leader, a faith figure, or a policymaker — there is a place for you in GDCI's work.</p>
+        <div class="cta-actions">
+          <a href="engage.html" class="btn btn-primary">Get Involved</a>
+          <a href="publications.html" class="btn btn-ghost">Read Publications</a>
         </div>
-      </div>
-    </section>
-
-    <!-- Partners Strip -->
-    <section class="partners-strip" aria-label="Partner Organizations">
-      <div class="container partners-container">
-        <span class="partners-title">Our Collaborators</span>
-        <div class="partners-logos">
-          <!-- Clean greyscale SVG representations of partner logos as requested -->
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="UNESCO Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">U N E S C O</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="UNAOC Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">U N A O C</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="KAICIID Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">K A I C I I D</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="Anna Lindh Foundation Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">A N N A  L I N D H</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter band -->
-    <section class="newsletter-band section-padding" aria-labelledby="newsletter-title">
-      <div class="container newsletter-container">
-        <h2 id="newsletter-title">Join the Conversation</h2>
-        <p>Subscribe to our monthly research digest and event announcements. No spam. Unsubscribe any time.</p>
-        <form class="newsletter-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
-          <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email address">
-          <button type="submit" class="btn btn-amber">Subscribe</button>
-        </form>
       </div>
     </section>
 
   </main>
 
-  <!-- ==========================================================================
-       FOOTER
-       ========================================================================== -->
+  <!-- ========== FOOTER ========== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <svg viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" style="fill: var(--color-teal); overflow: visible;">
-            <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round" />
-            <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round" />
-            <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round" />
-            <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round" />
-            <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round" />
-            <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round" />
-            <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2.5" />
+          <svg viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" style="overflow:visible;">
+            <path d="M 40 145 C 40 85,65 55,90 50" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 160 145 C 160 85,135 55,110 50" stroke="white" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M 55 145 C 55 95,75 62,94 56" stroke="#1A6B6A" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M 145 145 C 145 95,125 62,106 56" stroke="#1A6B6A" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <path d="M 85 145 C 85 120,92 80,97 72" stroke="#C4882A" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M 115 145 C 115 120,108 80,103 72" stroke="#C4882A" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <line x1="30" y1="150" x2="170" y2="150" stroke="#C4882A" stroke-width="2.5"/>
           </svg>
-          <p>Advancing research, dialogue, and collaboration across civilizational traditions for a shared human future.</p>
-          <div class="social-links">
-            <a href="#" class="social-link" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-            <a href="#" class="social-link" aria-label="Twitter">
-              <svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-            </a>
-          </div>
+          <p>We advance scholarship, exchange, and structured dialogue across civilizational traditions to build a shared human future — with focus on West–Middle East understanding.</p>
         </div>
-        
         <div>
-          <h2 class="footer-title">Platform</h2>
+          <h2 class="footer-title">Navigate</h2>
           <ul class="footer-links">
-            <li><a href="about.html">About Initiative</a></li>
-            <li><a href="research.html">Research Archives</a></li>
-            <li><a href="publications.html">Publications Page</a></li>
-            <li><a href="dialogue.html">Dialogue &amp; Panels</a></li>
-            <li><a href="people.html">Fellows &amp; Leadership</a></li>
-            <li><a href="brandkit.html">Brand Identity Kit</a></li>
+            <li><a href="about.html">About GDCI</a></li>
+            <li><a href="research.html">Research Archive</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="dialogue.html">Dialogue Forums</a></li>
+            <li><a href="people.html">Members &amp; Fellows</a></li>
+            <li><a href="brandkit.html">Brand Kit</a></li>
           </ul>
         </div>
-        
         <div class="footer-contact">
           <h2 class="footer-title">Contact</h2>
           <p>Global Dialogue Civilization Initiative</p>
-          <p>Email: <a href="mailto:design@gdci-world.org" style="color:inherit;">design@gdci-world.org</a></p>
-          <p style="margin-top: var(--space-16);">ISO-coded Language switcher:</p>
-          <div class="lang-switcher" style="display:inline-flex; border-color:rgba(255,255,255,0.15)">
+          <p>Email: <a href="mailto:info@gdci-world.org" style="color:inherit;">info@gdci-world.org</a></p>
+          <div class="lang-switcher" style="display:inline-flex;border-color:rgba(255,255,255,0.15);margin-top:var(--space-16);">
             <a href="#" data-lang="en" class="active">EN</a>
             <span>|</span>
             <a href="#" data-lang="ar">AR</a>
           </div>
         </div>
       </div>
-      
       <div class="footer-bottom">
-        <p class="footer-legal">© 2026 Global Dialogue Civilization Initiative. All rights reserved. Content available under Creative Commons Attribution 4.0 where indicated.</p>
-        <div class="footer-legal-links">
-          <a href="#" class="footer-legal">Privacy Policy</a>
-          <span>|</span>
-          <a href="#" class="footer-legal">Terms of Use</a>
-          <span>|</span>
-          <a href="#" class="footer-legal">Accessibility Statement</a>
-        </div>
+        <p class="footer-legal">© 2026 Global Dialogue Civilization Initiative. All rights reserved. Content available under Creative Commons 4.0 with attribution.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Core JavaScript -->
-  <script src="assets/js/main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
