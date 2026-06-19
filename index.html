@@ -75,6 +75,9 @@
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -331,6 +334,10 @@
       gap: var(--space-48);
     }
 
+    .hero-content {
+      z-index: 10;
+    }
+
     .hero-subtitle {
       font-family: var(--font-utility);
       color: var(--color-teal);
@@ -474,104 +481,50 @@
       opacity: 0.9;
     }
 
-    /* Conference History Timeline */
-    .timeline-container {
-      position: relative;
-      max-width: 900px;
-      margin-inline: auto;
+    /* Conference Grid Gallery */
+    .conf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: var(--space-32);
       margin-top: var(--space-48);
     }
 
-    .timeline-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 2px;
-      background-color: var(--color-border);
-    }
-
-    html[dir="rtl"] .timeline-container::before {
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .timeline-item {
-      position: relative;
-      width: 50%;
-      padding: var(--space-24) var(--space-48);
-      margin-bottom: var(--space-32);
-      box-sizing: border-box;
-    }
-
-    .timeline-item::after {
-      content: '';
-      position: absolute;
-      top: 36px;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
+    .conf-card {
       background-color: var(--color-white);
-      border: 3px solid var(--color-teal);
-      z-index: 1;
-    }
-
-    .timeline-item.left {
-      left: 0;
-      text-align: right;
-    }
-
-    .timeline-item.left::after {
-      right: -8px;
-    }
-
-    .timeline-item.right {
-      left: 50%;
-      text-align: left;
-    }
-
-    .timeline-item.right::after {
-      left: -8px;
-    }
-
-    html[dir="rtl"] .timeline-item.left {
-      left: 50%;
-      text-align: left;
-    }
-
-    html[dir="rtl"] .timeline-item.left::after {
-      left: -8px;
-      right: auto;
-    }
-
-    html[dir="rtl"] .timeline-item.right {
-      left: 0;
-      text-align: right;
-    }
-
-    html[dir="rtl"] .timeline-item.right::after {
-      right: -8px;
-      left: auto;
-    }
-
-    .timeline-card {
-      background-color: var(--color-white);
-      padding: var(--space-24);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow-default);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
       transition: var(--transition);
-      border-top: 3px solid var(--color-teal);
+      border-top: 4px solid var(--color-teal);
     }
 
-    .timeline-card:hover {
+    .conf-card:hover {
       box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
+      transform: translateY(-4px);
     }
 
-    .timeline-date {
-      display: inline-block;
+    .conf-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .conf-card:hover .conf-image {
+      transform: scale(1.03);
+    }
+
+    .conf-content {
+      padding: var(--space-24);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+      flex-grow: 1;
+    }
+
+    .conf-date-tag {
       font-family: var(--font-utility);
       font-size: 0.75rem;
       font-weight: 700;
@@ -580,15 +533,15 @@
       background-color: rgba(26, 107, 106, 0.08);
       padding: var(--space-4) var(--space-12);
       border-radius: 20px;
-      margin-bottom: var(--space-12);
+      align-self: flex-start;
     }
 
-    .timeline-card h3 {
+    .conf-card h3 {
       font-size: 1.25rem;
       margin-bottom: var(--space-8);
     }
 
-    .timeline-card p {
+    .conf-card p {
       font-size: 0.9375rem;
       margin: 0;
       opacity: 0.9;
@@ -854,10 +807,21 @@
     /* ==========================================================================
        ADMIN SECURE VIEW STYLING
        ========================================================================== */
+    .admin-standalone-wrapper {
+      background-color: var(--color-stone);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
     .admin-container {
       max-width: 500px;
       margin-inline: auto;
-      padding-block: var(--space-96);
+      padding-block: var(--space-48);
+      width: 100%;
     }
 
     .admin-card {
@@ -1110,32 +1074,6 @@
         gap: var(--space-32);
       }
 
-      .timeline-container::before {
-        left: var(--space-24);
-      }
-
-      .timeline-item {
-        width: 100%;
-        left: 0 !important;
-        text-align: left !important;
-        padding: var(--space-16) var(--space-24) var(--space-16) var(--space-48);
-      }
-
-      .timeline-item::after {
-        left: 16px !important;
-        right: auto !important;
-      }
-
-      html[dir="rtl"] .timeline-item {
-        text-align: right !important;
-        padding: var(--space-16) var(--space-48) var(--space-16) var(--space-24);
-      }
-
-      html[dir="rtl"] .timeline-item::after {
-        right: 16px !important;
-        left: auto !important;
-      }
-
       .footer-grid {
         grid-template-columns: 1fr;
         gap: var(--space-32);
@@ -1187,7 +1125,6 @@
         <ul class="nav-menu">
           <li><a href="#home" class="nav-link active" data-i18n="nav_home">Home</a></li>
           <li><a href="#publications" class="nav-link" data-i18n="nav_publications">Publications</a></li>
-          <li><a href="#admin" class="nav-link" data-i18n="nav_admin" style="color: var(--color-amber); font-weight: 700;">Admin Portal</a></li>
           <li>
             <div class="lang-switcher">
               <span id="lang-en" class="active" onclick="app.setLanguage('en')">EN</span>
@@ -1212,7 +1149,6 @@
     <ul class="mobile-menu">
       <li><a href="#home" class="nav-link active" onclick="app.toggleMobileMenu()" data-i18n="nav_home">Home</a></li>
       <li><a href="#publications" class="nav-link" onclick="app.toggleMobileMenu()" data-i18n="nav_publications">Publications</a></li>
-      <li><a href="#admin" class="nav-link" onclick="app.toggleMobileMenu()" data-i18n="nav_admin" style="color: var(--color-amber); font-weight: 700;">Admin Portal</a></li>
     </ul>
     <div class="lang-switcher" style="margin-top: var(--space-24);">
       <span id="mobile-lang-en" class="active" onclick="app.setLanguage('en'); app.toggleMobileMenu()">English</span>
@@ -1335,7 +1271,7 @@
         </div>
       </div>
 
-      <!-- Conference History -->
+      <!-- Conference History Grid -->
       <div class="section-padding">
         <div class="container">
           <div class="section-header">
@@ -1343,47 +1279,52 @@
             <p style="margin-top: var(--space-24);" data-i18n="conf_subtitle">Key international forums and high-level collaborative tables held over the last three years (2024–2026).</p>
           </div>
           
-          <div class="timeline-container">
+          <div class="conf-grid">
             <!-- Event 1 -->
-            <div class="timeline-item left">
-              <div class="timeline-card">
-                <span class="timeline-date" data-i18n="conf_1_date">Rabat, Morocco • 2026</span>
+            <article class="conf-card">
+              <img class="conf-image" src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=600&q=80" alt="Paris Peace Forum Spring Meeting" loading="lazy">
+              <div class="conf-content">
+                <span class="conf-date-tag" data-i18n="conf_1_date">Rabat, Morocco • 2026</span>
                 <h3 data-i18n="conf_1_title">Paris Peace Forum Spring Meeting</h3>
                 <p data-i18n="conf_1_desc">Convened youth leaders and researchers to establish structured frameworks for cross-continental climate resilience and green technology collaborations.</p>
               </div>
-            </div>
+            </article>
             <!-- Event 2 -->
-            <div class="timeline-item right">
-              <div class="timeline-card">
-                <span class="timeline-date" data-i18n="conf_2_date">Abu Dhabi, UAE • 2026</span>
+            <article class="conf-card">
+              <img class="conf-image" src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" alt="Abu Dhabi Conference" loading="lazy">
+              <div class="conf-content">
+                <span class="conf-date-tag" data-i18n="conf_2_date">Abu Dhabi, UAE • 2026</span>
                 <h3 data-i18n="conf_2_title">Civilizations &amp; Tolerance Forum</h3>
                 <p data-i18n="conf_2_desc">Led panels evaluating media representation and cross-cultural discourse styles to combat modern polarization and media bias.</p>
               </div>
-            </div>
+            </article>
             <!-- Event 3 -->
-            <div class="timeline-item left">
-              <div class="timeline-card">
-                <span class="timeline-date" data-i18n="conf_3_date">Doha, Qatar • 2025</span>
+            <article class="conf-card">
+              <img class="conf-image" src="https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=600&q=80" alt="The Doha Forum" loading="lazy">
+              <div class="conf-content">
+                <span class="conf-date-tag" data-i18n="conf_3_date">Doha, Qatar • 2025</span>
                 <h3 data-i18n="conf_3_title">The Doha Forum</h3>
                 <p data-i18n="conf_3_desc">Hosted closed roundtables exploring foundational values in governance systems, matching Western human rights concepts with Middle Eastern traditions.</p>
               </div>
-            </div>
+            </article>
             <!-- Event 4 -->
-            <div class="timeline-item right">
-              <div class="timeline-card">
-                <span class="timeline-date" data-i18n="conf_4_date">Manama, Bahrain • 2025</span>
+            <article class="conf-card">
+              <img class="conf-image" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=600&q=80" alt="Manama Dialogue" loading="lazy">
+              <div class="conf-content">
+                <span class="conf-date-tag" data-i18n="conf_4_date">Manama, Bahrain • 2025</span>
                 <h3 data-i18n="conf_4_title">IISS Manama Dialogue</h3>
                 <p data-i18n="conf_4_desc">Contributed strategic research addressing collaborative regional security architectures and multilateral trust-building paths.</p>
               </div>
-            </div>
+            </article>
             <!-- Event 5 -->
-            <div class="timeline-item left">
-              <div class="timeline-card">
-                <span class="timeline-date" data-i18n="conf_5_date">Rome, Italy • 2024</span>
+            <article class="conf-card">
+              <img class="conf-image" src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=600&q=80" alt="Rome MED Dialogues" loading="lazy">
+              <div class="conf-content">
+                <span class="conf-date-tag" data-i18n="conf_5_date">Rome, Italy • 2024</span>
                 <h3 data-i18n="conf_5_title">Rome MED - Mediterranean Dialogues</h3>
                 <p data-i18n="conf_5_desc">Delivered working papers exploring shared migratory corridors and commercial integrations bridging the EU and the Middle East.</p>
               </div>
-            </div>
+            </article>
           </div>
         </div>
       </div>
@@ -1439,130 +1380,133 @@
     </section>
 
     <!-- ==========================================================================
-         ADMIN SECURE LOGIN & CMS VIEW (#admin)
+         ADMIN SECURE LOGIN & CMS VIEW (#admin-portal-secure-2026)
          ========================================================================== -->
     <section id="view-admin" class="spa-view">
-      <!-- Login Interface -->
-      <div class="container" id="admin-login-view" style="display: block;">
-        <div class="admin-container">
-          <div class="admin-card">
-            <h2 data-i18n="admin_login_title">Admin Portal Access</h2>
-            <div class="form-error" id="login-error" data-i18n="admin_error_msg">Invalid username or password. Please try again.</div>
-            <form id="admin-login-form" onsubmit="app.handleLogin(event)">
-              <div class="form-group">
-                <label for="username" data-i18n="admin_label_user">Username</label>
-                <input type="text" id="username" class="form-control" required autocomplete="username">
-              </div>
-              <div class="form-group">
-                <label for="password" data-i18n="admin_label_pass">Password</label>
-                <input type="password" id="password" class="form-control" required autocomplete="current-password">
-              </div>
-              <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="admin_btn_login">Sign In</button>
-            </form>
+      <!-- Standalone Wrapper to force full screen clean card view when global header/footer are hidden -->
+      <div class="admin-standalone-wrapper">
+        <!-- Login Interface -->
+        <div class="container" id="admin-login-view" style="display: block;">
+          <div class="admin-container">
+            <div class="admin-card">
+              <h2 data-i18n="admin_login_title">Admin Portal Access</h2>
+              <div class="form-error" id="login-error" data-i18n="admin_error_msg">Invalid username or password. Please try again.</div>
+              <form id="admin-login-form" onsubmit="app.handleLogin(event)">
+                <div class="form-group">
+                  <label for="username" data-i18n="admin_label_user">Username</label>
+                  <input type="text" id="username" class="form-control" required autocomplete="username">
+                </div>
+                <div class="form-group">
+                  <label for="password" data-i18n="admin_label_pass">Password</label>
+                  <input type="password" id="password" class="form-control" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="admin_btn_login">Sign In</button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Content Management Form & Dashboard -->
-      <div class="container" id="admin-dashboard-view" style="display: none;">
-        <div class="admin-dashboard-layout">
-          <!-- Article Creation Form -->
-          <div class="dashboard-card">
-            <div class="dashboard-header-flex">
-              <h2 data-i18n="admin_dash_title">Publish New Document</h2>
-              <button class="btn btn-secondary" onclick="app.handleLogout()" data-i18n="admin_btn_logout">Sign Out</button>
-            </div>
-            
-            <form id="cms-publish-form" onsubmit="app.handlePublish(event)">
-              <div class="form-group">
-                <label for="doc-title-en" data-i18n="cms_label_title_en">Title (English)</label>
-                <input type="text" id="doc-title-en" class="form-control" required>
-              </div>
-              <div class="form-group">
-                <label for="doc-title-ar" data-i18n="cms_label_title_ar">Title (Arabic)</label>
-                <input type="text" id="doc-title-ar" class="form-control" required>
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
-                <div class="form-group">
-                  <label for="doc-type" data-i18n="cms_label_type">Publication Type</label>
-                  <select id="doc-type" class="form-control">
-                    <option value="brief">Policy Brief</option>
-                    <option value="paper">Research Paper</option>
-                    <option value="article">Opinion Article</option>
-                    <option value="report">Report</option>
-                    <option value="analysis">Analysis</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="doc-pillar" data-i18n="cms_label_pillar">Topic Pillar</label>
-                  <select id="doc-pillar" class="form-control">
-                    <option value="heritage">Memory &amp; Heritage</option>
-                    <option value="diplomacy">Diplomacy &amp; Peace</option>
-                    <option value="governance">Governance &amp; Economy</option>
-                    <option value="youth">Youth &amp; Exchange</option>
-                    <option value="faith">Faith &amp; Advocacy</option>
-                  </select>
-                </div>
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
-                <div class="form-group">
-                  <label for="doc-author-en" data-i18n="cms_label_author_en">Author (English)</label>
-                  <input type="text" id="doc-author-en" class="form-control" required>
-                </div>
-                <div class="form-group">
-                  <label for="doc-author-ar" data-i18n="cms_label_author_ar">Author (Arabic)</label>
-                  <input type="text" id="doc-author-ar" class="form-control" required>
-                </div>
-              </div>
-
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
-                <div class="form-group">
-                  <label for="doc-date-en" data-i18n="cms_label_date_en">Date (English)</label>
-                  <input type="text" id="doc-date-en" class="form-control" placeholder="e.g. June 2026" required>
-                </div>
-                <div class="form-group">
-                  <label for="doc-date-ar" data-i18n="cms_label_date_ar">Date (Arabic)</label>
-                  <input type="text" id="doc-date-ar" class="form-control" placeholder="مثال: يونيو ٢٠٢٦" required>
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="doc-abstract-en" data-i18n="cms_label_abstract_en">Abstract (English)</label>
-                <textarea id="doc-abstract-en" class="form-control" rows="3" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="doc-abstract-ar" data-i18n="cms_label_abstract_ar">Abstract (Arabic)</label>
-                <textarea id="doc-abstract-ar" class="form-control" rows="3" required></textarea>
-              </div>
-
-              <div class="form-group">
-                <label for="doc-body-en" data-i18n="cms_label_body_en">Main Body Content (English)</label>
-                <textarea id="doc-body-en" class="form-control" rows="6" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="doc-body-ar" data-i18n="cms_label_body_ar">Main Body Content (Arabic)</label>
-                <textarea id="doc-body-ar" class="form-control" rows="6" required></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="cms_btn_publish">Publish Document</button>
-            </form>
-          </div>
-
-          <!-- Document Management deck -->
-          <div style="display:flex; flex-direction:column; gap: var(--space-32);">
+        <!-- Content Management Form & Dashboard -->
+        <div class="container" id="admin-dashboard-view" style="display: none; max-width: 1100px;">
+          <div class="admin-dashboard-layout">
+            <!-- Article Creation Form -->
             <div class="dashboard-card">
-              <h3 data-i18n="admin_list_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">Active Documents</h3>
-              <div class="articles-list-wrapper" id="admin-articles-list">
-                <!-- Dynamically rendered list with delete buttons -->
+              <div class="dashboard-header-flex">
+                <h2 data-i18n="admin_dash_title">Publish New Document</h2>
+                <button class="btn btn-secondary" onclick="app.handleLogout()" data-i18n="admin_btn_logout">Sign Out</button>
               </div>
+              
+              <form id="cms-publish-form" onsubmit="app.handlePublish(event)">
+                <div class="form-group">
+                  <label for="doc-title-en" data-i18n="cms_label_title_en">Title (English)</label>
+                  <input type="text" id="doc-title-en" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="doc-title-ar" data-i18n="cms_label_title_ar">Title (Arabic)</label>
+                  <input type="text" id="doc-title-ar" class="form-control" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                  <div class="form-group">
+                    <label for="doc-type" data-i18n="cms_label_type">Publication Type</label>
+                    <select id="doc-type" class="form-control">
+                      <option value="brief">Policy Brief</option>
+                      <option value="paper">Research Paper</option>
+                      <option value="article">Opinion Article</option>
+                      <option value="report">Report</option>
+                      <option value="analysis">Analysis</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="doc-pillar" data-i18n="cms_label_pillar">Topic Pillar</label>
+                    <select id="doc-pillar" class="form-control">
+                      <option value="heritage">Memory &amp; Heritage</option>
+                      <option value="diplomacy">Diplomacy &amp; Peace</option>
+                      <option value="governance">Governance &amp; Economy</option>
+                      <option value="youth">Youth &amp; Exchange</option>
+                      <option value="faith">Faith &amp; Advocacy</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                  <div class="form-group">
+                    <label for="doc-author-en" data-i18n="cms_label_author_en">Author (English)</label>
+                    <input type="text" id="doc-author-en" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="doc-author-ar" data-i18n="cms_label_author_ar">Author (Arabic)</label>
+                    <input type="text" id="doc-author-ar" class="form-control" required>
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                  <div class="form-group">
+                    <label for="doc-date-en" data-i18n="cms_label_date_en">Date (English)</label>
+                    <input type="text" id="doc-date-en" class="form-control" placeholder="e.g. June 2026" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="doc-date-ar" data-i18n="cms_label_date_ar">Date (Arabic)</label>
+                    <input type="text" id="doc-date-ar" class="form-control" placeholder="مثال: يونيو ٢٠٢٦" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="doc-abstract-en" data-i18n="cms_label_abstract_en">Abstract (English)</label>
+                  <textarea id="doc-abstract-en" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="doc-abstract-ar" data-i18n="cms_label_abstract_ar">Abstract (Arabic)</label>
+                  <textarea id="doc-abstract-ar" class="form-control" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="doc-body-en" data-i18n="cms_label_body_en">Main Body Content (English)</label>
+                  <textarea id="doc-body-en" class="form-control" rows="6" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="doc-body-ar" data-i18n="cms_label_body_ar">Main Body Content (Arabic)</label>
+                  <textarea id="doc-body-ar" class="form-control" rows="6" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="cms_btn_publish">Publish Document</button>
+              </form>
             </div>
 
-            <div class="dashboard-card" style="border-top-color: var(--color-amber);">
-              <h3 data-i18n="admin_ops_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">System Operations</h3>
-              <p style="font-size:0.875rem;" data-i18n="admin_ops_desc">Reset the dynamic local publications array to standard initialization values.</p>
-              <button class="btn btn-secondary" onclick="app.resetSystemDatabase()" style="width:100%; border-color:#E74C3C; color:#E74C3C;" data-i18n="admin_btn_reset">Reset Database</button>
+            <!-- Document Management deck -->
+            <div style="display:flex; flex-direction:column; gap: var(--space-32);">
+              <div class="dashboard-card">
+                <h3 data-i18n="admin_list_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">Active Documents</h3>
+                <div class="articles-list-wrapper" id="admin-articles-list">
+                  <!-- Dynamically rendered list with delete buttons -->
+                </div>
+              </div>
+
+              <div class="dashboard-card" style="border-top-color: var(--color-amber);">
+                <h3 data-i18n="admin_ops_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">System Operations</h3>
+                <p style="font-size:0.875rem;" data-i18n="admin_ops_desc">Reset the dynamic local publications array to standard initialization values.</p>
+                <button class="btn btn-secondary" onclick="app.resetSystemDatabase()" style="width:100%; border-color:#E74C3C; color:#E74C3C;" data-i18n="admin_btn_reset">Reset Database</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1594,14 +1538,13 @@
           <ul class="footer-links">
             <li><a href="#home" onclick="app.navigate('home')" data-i18n="nav_home">Home</a></li>
             <li><a href="#publications" onclick="app.navigate('publications')" data-i18n="nav_publications">Publications</a></li>
-            <li><a href="#admin" onclick="app.navigate('admin')" data-i18n="nav_admin">Admin Portal</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="footer-title" data-i18n="footer_title_contact">Contact</h4>
           <p style="font-size:0.9375rem; margin-bottom:var(--space-8);">Global Dialogue Civilization Initiative</p>
-          <p style="font-size:0.9375rem; margin-bottom:var(--space-8);">Email: <a href="mailto:design@gdci-world.org" style="color:var(--color-stone); text-decoration: underline;">design@gdci-world.org</a></p>
+          <p style="font-size:0.9375rem; margin-bottom:var(--space-8);">Email: <a href="mailto:contact@gdci-world.org" style="color:var(--color-stone); text-decoration: underline;">contact@gdci-world.org</a></p>
         </div>
       </div>
 
@@ -1643,7 +1586,6 @@
       en: {
         nav_home: "Home",
         nav_publications: "Publications",
-        nav_admin: "Admin Portal",
         
         hero_subtitle: "Global Dialogue Civilization Initiative | GDCI",
         hero_title: "Bridging the West & the Middle East.",
@@ -1737,7 +1679,6 @@
       ar: {
         nav_home: "الرئيسية",
         nav_publications: "الإصدارات",
-        nav_admin: "بوابة الإدارة",
         
         hero_subtitle: "مبادرة حوار الحضارات العالمي | GDCI",
         hero_title: "تجسير العلاقات بين الغرب والشرق الأوسط.",
@@ -1924,17 +1865,33 @@
         this.updateAdminUI();
       }
 
-      // Route handling logic
+      // Route handling logic (SPA View Swapper)
       handleRouting() {
         const hash = window.location.hash || '#home';
-        const route = hash.substring(1);
+        let route = hash.substring(1);
+        
+        // Handle standalone secure admin portal routing decoupling
+        if (route === 'admin-portal-secure-2026') {
+          const header = document.querySelector('.site-header');
+          const footer = document.querySelector('.site-footer');
+          if (header) header.style.display = 'none';
+          if (footer) footer.style.display = 'none';
+        } else {
+          const header = document.querySelector('.site-header');
+          const footer = document.querySelector('.site-footer');
+          if (header) header.style.display = 'flex';
+          if (footer) footer.style.display = 'block';
+        }
+
+        // Map secure admin view container ID
+        const targetViewId = route === 'admin-portal-secure-2026' ? 'view-admin' : `view-${route}`;
         
         // Hide all views, display active
         document.querySelectorAll('.spa-view').forEach(view => {
           view.classList.remove('active');
         });
         
-        const targetView = document.getElementById(`view-${route}`);
+        const targetView = document.getElementById(targetViewId);
         if (targetView) {
           targetView.classList.add('active');
           this.state.activeRoute = route;
@@ -2145,6 +2102,7 @@
         sessionStorage.removeItem('gdci_admin_logged');
         this.updateAdminUI();
         this.showToast("Signed out successfully!");
+        this.navigate('home'); // stand-alone redirect back to home page
       }
 
       updateAdminUI() {
