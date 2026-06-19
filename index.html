@@ -3,474 +3,2296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Global Dialogue Civilization Initiative (GDCI) is an independent think-tank and platform promoting research, dialogue, and collaboration across the world's civilizational traditions.">
-  
+  <meta name="description" content="Global Dialogue Civilization Initiative (GDCI) is an independent platform facilitating, supporting, researching, and advocating dialogue between the West (Global North) and the East (Middle East).">
   <title>Global Dialogue Civilization Initiative | GDCI</title>
   
-  <!-- CSS Stylesheets -->
-  <link rel="stylesheet" href="assets/css/style.css">
-  
-  <!-- Preconnect for performance -->
+  <!-- Typography & Performance Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Arabic:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Noto+Serif+Arabic:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap');
+
+    /* ==========================================================================
+       DESIGN SYSTEM & CSS VARIABLES
+       ========================================================================== */
+    :root {
+      /* Colors */
+      --color-navy: #0D2B40;
+      --color-navy-rgb: 13, 43, 64;
+      --color-teal: #1A6B6A;
+      --color-teal-rgb: 26, 107, 106;
+      --color-amber: #C4882A;
+      --color-stone: #FAF8F5;
+      --color-slate: #4B5E6B;
+      --color-white: #FFFFFF;
+      --color-black: #161A1D;
+      --color-border: #E2E8F0;
+      --color-light-gray: #F1F5F9;
+
+      /* Dynamic Typography overrides via LTR/RTL selectors */
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+      --font-utility: 'Inter', system-ui, sans-serif;
+
+      /* Spacing Scale */
+      --space-4: 4px;
+      --space-8: 8px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --space-48: 48px;
+      --space-64: 64px;
+      --space-96: 96px;
+
+      /* Component properties */
+      --border-radius: 6px;
+      --shadow-default: 0 4px 20px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.03);
+      --shadow-hover: 0 16px 36px rgba(13, 43, 64, 0.08), 0 4px 12px rgba(13, 43, 64, 0.04);
+      --shadow-nav: 0 2px 20px rgba(0, 0, 0, 0.04);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      --max-width: 1200px;
+    }
+
+    html[dir="rtl"] {
+      --font-display: 'Amiri', serif;
+      --font-body: 'Noto Serif Arabic', serif;
+      --font-utility: 'IBM Plex Arabic', sans-serif;
+    }
+
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-stone);
+      color: var(--color-slate);
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-navy);
+      font-family: var(--font-display);
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: var(--space-16);
+    }
+
+    h1 { font-size: 3rem; }
+    h2 { font-size: 2.25rem; }
+    h3 { font-size: 1.75rem; }
+    p { margin-bottom: var(--space-24); }
+    a { color: var(--color-teal); text-decoration: none; transition: var(--transition); }
+    a:hover { color: var(--color-navy); }
+
+    /* Layout helper components */
+    .container {
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--space-24);
+    }
+
+    .section-padding {
+      padding-block: var(--space-96);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: var(--space-12) var(--space-24);
+      border-radius: var(--border-radius);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-primary {
+      background-color: var(--color-teal);
+      color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-navy);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      border-color: var(--color-teal);
+      color: var(--color-teal);
+      background-color: transparent;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(26, 107, 106, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 72px;
+      z-index: 1000;
+      background-color: var(--color-white);
+      box-shadow: var(--shadow-nav);
+      display: flex;
+      align-items: center;
+    }
+
+    .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+      color: var(--color-navy);
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .nav-logo svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: var(--space-24);
+    }
+
+    .nav-link {
+      color: var(--color-slate);
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding-block: var(--space-8);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--color-teal);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--color-teal);
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border: 1px solid var(--color-border);
+      padding: var(--space-4) var(--space-12);
+      border-radius: 20px;
+    }
+
+    .lang-switcher span {
+      cursor: pointer;
+      opacity: 0.6;
+      transition: var(--transition);
+    }
+
+    .lang-switcher span:hover,
+    .lang-switcher span.active {
+      opacity: 1;
+      color: var(--color-teal);
+    }
+
+    /* Mobile Nav Toggle */
+    .mobile-nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--color-navy);
+      cursor: pointer;
+    }
+
+    /* Mobile Overlay */
+    .mobile-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: var(--color-white);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-32);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+    }
+
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-24);
+    }
+
+    .mobile-menu .nav-link {
+      font-size: 1.25rem;
+    }
+
+    /* ==========================================================================
+       SPA VIEWS FRAMEWORK
+       ========================================================================== */
+    .spa-view {
+      display: none;
+      animation: fadeIn 0.4s ease-out forwards;
+      margin-top: 72px; /* Header spacing */
+    }
+
+    .spa-view.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       HOME VIEW STYLING
+       ========================================================================== */
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background-color: var(--color-stone);
+      padding-block: var(--space-96) var(--space-64);
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50%;
+      height: 100%;
+      background-image: radial-gradient(var(--color-teal) 0.8px, transparent 0.8px);
+      background-size: 20px 20px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: var(--space-48);
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-utility);
+      color: var(--color-teal);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-16);
+      display: inline-block;
+    }
+
+    .display-xl {
+      font-size: 3.5rem;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-24);
+    }
+
+    .hero-tagline {
+      font-size: 1.25rem;
+      color: var(--color-slate);
+      margin-bottom: var(--space-32);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: var(--space-16);
+    }
+
+    .hero-svg-container {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-default);
+      padding: var(--space-24);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Who We Are & Vision */
+    .section-white {
+      background-color: var(--color-white);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin-inline: auto;
+      margin-bottom: var(--space-64);
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      position: relative;
+      padding-bottom: var(--space-16);
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: var(--color-amber);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-48);
+      align-items: center;
+    }
+
+    .quote-box {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      line-height: 1.4;
+      font-style: italic;
+      color: var(--color-teal);
+      border-inline-start: 4px solid var(--color-amber);
+      padding-inline-start: var(--space-24);
+      margin-block: var(--space-32);
+    }
+
+    /* Strategic Pillars Grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-24);
+    }
+
+    .pillar-card {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      padding: var(--space-32) var(--space-24);
+      box-shadow: var(--shadow-default);
+      transition: var(--transition);
+      border-top: 4px solid transparent;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+    }
+
+    .pillar-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+
+    .pillar-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-white);
+    }
+
+    .pillar-card.p-1 { border-top-color: var(--color-amber); }
+    .pillar-card.p-1 .pillar-card-icon { background-color: var(--color-amber); }
+    .pillar-card.p-2 { border-top-color: var(--color-teal); }
+    .pillar-card.p-2 .pillar-card-icon { background-color: var(--color-teal); }
+    .pillar-card.p-3 { border-top-color: var(--color-navy); }
+    .pillar-card.p-3 .pillar-card-icon { background-color: var(--color-navy); }
+    .pillar-card.p-4 { border-top-color: #2E7D5E; }
+    .pillar-card.p-4 .pillar-card-icon { background-color: #2E7D5E; }
+    .pillar-card.p-5 { border-top-color: #2A6099; }
+    .pillar-card.p-5 .pillar-card-icon { background-color: #2A6099; }
+
+    .pillar-card h3 {
+      font-size: 1.25rem;
+      margin: 0;
+    }
+
+    .pillar-card p {
+      font-size: 0.9375rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    /* Conference History Timeline */
+    .timeline-container {
+      position: relative;
+      max-width: 900px;
+      margin-inline: auto;
+      margin-top: var(--space-48);
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background-color: var(--color-border);
+    }
+
+    html[dir="rtl"] .timeline-container::before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: var(--space-24) var(--space-48);
+      margin-bottom: var(--space-32);
+      box-sizing: border-box;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      top: 36px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background-color: var(--color-white);
+      border: 3px solid var(--color-teal);
+      z-index: 1;
+    }
+
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item.left::after {
+      right: -8px;
+    }
+
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+
+    .timeline-item.right::after {
+      left: -8px;
+    }
+
+    html[dir="rtl"] .timeline-item.left {
+      left: 50%;
+      text-align: left;
+    }
+
+    html[dir="rtl"] .timeline-item.left::after {
+      left: -8px;
+      right: auto;
+    }
+
+    html[dir="rtl"] .timeline-item.right {
+      left: 0;
+      text-align: right;
+    }
+
+    html[dir="rtl"] .timeline-item.right::after {
+      right: -8px;
+      left: auto;
+    }
+
+    .timeline-card {
+      background-color: var(--color-white);
+      padding: var(--space-24);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-default);
+      transition: var(--transition);
+      border-top: 3px solid var(--color-teal);
+    }
+
+    .timeline-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .timeline-date {
+      display: inline-block;
+      font-family: var(--font-utility);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-teal);
+      background-color: rgba(26, 107, 106, 0.08);
+      padding: var(--space-4) var(--space-12);
+      border-radius: 20px;
+      margin-bottom: var(--space-12);
+    }
+
+    .timeline-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-8);
+    }
+
+    .timeline-card p {
+      font-size: 0.9375rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    /* ==========================================================================
+       PUBLICATIONS VIEW STYLING
+       ========================================================================== */
+    .search-filter-section {
+      background-color: var(--color-white);
+      border-bottom: 1px solid var(--color-border);
+      padding-block: var(--space-32);
+    }
+
+    .pub-controls {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-24);
+    }
+
+    .search-bar-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: var(--space-16) var(--space-24);
+      padding-inline-start: var(--space-48);
+      font-family: var(--font-utility);
+      font-size: 0.9375rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      background-color: var(--color-stone);
+      transition: var(--transition);
+      color: var(--color-navy);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--color-teal);
+      background-color: var(--color-white);
+      box-shadow: 0 0 0 4px rgba(26, 107, 106, 0.08);
+    }
+
+    .search-icon-svg {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      inset-inline-start: var(--space-16);
+      width: 20px;
+      height: 20px;
+      color: var(--color-slate);
+      pointer-events: none;
+    }
+
+    .filters-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-12);
+      align-items: center;
+    }
+
+    .filter-label {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-navy);
+      margin-inline-end: var(--space-8);
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+    }
+
+    .filter-chip {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: var(--space-8) var(--space-16);
+      background-color: var(--color-light-gray);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--color-slate);
+      transition: var(--transition);
+    }
+
+    .filter-chip:hover,
+    .filter-chip.active {
+      background-color: var(--color-teal);
+      border-color: var(--color-teal);
+      color: var(--color-white);
+    }
+
+    /* Publications Grid */
+    .publications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: var(--space-32);
+      padding-block: var(--space-48);
+    }
+
+    .pub-card {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-default);
+      padding: var(--space-32);
+      display: flex;
+      flex-direction: column;
+      border-inline-start: 4px solid var(--color-teal);
+      transition: var(--transition);
+    }
+
+    .pub-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-4px);
+    }
+
+    .pub-meta-top {
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+      margin-bottom: var(--space-16);
+    }
+
+    .pub-type-tag {
+      font-family: var(--font-utility);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      background-color: rgba(26, 107, 106, 0.08);
+      color: var(--color-teal);
+      padding: var(--space-4) var(--space-12);
+      border-radius: 4px;
+    }
+
+    .pub-date-tag {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      color: var(--color-slate);
+      opacity: 0.8;
+    }
+
+    .pub-card h3 {
+      font-size: 1.375rem;
+      margin-bottom: var(--space-12);
+      line-height: 1.3;
+    }
+
+    .pub-author-tag {
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-navy);
+      margin-bottom: var(--space-16);
+    }
+
+    .pub-abstract {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--color-slate);
+      opacity: 0.95;
+      margin-bottom: var(--space-24);
+      flex-grow: 1;
+    }
+
+    .pub-card-link {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-teal);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-4);
+      cursor: pointer;
+      margin-top: auto;
+    }
+
+    .pub-card-link:hover {
+      color: var(--color-navy);
+    }
+
+    /* Modal Viewer */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(13, 43, 64, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-24);
+    }
+
+    .modal-container {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-hover);
+      width: 100%;
+      max-width: 760px;
+      max-height: 80vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      animation: modalSlide 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    @keyframes modalSlide {
+      from { opacity: 0; transform: scale(0.95) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-header {
+      padding: var(--space-32) var(--space-32) var(--space-16) var(--space-32);
+      border-bottom: 1px solid var(--color-border);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: var(--space-24);
+      inset-inline-end: var(--space-32);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-slate);
+      transition: var(--transition);
+    }
+
+    .modal-close-btn:hover {
+      color: var(--color-black);
+    }
+
+    .modal-body {
+      padding: var(--space-32);
+      overflow-y: auto;
+    }
+
+    .modal-body h2 {
+      font-size: 2rem;
+      margin-bottom: var(--space-16);
+    }
+
+    .modal-content-text {
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      color: var(--color-navy);
+      opacity: 0.95;
+    }
+
+    .modal-content-text p {
+      margin-bottom: var(--space-24);
+    }
+
+    /* ==========================================================================
+       ADMIN SECURE VIEW STYLING
+       ========================================================================== */
+    .admin-container {
+      max-width: 500px;
+      margin-inline: auto;
+      padding-block: var(--space-96);
+    }
+
+    .admin-card {
+      background-color: var(--color-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-hover);
+      padding: var(--space-48) var(--space-40);
+      border-top: 4px solid var(--color-amber);
+    }
+
+    .admin-card h2 {
+      font-size: 1.75rem;
+      text-align: center;
+      margin-bottom: var(--space-32);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-8);
+      margin-bottom: var(--space-24);
+    }
+
+    .form-group label {
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--color-navy);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: var(--space-12) var(--space-16);
+      font-family: var(--font-utility);
+      font-size: 0.9375rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+      background-color: var(--color-stone);
+      transition: var(--transition);
+      color: var(--color-navy);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-teal);
+      background-color: var(--color-white);
+      box-shadow: 0 0 0 4px rgba(26, 107, 106, 0.08);
+    }
+
+    .form-error {
+      color: var(--color-error, #C0392B);
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      margin-bottom: var(--space-16);
+      display: none;
+    }
+
+    /* Admin Dashboard Panel */
+    .admin-dashboard-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: var(--space-48);
+      padding-block: var(--space-48);
+    }
+
+    .dashboard-card {
+      background-color: var(--color-white);
+      padding: var(--space-40);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-default);
+      border-top: 4px solid var(--color-teal);
+    }
+
+    .dashboard-header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: var(--space-16);
+      margin-bottom: var(--space-32);
+    }
+
+    .dashboard-header-flex h2 {
+      margin: 0;
+    }
+
+    .articles-list-wrapper {
+      max-height: 480px;
+      overflow-y: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius);
+    }
+
+    .article-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-16) var(--space-24);
+      border-bottom: 1px solid var(--color-border);
+      background-color: var(--color-white);
+    }
+
+    .article-item-row:last-child {
+      border-bottom: none;
+    }
+
+    .article-item-title {
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-navy);
+    }
+
+    .article-item-meta {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: var(--space-4);
+    }
+
+    .delete-btn-svg {
+      background: none;
+      border: none;
+      color: #E74C3C;
+      cursor: pointer;
+      padding: var(--space-8);
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+
+    .delete-btn-svg:hover {
+      background-color: #FDEDEC;
+    }
+
+    /* ==========================================================================
+       FOOTER STYLING
+       ========================================================================== */
+    .site-footer {
+      background-color: var(--color-navy);
+      color: var(--color-stone);
+      padding-block: var(--space-64) var(--space-32);
+      margin-top: auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: var(--space-48);
+      margin-bottom: var(--space-48);
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+    }
+
+    .footer-brand svg {
+      width: 48px;
+      height: 48px;
+      fill: var(--color-stone);
+    }
+
+    .footer-brand p {
+      font-size: 0.9375rem;
+      opacity: 0.8;
+    }
+
+    .footer-title {
+      color: var(--color-white);
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-24);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+
+    .footer-links a {
+      color: var(--color-stone);
+      opacity: 0.8;
+      font-size: 0.9375rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--color-amber);
+      opacity: 1;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: var(--space-32);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8125rem;
+      opacity: 0.7;
+    }
+
+    /* Tooltip / Toast */
+    .copy-tooltip {
+      position: fixed;
+      bottom: var(--space-32);
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background-color: var(--color-navy);
+      color: var(--color-white);
+      padding: var(--space-12) var(--space-24);
+      border-radius: var(--border-radius);
+      font-family: var(--font-utility);
+      font-size: 0.875rem;
+      box-shadow: var(--shadow-hover);
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      z-index: 3000;
+    }
+
+    .copy-tooltip.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ==========================================================================
+       MEDIA QUERIES (Responsive layout)
+       ========================================================================== */
+    @media (max-width: 991px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-svg-container {
+        display: none;
+      }
+
+      .intro-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-32);
+      }
+
+      .timeline-container::before {
+        left: var(--space-24);
+      }
+
+      .timeline-item {
+        width: 100%;
+        left: 0 !important;
+        text-align: left !important;
+        padding: var(--space-16) var(--space-24) var(--space-16) var(--space-48);
+      }
+
+      .timeline-item::after {
+        left: 16px !important;
+        right: auto !important;
+      }
+
+      html[dir="rtl"] .timeline-item {
+        text-align: right !important;
+        padding: var(--space-16) var(--space-48) var(--space-16) var(--space-24);
+      }
+
+      html[dir="rtl"] .timeline-item::after {
+        right: 16px !important;
+        left: auto !important;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-32);
+      }
+
+      .admin-dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .nav-menu {
+        display: none;
+      }
+
+      .mobile-nav-toggle {
+        display: block;
+      }
+
+      .display-xl {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <!-- ==========================================================================
-       HEADER & NAVIGATION
+       SITE HEADER & NAVIGATION
        ========================================================================== -->
   <header class="site-header scrolled">
     <div class="container header-container">
-      <a href="index.html" class="nav-logo" aria-label="GDCI Home">
-        <!-- Inline SVG Logo for optimal LCP performance -->
-        <svg viewBox="0 0 200 200" width="40" height="40" aria-hidden="true" style="fill: var(--color-teal);">
-          <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round" />
-          <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="#0D2B40" stroke-width="6" fill="none" stroke-linecap="round" />
-          <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round" />
-          <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="#1A6B6A" stroke-width="8" fill="none" stroke-linecap="round" />
-          <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round" />
-          <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="#C4882A" stroke-width="7" fill="none" stroke-linecap="round" />
+      <a href="#home" class="nav-logo" aria-label="GDCI Home">
+        <!-- SVG Emblem (Unified Logo) -->
+        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="#0D2B40" stroke-width="6" stroke-linecap="round" />
+          <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="#0D2B40" stroke-width="6" stroke-linecap="round" />
+          <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="#1A6B6A" stroke-width="8" stroke-linecap="round" />
+          <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="#1A6B6A" stroke-width="8" stroke-linecap="round" />
+          <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="#C4882A" stroke-width="7" stroke-linecap="round" />
+          <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="#C4882A" stroke-width="7" stroke-linecap="round" />
           <line x1="30" y1="150" x2="170" y2="150" stroke="#C4882A" stroke-width="2.5" opacity="0.5" />
         </svg>
         <span>GDCI</span>
       </a>
 
+      <!-- Desktop Nav -->
       <nav aria-label="Main Navigation">
         <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link active">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="research.html" class="nav-link">Research</a></li>
-          <li><a href="publications.html" class="nav-link">Publications</a></li>
-          <li><a href="dialogue.html" class="nav-link">Dialogue</a></li>
-          <li><a href="people.html" class="nav-link">People</a></li>
-          <li><a href="engage.html" class="nav-link">Engage</a></li>
-          <li><a href="brandkit.html" class="nav-link">Brand Kit</a></li>
+          <li><a href="#home" class="nav-link active" data-i18n="nav_home">Home</a></li>
+          <li><a href="#publications" class="nav-link" data-i18n="nav_publications">Publications</a></li>
+          <li><a href="#admin" class="nav-link" data-i18n="nav_admin" style="color: var(--color-amber); font-weight: 700;">Admin Portal</a></li>
           <li>
-            <div class="lang-switcher" role="navigation" aria-label="Language switch">
-              <a href="#" data-lang="en" class="active" aria-label="English Language">EN</a>
-              <span>|</span>
-              <a href="#" data-lang="ar" aria-label="Arabic Language">AR</a>
+            <div class="lang-switcher">
+              <span id="lang-en" class="active" onclick="app.setLanguage('en')">EN</span>
+              <span style="opacity: 0.4;">|</span>
+              <span id="lang-ar" onclick="app.setLanguage('ar')">AR</span>
             </div>
           </li>
         </ul>
       </nav>
 
-      <button class="mobile-nav-toggle" aria-expanded="false" aria-controls="mobile-overlay" aria-label="Toggle navigation menu">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+      <!-- Hamburger toggle (mobile) -->
+      <button class="mobile-nav-toggle" aria-expanded="false" aria-label="Toggle navigation menu" onclick="app.toggleMobileMenu()">
+        <svg id="hamburger-svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
         </svg>
       </button>
     </div>
   </header>
 
-  <!-- Mobile Menu Overlay -->
+  <!-- Mobile Overlay Menu -->
   <div id="mobile-overlay" class="mobile-overlay" aria-hidden="true">
     <ul class="mobile-menu">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="publications.html">Publications</a></li>
-      <li><a href="dialogue.html">Dialogue</a></li>
-      <li><a href="people.html">People</a></li>
-      <li><a href="engage.html">Engage</a></li>
-      <li><a href="brandkit.html">Brand Kit</a></li>
+      <li><a href="#home" class="nav-link active" onclick="app.toggleMobileMenu()" data-i18n="nav_home">Home</a></li>
+      <li><a href="#publications" class="nav-link" onclick="app.toggleMobileMenu()" data-i18n="nav_publications">Publications</a></li>
+      <li><a href="#admin" class="nav-link" onclick="app.toggleMobileMenu()" data-i18n="nav_admin" style="color: var(--color-amber); font-weight: 700;">Admin Portal</a></li>
     </ul>
-    <div class="mobile-lang">
-      <a href="#" data-lang="en" class="active">English</a>
-      <span>|</span>
-      <a href="#" data-lang="ar">العربية</a>
+    <div class="lang-switcher" style="margin-top: var(--space-24);">
+      <span id="mobile-lang-en" class="active" onclick="app.setLanguage('en'); app.toggleMobileMenu()">English</span>
+      <span style="opacity: 0.4;">|</span>
+      <span id="mobile-lang-ar" onclick="app.setLanguage('ar'); app.toggleMobileMenu()">العربية</span>
     </div>
   </div>
 
-  <!-- ==========================================================================
-       MAIN CONTENT AREA
-       ========================================================================== -->
   <main>
-    
-    <!-- Hero Section -->
-    <section class="hero" aria-label="Introduction">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <span class="hero-subtitle">Global Dialogue Civilization Initiative | GDCI</span>
-          <h1 class="display-xl">Bridging the West &amp; the Middle East.</h1>
-          <p class="hero-tagline">An independent initiative facilitating, supporting, researching, and advocating constructive dialogue and strategic collaboration between the Global North and the Middle East.</p>
-          <div class="hero-actions">
-            <a href="publications.html" class="btn btn-primary">Explore Publications</a>
-            <a href="about.html" class="btn btn-secondary">About GDCI</a>
+    <!-- ==========================================================================
+         HOME VIEW (#home)
+         ========================================================================== -->
+    <section id="view-home" class="spa-view active">
+      <!-- Hero -->
+      <div class="hero">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <span class="hero-subtitle" data-i18n="hero_subtitle">Global Dialogue Civilization Initiative</span>
+            <h1 class="display-xl" data-i18n="hero_title">Bridging the West &amp; the Middle East.</h1>
+            <p class="hero-tagline" data-i18n="hero_tagline">An independent initiative facilitating, supporting, researching, and advocating constructive dialogue and strategic collaboration between the Global North and the Middle East.</p>
+            <div class="hero-actions">
+              <a href="#publications" class="btn btn-primary" data-i18n="hero_cta_pub">Explore Publications</a>
+              <a href="#publications" class="btn btn-secondary" onclick="app.scrollToSection('who-we-are')" data-i18n="hero_cta_about">About GDCI</a>
+            </div>
+          </div>
+          <div class="hero-svg-container" aria-hidden="true">
+            <svg viewBox="0 0 400 400" width="100%" height="100%">
+              <circle cx="200" cy="200" r="160" fill="none" stroke="var(--color-light-gray)" stroke-width="2"/>
+              <circle cx="200" cy="200" r="120" fill="none" stroke="var(--color-teal)" stroke-dasharray="6 6" opacity="0.3"/>
+              <circle cx="200" cy="200" r="80" fill="none" stroke="var(--color-amber)" stroke-width="1.5" opacity="0.5"/>
+              <path d="M100 200 C 140 100, 260 100, 300 200" fill="none" stroke="var(--color-navy)" stroke-width="3" stroke-linecap="round"/>
+              <path d="M100 200 C 140 300, 260 300, 300 200" fill="none" stroke="var(--color-teal)" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="200" cy="200" r="8" fill="var(--color-amber)"/>
+            </svg>
           </div>
         </div>
-        
-        <div class="hero-image-container" aria-hidden="true">
-          <!-- Stylized abstract graphical representation representing civilizational overlap -->
-          <svg viewBox="0 0 400 500" width="100%" height="100%" style="background-color: var(--color-white); border-radius: var(--border-radius);">
-            <!-- Mesh geometric overlay pattern -->
-            <g fill="none" stroke="var(--color-light-teal)" stroke-width="1.5" opacity="0.6">
-              <circle cx="200" cy="250" r="180" />
-              <circle cx="200" cy="250" r="140" />
-              <circle cx="200" cy="250" r="100" stroke="var(--color-teal)" stroke-dasharray="4 4" />
-              <circle cx="200" cy="250" r="60" />
-            </g>
-            <g fill="none" stroke="var(--color-amber)" stroke-width="2" opacity="0.4">
-              <!-- Radial Lines (Pattern A) -->
-              <line x1="20" y1="250" x2="380" y2="250" />
-              <line x1="200" y1="70" x2="200" y2="430" />
-              <line x1="72" y1="122" x2="328" y2="378" />
-              <line x1="72" y1="378" x2="328" y2="122" />
-            </g>
+      </div>
+
+      <!-- Who We Are -->
+      <div id="who-we-are" class="section-white section-padding">
+        <div class="container">
+          <div class="intro-grid">
+            <div>
+              <h2 class="section-title" style="text-align: start;" data-i18n="who_title">Who We Are</h2>
+              <p style="margin-top: var(--space-32);" data-i18n="who_text_1">The Global Dialogue Civilization Initiative (GDCI) operates as a premium cross-disciplinary platform and think-tank. We address deep intellectual divides by structuring systemic, peer-to-peer mediation and collaborative programs.</p>
+              <p data-i18n="who_text_2">Our active community brings together academics, senior policy researchers, youth leaders, religious scholars, and legal advocates. By convening these diverse sectors, we move beyond simple conversations to design viable policy tracks and educational frameworks.</p>
+            </div>
+            <div>
+              <div class="quote-box" data-i18n="who_quote">
+                "Dialogue is not the search for compromise; it is the difficult art of understanding another civilization on its own terms."
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vision & Mission -->
+      <div class="section-padding">
+        <div class="container text-center">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="vision_title">Vision &amp; Mission</h2>
+            <p style="margin-top: var(--space-24);" data-i18n="vision_subtitle">To replace historical frameworks of conflict with rigorous academic inquiry and long-horizon cultural architectures.</p>
+          </div>
+          <div style="max-width: 800px; margin-inline: auto;">
+            <p data-i18n="vision_body_1">In an age characterized by media-driven polarization, echo chambers, and transient geopolitical alignments, GDCI focuses on structural dialogue. We believe that sustainable cooperation between the Global North and the Middle East requires intellectual gravitas and pluriversal validation.</p>
+            <p data-i18n="vision_body_2">We build pathways for joint historical research, economic model integrations, multi-faith councils, and youth fellowship programs, ensuring that future policy is guided by depth, mutual respect, and tolerance.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strategic Pillars -->
+      <div class="section-white section-padding">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="pillars_title">Strategic Pillars</h2>
+            <p style="margin-top: var(--space-24);" data-i18n="pillars_subtitle">Convene networks and research initiatives across five strategic focal areas.</p>
+          </div>
+          <div class="pillars-grid">
+            <!-- Pillar 1 -->
+            <div class="pillar-card p-1">
+              <div class="pillar-card-icon">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z M5.89 12.57L12 15.9l6.11-3.33c-.41.83-1.28 1.43-2.3 1.43H8.19c-1.02 0-1.89-.6-2.3-1.43z"/></svg>
+              </div>
+              <h3 data-i18n="pillar_1_title">Memory &amp; Heritage</h3>
+              <p data-i18n="pillar_1_desc">Researching joint historical collaborative spaces, translation movements, and preserving shared manuscript traditions.</p>
+            </div>
+            <!-- Pillar 2 -->
+            <div class="pillar-card p-2">
+              <div class="pillar-card-icon">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z"/></svg>
+              </div>
+              <h3 data-i18n="pillar_2_title">Diplomacy &amp; Peace</h3>
+              <p data-i18n="pillar_2_desc">Structuring mediation mechanisms, track-two diplomacy formats, and regional trust-building initiatives.</p>
+            </div>
+            <!-- Pillar 3 -->
+            <div class="pillar-card p-3">
+              <div class="pillar-card-icon">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              </div>
+              <h3 data-i18n="pillar_3_title">Governance &amp; Economy</h3>
+              <p data-i18n="pillar_3_desc">Analyzing multipolar regulatory structures, trade integrations, and Euro-Mediterranean corridor policies.</p>
+            </div>
+            <!-- Pillar 4 -->
+            <div class="pillar-card p-4">
+              <div class="pillar-card-icon">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              </div>
+              <h3 data-i18n="pillar_4_title">Youth &amp; Exchange</h3>
+              <p data-i18n="pillar_4_desc">Fostering university linkage systems, collaborative leadership networks, and future policymaker initiatives.</p>
+            </div>
+            <!-- Pillar 5 -->
+            <div class="pillar-card p-5">
+              <div class="pillar-card-icon">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+              </div>
+              <h3 data-i18n="pillar_5_title">Faith &amp; Advocacy</h3>
+              <p data-i18n="pillar_5_desc">Countering civilizational stereotypes, promoting legal advocacy, and nurturing social tolerance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conference History -->
+      <div class="section-padding">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="conf_title">Verified Conference Engagements</h2>
+            <p style="margin-top: var(--space-24);" data-i18n="conf_subtitle">Key international forums and high-level collaborative tables held over the last three years (2024–2026).</p>
+          </div>
+          
+          <div class="timeline-container">
+            <!-- Event 1 -->
+            <div class="timeline-item left">
+              <div class="timeline-card">
+                <span class="timeline-date" data-i18n="conf_1_date">Rabat, Morocco • 2026</span>
+                <h3 data-i18n="conf_1_title">Paris Peace Forum Spring Meeting</h3>
+                <p data-i18n="conf_1_desc">Convened youth leaders and researchers to establish structured frameworks for cross-continental climate resilience and green technology collaborations.</p>
+              </div>
+            </div>
+            <!-- Event 2 -->
+            <div class="timeline-item right">
+              <div class="timeline-card">
+                <span class="timeline-date" data-i18n="conf_2_date">Abu Dhabi, UAE • 2026</span>
+                <h3 data-i18n="conf_2_title">Civilizations &amp; Tolerance Forum</h3>
+                <p data-i18n="conf_2_desc">Led panels evaluating media representation and cross-cultural discourse styles to combat modern polarization and media bias.</p>
+              </div>
+            </div>
+            <!-- Event 3 -->
+            <div class="timeline-item left">
+              <div class="timeline-card">
+                <span class="timeline-date" data-i18n="conf_3_date">Doha, Qatar • 2025</span>
+                <h3 data-i18n="conf_3_title">The Doha Forum</h3>
+                <p data-i18n="conf_3_desc">Hosted closed roundtables exploring foundational values in governance systems, matching Western human rights concepts with Middle Eastern traditions.</p>
+              </div>
+            </div>
+            <!-- Event 4 -->
+            <div class="timeline-item right">
+              <div class="timeline-card">
+                <span class="timeline-date" data-i18n="conf_4_date">Manama, Bahrain • 2025</span>
+                <h3 data-i18n="conf_4_title">IISS Manama Dialogue</h3>
+                <p data-i18n="conf_4_desc">Contributed strategic research addressing collaborative regional security architectures and multilateral trust-building paths.</p>
+              </div>
+            </div>
+            <!-- Event 5 -->
+            <div class="timeline-item left">
+              <div class="timeline-card">
+                <span class="timeline-date" data-i18n="conf_5_date">Rome, Italy • 2024</span>
+                <h3 data-i18n="conf_5_title">Rome MED - Mediterranean Dialogues</h3>
+                <p data-i18n="conf_5_desc">Delivered working papers exploring shared migratory corridors and commercial integrations bridging the EU and the Middle East.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         PUBLICATIONS VIEW (#publications)
+         ========================================================================== -->
+    <section id="view-publications" class="spa-view">
+      <!-- Search & Filters -->
+      <div class="search-filter-section">
+        <div class="container pub-controls">
+          <div class="search-bar-wrapper">
+            <svg class="search-icon-svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input type="text" id="pub-search" class="search-input" placeholder="Search title, abstract, or author..." oninput="app.handleSearch(this.value)">
+          </div>
+
+          <div class="filters-wrapper">
+            <span class="filter-label" data-i18n="filter_by_type">Filter by Type:</span>
+            <div class="chip-group" id="type-chips">
+              <span class="filter-chip active" onclick="app.setTypeFilter('all')" data-i18n="chip_all">All</span>
+              <span class="filter-chip" onclick="app.setTypeFilter('brief')" data-i18n="chip_brief">Policy Briefs</span>
+              <span class="filter-chip" onclick="app.setTypeFilter('paper')" data-i18n="chip_paper">Research Papers</span>
+              <span class="filter-chip" onclick="app.setTypeFilter('article')" data-i18n="chip_article">Opinion Articles</span>
+              <span class="filter-chip" onclick="app.setTypeFilter('report')" data-i18n="chip_report">Reports</span>
+              <span class="filter-chip" onclick="app.setTypeFilter('analysis')" data-i18n="chip_analysis">Analysis</span>
+            </div>
+          </div>
+
+          <div class="filters-wrapper">
+            <span class="filter-label" data-i18n="filter_by_pillar">Filter by Pillar:</span>
+            <div class="chip-group" id="pillar-chips">
+              <span class="filter-chip active" onclick="app.setPillarFilter('all')" data-i18n="chip_all">All</span>
+              <span class="filter-chip" onclick="app.setPillarFilter('heritage')" data-i18n="pillar_1_title">Memory &amp; Heritage</span>
+              <span class="filter-chip" onclick="app.setPillarFilter('diplomacy')" data-i18n="pillar_2_title">Diplomacy &amp; Peace</span>
+              <span class="filter-chip" onclick="app.setPillarFilter('governance')" data-i18n="pillar_3_title">Governance &amp; Economy</span>
+              <span class="filter-chip" onclick="app.setPillarFilter('youth')" data-i18n="pillar_4_title">Youth &amp; Exchange</span>
+              <span class="filter-chip" onclick="app.setPillarFilter('faith')" data-i18n="pillar_5_title">Faith &amp; Advocacy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Public Publications Directory List -->
+      <div class="container">
+        <div class="publications-grid" id="pub-grid">
+          <!-- Dynamically Rendered Card Grid -->
+        </div>
+        <div id="pub-no-results" style="display: none; text-align: center; padding-block: var(--space-64);">
+          <h3 data-i18n="pub_no_results">No publications found matching your query.</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ADMIN SECURE LOGIN & CMS VIEW (#admin)
+         ========================================================================== -->
+    <section id="view-admin" class="spa-view">
+      <!-- Login Interface -->
+      <div class="container" id="admin-login-view" style="display: block;">
+        <div class="admin-container">
+          <div class="admin-card">
+            <h2 data-i18n="admin_login_title">Admin Portal Access</h2>
+            <div class="form-error" id="login-error" data-i18n="admin_error_msg">Invalid username or password. Please try again.</div>
+            <form id="admin-login-form" onsubmit="app.handleLogin(event)">
+              <div class="form-group">
+                <label for="username" data-i18n="admin_label_user">Username</label>
+                <input type="text" id="username" class="form-control" required autocomplete="username">
+              </div>
+              <div class="form-group">
+                <label for="password" data-i18n="admin_label_pass">Password</label>
+                <input type="password" id="password" class="form-control" required autocomplete="current-password">
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="admin_btn_login">Sign In</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Management Form & Dashboard -->
+      <div class="container" id="admin-dashboard-view" style="display: none;">
+        <div class="admin-dashboard-layout">
+          <!-- Article Creation Form -->
+          <div class="dashboard-card">
+            <div class="dashboard-header-flex">
+              <h2 data-i18n="admin_dash_title">Publish New Document</h2>
+              <button class="btn btn-secondary" onclick="app.handleLogout()" data-i18n="admin_btn_logout">Sign Out</button>
+            </div>
             
-            <!-- Centered Convergent Arch Emblem -->
-            <g transform="translate(100, 125) scale(1.0)">
-              <svg viewBox="0 0 200 200" width="200" height="200" style="overflow: visible;">
-                <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="var(--color-navy)" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="var(--color-navy)" stroke-width="4.5" fill="none" stroke-linecap="round" />
-                <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="var(--color-teal)" stroke-width="6.5" fill="none" stroke-linecap="round" />
-                <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="var(--color-teal)" stroke-width="6.5" fill="none" stroke-linecap="round" />
-                <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round" />
-                <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="var(--color-amber)" stroke-width="5" fill="none" stroke-linecap="round" />
-                <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2" />
-              </svg>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- Thematic Pillars Section -->
-    <section class="pillars-strip section-padding" aria-labelledby="pillars-title">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="pillars-title" class="section-title text-white">Our Strategic Dialogue Pillars</h2>
-          <p class="text-white" style="opacity: 0.9; max-width: 800px; margin: 0 auto;">GDCI convenes academics, researchers, youth leaders, religious figures, and policy advocates to bridge the Global North (West) and the Middle East (East) across five critical areas of focus.</p>
-        </div>
-        
-        <div class="pillars-grid">
-          <!-- Pillar 1 -->
-          <article class="pillar-card pillar-card-1">
-            <div class="pillar-card-icon">
-              <!-- Outline Book / Manuscript icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-              </svg>
-            </div>
-            <h3 class="pillar-card-title">Memory &amp; Heritage</h3>
-            <p class="pillar-card-desc">Investigating historical civilizational encounters and manuscript traditions between the West and the Middle East to cultivate mutual appreciation.</p>
-          </article>
-          
-          <!-- Pillar 2 -->
-          <article class="pillar-card pillar-card-2">
-            <div class="pillar-card-icon">
-              <!-- Outline Peace / Converging paths icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 2L2 22" />
-                <path d="M2 2l20 20" />
-                <circle cx="12" cy="12" r="4" fill="var(--color-stone)" />
-              </svg>
-            </div>
-            <h3 class="pillar-card-title">Diplomacy &amp; Peace</h3>
-            <p class="pillar-card-desc">Engaging researchers and advocates in studying dialogue pathways, peace-building, and conflict resolution between the West and the Middle East.</p>
-          </article>
-          
-          <!-- Pillar 3 -->
-          <article class="pillar-card pillar-card-3">
-            <div class="pillar-card-icon">
-              <!-- Outline Balance / Governance icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="2" x2="12" y2="22" />
-                <line x1="5" y1="7" x2="19" y2="7" />
-                <path d="M19 7c0 5-2 9-7 9s-7-4-7-9" />
-              </svg>
-            </div>
-            <h3 class="pillar-card-title">Governance &amp; Economy</h3>
-            <p class="pillar-card-desc">Examining structures of political governance and economic relations between the Global North and Middle Eastern nations in a multipolar world.</p>
-          </article>
-          
-          <!-- Pillar 4 -->
-          <article class="pillar-card pillar-card-4">
-            <div class="pillar-card-icon">
-              <!-- Outline Exchange / Education icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-                <path d="M6 12v5c0 2 2.7 3 6 3s6-1 6-3v-5" />
-              </svg>
-            </div>
-            <h3 class="pillar-card-title">Youth &amp; Exchange</h3>
-            <p class="pillar-card-desc">Fostering educational initiatives and exchange programs to connect youth leaders and students from Western and Middle Eastern universities.</p>
-          </article>
-          
-          <!-- Pillar 5 -->
-          <article class="pillar-card pillar-card-5">
-            <div class="pillar-card-icon">
-              <!-- Outline Globe / Environment icon -->
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                <path d="M2 12h20" />
-              </svg>
-            </div>
-            <h3 class="pillar-card-title">Faith &amp; Advocacy</h3>
-            <p class="pillar-card-desc">Convening religious figures and community advocates to counter misconceptions, promote tolerance, and address shared social issues.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Latest Research Section -->
-    <section class="section-padding" aria-labelledby="research-title">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="research-title" class="section-title">Latest Publications</h2>
-          <p>Read recently published policy briefs, working papers, and essays by our fellows and contributing scholars on West-East relations.</p>
-        </div>
-
-        <div class="card-grid">
-          <!-- Research Card 1 (Pillar 1) -->
-          <article class="card pillar-card-1">
-            <div class="card-content">
-              <span class="card-tag pillar-tag-1">Memory &amp; Heritage</span>
-              <h3 class="card-title h4"><a href="publications.html">Echoes of Al-Andalus: Fostering Mediterranean Understanding</a></h3>
-              <div class="card-meta">
-                <span>Research Paper</span>
-                <span>•</span>
-                <span>June 2026</span>
+            <form id="cms-publish-form" onsubmit="app.handlePublish(event)">
+              <div class="form-group">
+                <label for="doc-title-en" data-i18n="cms_label_title_en">Title (English)</label>
+                <input type="text" id="doc-title-en" class="form-control" required>
               </div>
-              <p class="card-abstract">An exploration of historical collaborative spaces in medieval Europe and the Middle East, offering a conceptual blueprint for modern diplomatic dialogue.</p>
-              <a href="publications.html" class="card-link pillar-tag-1">Read Publication →</a>
-            </div>
-          </article>
-
-          <!-- Research Card 2 (Pillar 2) -->
-          <article class="card pillar-card-2">
-            <div class="card-content">
-              <span class="card-tag pillar-tag-2">Diplomacy &amp; Peace</span>
-              <h3 class="card-title h4"><a href="publications.html">Strategic Neutrality in Gulf Security: Fostering Trust</a></h3>
-              <div class="card-meta">
-                <span>Policy Brief</span>
-                <span>•</span>
-                <span>May 2026</span>
+              <div class="form-group">
+                <label for="doc-title-ar" data-i18n="cms_label_title_ar">Title (Arabic)</label>
+                <input type="text" id="doc-title-ar" class="form-control" required>
               </div>
-              <p class="card-abstract">A research paper analyzing the role of non-aligned mediators in facilitating productive security negotiations between Western institutions and Middle Eastern powers.</p>
-              <a href="publications.html" class="card-link pillar-tag-2">Read Publication →</a>
-            </div>
-          </article>
 
-          <!-- Research Card 3 (Pillar 3) -->
-          <article class="card pillar-card-3">
-            <div class="card-content">
-              <span class="card-tag pillar-tag-3">Governance &amp; Economy</span>
-              <h3 class="card-title h4"><a href="publications.html">Reimagining Trade Routes: The New West-East Corridor</a></h3>
-              <div class="card-meta">
-                <span>Research Report</span>
-                <span>•</span>
-                <span>April 2026</span>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                <div class="form-group">
+                  <label for="doc-type" data-i18n="cms_label_type">Publication Type</label>
+                  <select id="doc-type" class="form-control">
+                    <option value="brief">Policy Brief</option>
+                    <option value="paper">Research Paper</option>
+                    <option value="article">Opinion Article</option>
+                    <option value="report">Report</option>
+                    <option value="analysis">Analysis</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="doc-pillar" data-i18n="cms_label_pillar">Topic Pillar</label>
+                  <select id="doc-pillar" class="form-control">
+                    <option value="heritage">Memory &amp; Heritage</option>
+                    <option value="diplomacy">Diplomacy &amp; Peace</option>
+                    <option value="governance">Governance &amp; Economy</option>
+                    <option value="youth">Youth &amp; Exchange</option>
+                    <option value="faith">Faith &amp; Advocacy</option>
+                  </select>
+                </div>
               </div>
-              <p class="card-abstract">An economic report assessing the geopolitics of trade agreements between European Union partners and GCC states in a changing global economy.</p>
-              <a href="publications.html" class="card-link pillar-tag-3">Read Publication →</a>
-            </div>
-          </article>
-        </div>
-        
-        <div style="text-align: center; margin-top: var(--space-48);">
-          <a href="publications.html" class="btn btn-secondary">View All Publications</a>
-        </div>
-      </div>
-    </section>
 
-    <!-- Conference Participation Section -->
-    <section class="events-section section-padding" aria-labelledby="events-title">
-      <div class="container">
-        <div class="section-header">
-          <h2 id="events-title" class="section-title">Conference Participation &amp; Engagement</h2>
-          <p>Over the past three years (2023–2026), GDCI has actively participated in key global forums to advocate, support, and share research on West-East and Middle Eastern dialogue.</p>
-        </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                <div class="form-group">
+                  <label for="doc-author-en" data-i18n="cms_label_author_en">Author (English)</label>
+                  <input type="text" id="doc-author-en" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="doc-author-ar" data-i18n="cms_label_author_ar">Author (Arabic)</label>
+                  <input type="text" id="doc-author-ar" class="form-control" required>
+                </div>
+              </div>
 
-        <div class="conferences-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-24);">
-          <!-- Conference 1 -->
-          <article class="card" style="border-top: 3px solid var(--color-teal); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: var(--color-light-teal); color: var(--color-teal); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Rabat, Morocco • 2026</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">Paris Peace Forum Spring Meeting</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI brought together youth leaders and academics in Morocco to address cross-continental climate cooperation and security policies connecting Europe, Africa, and the Middle East.</p>
-            </div>
-          </article>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                <div class="form-group">
+                  <label for="doc-date-en" data-i18n="cms_label_date_en">Date (English)</label>
+                  <input type="text" id="doc-date-en" class="form-control" placeholder="e.g. June 2026" required>
+                </div>
+                <div class="form-group">
+                  <label for="doc-date-ar" data-i18n="cms_label_date_ar">Date (Arabic)</label>
+                  <input type="text" id="doc-date-ar" class="form-control" placeholder="مثال: يونيو ٢٠٢٦" required>
+                </div>
+              </div>
 
-          <!-- Conference 2 -->
-          <article class="card" style="border-top: 3px solid var(--color-amber); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: #FDF3E7; color: var(--color-amber); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Abu Dhabi, UAE • 2026</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">International Dialogue of Civilizations &amp; Tolerance</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI religious figures and cultural advocates led panels on bridging cultural representations, exploring the role of new media in bridging misconceptions between Western and Eastern communities.</p>
-            </div>
-          </article>
+              <div class="form-group">
+                <label for="doc-abstract-en" data-i18n="cms_label_abstract_en">Abstract (English)</label>
+                <textarea id="doc-abstract-en" class="form-control" rows="3" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="doc-abstract-ar" data-i18n="cms_label_abstract_ar">Abstract (Arabic)</label>
+                <textarea id="doc-abstract-ar" class="form-control" rows="3" required></textarea>
+              </div>
 
-          <!-- Conference 3 -->
-          <article class="card" style="border-top: 3px solid var(--color-navy); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: #E8EEF5; color: var(--color-navy); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Doha, Qatar • 2025</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">The Doha Forum 2025</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">Focusing on "Justice in Action", GDCI researchers co-hosted a round-table on restructuring diplomatic dialogues to incorporate diverse civilizational value systems from the Global North and South.</p>
-            </div>
-          </article>
+              <div class="form-group">
+                <label for="doc-body-en" data-i18n="cms_label_body_en">Main Body Content (English)</label>
+                <textarea id="doc-body-en" class="form-control" rows="6" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="doc-body-ar" data-i18n="cms_label_body_ar">Main Body Content (Arabic)</label>
+                <textarea id="doc-body-ar" class="form-control" rows="6" required></textarea>
+              </div>
 
-          <!-- Conference 4 -->
-          <article class="card" style="border-top: 3px solid var(--color-teal); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: var(--color-light-teal); color: var(--color-teal); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Manama, Bahrain • 2025</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">IISS Manama Dialogue 2025</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI's policy advocates and academics contributed to security panels, exploring multilateral security architectures and trust-building measures between Western powers and regional Middle Eastern states.</p>
-            </div>
-          </article>
-
-          <!-- Conference 5 -->
-          <article class="card" style="border-top: 3px solid var(--color-amber); display: flex; flex-direction: column;">
-            <div class="card-content" style="flex-grow: 1;">
-              <span class="card-tag" style="background-color: #FDF3E7; color: var(--color-amber); font-family: var(--font-utility); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 2px; display: inline-block; margin-bottom: var(--space-12);">Rome, Italy • 2024</span>
-              <h3 class="card-title h4" style="margin-top: var(--space-8); font-size: 1.25rem;">Rome MED - Mediterranean Dialogues</h3>
-              <p class="card-abstract" style="font-size: 0.875rem; margin-top: var(--space-8);">GDCI senior researchers presented working papers on security, migration, and trade corridors in the Mediterranean, promoting cooperative strategies between EU countries and Middle Eastern neighbors.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Mission quote strip -->
-    <section class="mission-strip section-padding" aria-label="Founding Principle Quote">
-      <div class="container">
-        <blockquote class="mission-quote">
-          "Dialogue is not agreement. It is the willingness to be changed by understanding another civilization on its own terms."
-        </blockquote>
-        <div class="principles-grid">
-          <div class="principle-item">
-            <div class="principle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
-            </div>
-            <h3 class="principle-title">Intellectual Gravitas</h3>
-            <p class="principle-desc">Rigorous academic research and peer-reviewed outputs that form a credible base for policy recommendation.</p>
+              <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="cms_btn_publish">Publish Document</button>
+            </form>
           </div>
-          <div class="principle-item">
-            <div class="principle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 1 10-10 10 10 0 0 1-10 10zm-1-6h2v-2h-2zm1-8a3 3 0 0 0-3 3h2a1 1 0 1 1 1 1h-2v2h2a3 3 0 0 0 3-3z"/></svg>
+
+          <!-- Document Management deck -->
+          <div style="display:flex; flex-direction:column; gap: var(--space-32);">
+            <div class="dashboard-card">
+              <h3 data-i18n="admin_list_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">Active Documents</h3>
+              <div class="articles-list-wrapper" id="admin-articles-list">
+                <!-- Dynamically rendered list with delete buttons -->
+              </div>
             </div>
-            <h3 class="principle-title">Pluriversal Openness</h3>
-            <p class="principle-desc">Structuring debates that transcend Western-centric frameworks, giving voice to distinct intellectual traditions.</p>
-          </div>
-          <div class="principle-item">
-            <div class="principle-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm1 14h-2v-2h2zm0-4h-2V7h2z"/></svg>
+
+            <div class="dashboard-card" style="border-top-color: var(--color-amber);">
+              <h3 data-i18n="admin_ops_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">System Operations</h3>
+              <p style="font-size:0.875rem;" data-i18n="admin_ops_desc">Reset the dynamic local publications array to standard initialization values.</p>
+              <button class="btn btn-secondary" onclick="app.resetSystemDatabase()" style="width:100%; border-color:#E74C3C; color:#E74C3C;" data-i18n="admin_btn_reset">Reset Database</button>
             </div>
-            <h3 class="principle-title">Long-Horizon Outlook</h3>
-            <p class="principle-desc">Analyzing global interactions over decades and centuries rather than responding to weekly news cycles.</p>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Partners Strip -->
-    <section class="partners-strip" aria-label="Partner Organizations">
-      <div class="container partners-container">
-        <span class="partners-title">Our Collaborators</span>
-        <div class="partners-logos">
-          <!-- Clean greyscale SVG representations of partner logos as requested -->
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="UNESCO Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">U N E S C O</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="UNAOC Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">U N A O C</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="KAICIID Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">K A I C I I D</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-          <svg class="partner-logo" viewBox="0 0 180 40" width="120" height="30" aria-label="Anna Lindh Foundation Partner">
-            <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="var(--font-utility)" font-size="14" font-weight="700" fill="#3A4A55">A N N A  L I N D H</text>
-            <line x1="10" y1="32" x2="170" y2="32" stroke="#3A4A55" stroke-width="1.5" />
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- Newsletter band -->
-    <section class="newsletter-band section-padding" aria-labelledby="newsletter-title">
-      <div class="container newsletter-container">
-        <h2 id="newsletter-title">Join the Conversation</h2>
-        <p>Subscribe to our monthly research digest and event announcements. No spam. Unsubscribe any time.</p>
-        <form class="newsletter-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
-          <input type="email" class="newsletter-input" placeholder="Your email address" required aria-label="Email address">
-          <button type="submit" class="btn btn-amber">Subscribe</button>
-        </form>
-      </div>
-    </section>
-
   </main>
 
   <!-- ==========================================================================
-       FOOTER
+       FOOTER SECTION
        ========================================================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <svg viewBox="0 0 200 200" width="48" height="48" aria-hidden="true" style="fill: var(--color-teal); overflow: visible;">
-            <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round" />
-            <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="var(--color-white)" stroke-width="5" fill="none" stroke-linecap="round" />
-            <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round" />
-            <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="var(--color-teal)" stroke-width="7" fill="none" stroke-linecap="round" />
-            <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round" />
-            <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="var(--color-amber)" stroke-width="6" fill="none" stroke-linecap="round" />
-            <line x1="30" y1="150" x2="170" y2="150" stroke="var(--color-amber)" stroke-width="2.5" />
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 40 145 C 40 85, 65 55, 90 50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" />
+            <path d="M 160 145 C 160 85, 135 55, 110 50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" />
+            <path d="M 55 145 C 55 95, 75 62, 94 56" stroke="#1A6B6A" stroke-width="7" stroke-linecap="round" />
+            <path d="M 145 145 C 145 95, 125 62, 106 56" stroke="#1A6B6A" stroke-width="7" stroke-linecap="round" />
+            <path d="M 85 145 C 85 120, 92 80, 97 72" stroke="#C4882A" stroke-width="6" stroke-linecap="round" />
+            <path d="M 115 145 C 115 120, 108 80, 103 72" stroke="#C4882A" stroke-width="6" stroke-linecap="round" />
+            <line x1="30" y1="150" x2="170" y2="150" stroke="#C4882A" stroke-width="2" />
           </svg>
-          <p>Advancing research, dialogue, and collaboration across civilizational traditions for a shared human future.</p>
-          <div class="social-links">
-            <a href="#" class="social-link" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-            <a href="#" class="social-link" aria-label="Twitter">
-              <svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-            </a>
-          </div>
+          <p data-i18n="footer_desc">Advancing strategic research, dialetic exchange, and policy alignment across LTR/RTL traditions for a shared human future.</p>
         </div>
-        
+
         <div>
-          <h2 class="footer-title">Platform</h2>
+          <h4 class="footer-title" data-i18n="footer_title_links">Platform</h4>
           <ul class="footer-links">
-            <li><a href="about.html">About Initiative</a></li>
-            <li><a href="research.html">Research Archives</a></li>
-            <li><a href="publications.html">Publications Page</a></li>
-            <li><a href="dialogue.html">Dialogue &amp; Panels</a></li>
-            <li><a href="people.html">Fellows &amp; Leadership</a></li>
-            <li><a href="brandkit.html">Brand Identity Kit</a></li>
+            <li><a href="#home" onclick="app.navigate('home')" data-i18n="nav_home">Home</a></li>
+            <li><a href="#publications" onclick="app.navigate('publications')" data-i18n="nav_publications">Publications</a></li>
+            <li><a href="#admin" onclick="app.navigate('admin')" data-i18n="nav_admin">Admin Portal</a></li>
           </ul>
         </div>
-        
-        <div class="footer-contact">
-          <h2 class="footer-title">Contact</h2>
-          <p>Global Dialogue Civilization Initiative</p>
-          <p>Email: <a href="mailto:design@gdci-world.org" style="color:inherit;">design@gdci-world.org</a></p>
-          <p style="margin-top: var(--space-16);">ISO-coded Language switcher:</p>
-          <div class="lang-switcher" style="display:inline-flex; border-color:rgba(255,255,255,0.15)">
-            <a href="#" data-lang="en" class="active">EN</a>
-            <span>|</span>
-            <a href="#" data-lang="ar">AR</a>
-          </div>
+
+        <div>
+          <h4 class="footer-title" data-i18n="footer_title_contact">Contact</h4>
+          <p style="font-size:0.9375rem; margin-bottom:var(--space-8);">Global Dialogue Civilization Initiative</p>
+          <p style="font-size:0.9375rem; margin-bottom:var(--space-8);">Email: <a href="mailto:design@gdci-world.org" style="color:var(--color-stone); text-decoration: underline;">design@gdci-world.org</a></p>
         </div>
       </div>
-      
+
       <div class="footer-bottom">
-        <p class="footer-legal">© 2026 Global Dialogue Civilization Initiative. All rights reserved. Content available under Creative Commons Attribution 4.0 where indicated.</p>
-        <div class="footer-legal-links">
-          <a href="#" class="footer-legal">Privacy Policy</a>
-          <span>|</span>
-          <a href="#" class="footer-legal">Terms of Use</a>
-          <span>|</span>
-          <a href="#" class="footer-legal">Accessibility Statement</a>
-        </div>
+        <p>© 2026 Global Dialogue Civilization Initiative | gdci-world.org. <span data-i18n="footer_rights">All rights reserved.</span></p>
       </div>
     </div>
   </footer>
 
-  <!-- Core JavaScript -->
-  <script src="assets/js/main.js"></script>
+  <!-- ==========================================================================
+       MODAL READER OVERLAY
+       ========================================================================== -->
+  <div class="modal-backdrop" id="modal-viewer" onclick="app.closeModal(event)">
+    <div class="modal-container" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <button class="modal-close-btn" onclick="app.closeModal()" aria-label="Close modal">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body-content">
+        <!-- Dynamically rendered full text -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="copy-tooltip" id="toast-notify">Success!</div>
+
+  <!-- ==========================================================================
+       APPLICATION ENGINE & ROUTER SCRIPT
+       ========================================================================== -->
+  <script>
+    // --------------------------------------------------------------------------
+    // LOCALIZATION MATRICES (English & Arabic)
+    // --------------------------------------------------------------------------
+    const langProvider = {
+      en: {
+        nav_home: "Home",
+        nav_publications: "Publications",
+        nav_admin: "Admin Portal",
+        
+        hero_subtitle: "Global Dialogue Civilization Initiative | GDCI",
+        hero_title: "Bridging the West & the Middle East.",
+        hero_tagline: "An independent initiative facilitating, supporting, researching, and advocating constructive dialogue and strategic collaboration between the Global North and the Middle East.",
+        hero_cta_pub: "Explore Publications",
+        hero_cta_about: "About GDCI",
+        
+        who_title: "Who We Are",
+        who_text_1: "The Global Dialogue Civilization Initiative (GDCI) operates as a premium cross-disciplinary platform and think-tank. We address deep intellectual divides by structuring systemic, peer-to-peer mediation and collaborative programs.",
+        who_text_2: "Our active community brings together academics, senior policy researchers, youth leaders, religious scholars, and legal advocates. By convening these diverse sectors, we move beyond simple conversations to design viable policy tracks and educational frameworks.",
+        who_quote: "“Dialogue is not the search for compromise; it is the difficult art of understanding another civilization on its own terms.”",
+        
+        vision_title: "Vision & Mission",
+        vision_subtitle: "To replace historical frameworks of conflict with rigorous academic inquiry and long-horizon cultural architectures.",
+        vision_body_1: "In an age characterized by media-driven polarization, echo chambers, and transient geopolitical alignments, GDCI focuses on structural dialogue. We believe that sustainable cooperation between the Global North and the Middle East requires intellectual gravitas and pluriversal validation.",
+        vision_body_2: "We build pathways for joint historical research, economic model integrations, multi-faith councils, and youth fellowship programs, ensuring that future policy is guided by depth, mutual respect, and tolerance.",
+        
+        pillars_title: "Strategic Pillars",
+        pillars_subtitle: "Convene networks and research initiatives across five strategic focal areas.",
+        pillar_1_title: "Memory & Heritage",
+        pillar_1_desc: "Researching joint historical collaborative spaces, translation movements, and preserving shared manuscript traditions.",
+        pillar_2_title: "Diplomacy & Peace",
+        pillar_2_desc: "Structuring mediation mechanisms, track-two diplomacy formats, and regional trust-building initiatives.",
+        pillar_3_title: "Governance & Economy",
+        pillar_3_desc: "Analyzing multipolar regulatory structures, trade integrations, and Euro-Mediterranean corridor policies.",
+        pillar_4_title: "Youth & Exchange",
+        pillar_4_desc: "Fostering university linkage systems, collaborative leadership networks, and future policymaker initiatives.",
+        pillar_5_title: "Faith & Advocacy",
+        pillar_5_desc: "Countering civilizational stereotypes, promoting legal advocacy, and nurturing social tolerance.",
+        
+        conf_title: "Verified Conference Engagements",
+        conf_subtitle: "Key international forums and high-level collaborative tables held over the last three years (2024–2026).",
+        conf_1_date: "Rabat, Morocco • 2026",
+        conf_1_title: "Paris Peace Forum Spring Meeting",
+        conf_1_desc: "Convened youth leaders and researchers to establish structured frameworks for cross-continental climate resilience and green technology collaborations.",
+        conf_2_date: "Abu Dhabi, UAE • 2026",
+        conf_2_title: "Civilizations & Tolerance Forum",
+        conf_2_desc: "Led panels evaluating media representation and cross-cultural discourse styles to combat modern polarization and media bias.",
+        conf_3_date: "Doha, Qatar • 2025",
+        conf_3_title: "The Doha Forum",
+        conf_3_desc: "Hosted closed roundtables exploring foundational values in governance systems, matching Western human rights concepts with Middle Eastern traditions.",
+        conf_4_date: "Manama, Bahrain • 2025",
+        conf_4_title: "IISS Manama Dialogue",
+        conf_4_desc: "Contributed strategic research addressing collaborative regional security architectures and multilateral trust-building paths.",
+        conf_5_date: "Rome, Italy • 2024",
+        conf_5_title: "Rome MED - Mediterranean Dialogues",
+        conf_5_desc: "Delivered working papers exploring shared migratory corridors and commercial integrations bridging the EU and the Middle East.",
+        
+        filter_by_type: "Filter by Type:",
+        filter_by_pillar: "Filter by Pillar:",
+        chip_all: "All",
+        chip_brief: "Policy Briefs",
+        chip_paper: "Research Papers",
+        chip_article: "Opinion Articles",
+        chip_report: "Reports",
+        chip_analysis: "Analysis",
+        pub_no_results: "No publications found matching your query.",
+        pub_card_read: "Read Publication →",
+        
+        admin_login_title: "Admin Portal Access",
+        admin_label_user: "Username",
+        admin_label_pass: "Password",
+        admin_btn_login: "Sign In",
+        admin_error_msg: "Invalid username or password. Please try again.",
+        admin_dash_title: "Publish New Document",
+        admin_btn_logout: "Sign Out",
+        admin_list_title: "Active Documents",
+        admin_ops_title: "System Operations",
+        admin_ops_desc: "Reset the dynamic local publications array to standard initialization values.",
+        admin_btn_reset: "Reset Database",
+        
+        cms_label_title_en: "Title (English)",
+        cms_label_title_ar: "Title (Arabic)",
+        cms_label_type: "Publication Type",
+        cms_label_pillar: "Topic Pillar",
+        cms_label_author_en: "Author (English)",
+        cms_label_author_ar: "Author (Arabic)",
+        cms_label_date_en: "Date (English)",
+        cms_label_date_ar: "Date (Arabic)",
+        cms_label_abstract_en: "Abstract (English)",
+        cms_label_abstract_ar: "Abstract (Arabic)",
+        cms_label_body_en: "Main Body Content (English)",
+        cms_label_body_ar: "Main Body Content (Arabic)",
+        cms_btn_publish: "Publish Document",
+        
+        footer_desc: "Advancing strategic research, dialetic exchange, and policy alignment across LTR/RTL traditions for a shared human future.",
+        footer_title_links: "Platform",
+        footer_title_contact: "Contact",
+        footer_rights: "All rights reserved."
+      },
+      ar: {
+        nav_home: "الرئيسية",
+        nav_publications: "الإصدارات",
+        nav_admin: "بوابة الإدارة",
+        
+        hero_subtitle: "مبادرة حوار الحضارات العالمي | GDCI",
+        hero_title: "تجسير العلاقات بين الغرب والشرق الأوسط.",
+        hero_tagline: "مبادرة مستقلة تسهّل وتدعم وتبحث وتدعو للحوار البنّاء والتعاون الاستراتيجي بين الشمال العالمي (الغرب) والشرق الأوسط.",
+        hero_cta_pub: "استكشف الإصدارات",
+        hero_cta_about: "عن المبادرة",
+        
+        who_title: "من نحن",
+        who_text_1: "تعمل مبادرة حوار الحضارات العالمي (GDCI) كمركز أبحاث ومنصة أكاديمية متميزة عابرة للتخصصات. نحن نواجه الفجوات الفكرية العميقة من خلال صياغة مسارات وساطة رصينة وبرامج تبادل عملية بين النظراء.",
+        who_text_2: "يضم مجتمعنا الفاعل نخبة من الأكاديميين وكبار الباحثين في السياسات وقادة الشباب والشخصيات الدينية ومناصري القانون. نسعى من خلال جمع هذه الفئات المتنوعة إلى صياغة مسارات سياسية وقطاعات تعليمية مستدامة.",
+        who_quote: "«الحوار لا يعني التنازل عن الهوية، بل يعني التميز في فهم الحضارة الأخرى وفقًا لمنظورها الذاتي ورؤيتها الخاصة.»",
+        
+        vision_title: "الرؤية والرسالة",
+        vision_subtitle: "استبدال روايات الصراع التاريخي بالبحث الأكاديمي الرصين وبناء أطر ثقافية طويلة الأجل بين الحضارات.",
+        vision_body_1: "في عصر يتسم بالاستقطاب الإعلامي الشديد، والفقاعات المغلقة، والتشرذم الجيوسياسي المؤقت، نركز في GDCI على الحوار الهيكلي الرصين. نؤمن بأن بناء تعاون مستدام بين الغرب والشرق الأوسط يتطلب عمقاً فكرياً ومصداقية تتسع لتنوع الحضارات.",
+        vision_body_2: "نبني مسارات للأبحاث التاريخية المشتركة، وتكامل النماذج الاقتصادية، ومجالس الحوار متعدد الأديان، وزمالات الشباب القيادية، لضمان صياغة السياسات المستقبلية على أسس الاحترام المتبادل والتسامح.",
+        
+        pillars_title: "المحاور الاستراتيجية",
+        pillars_subtitle: "تنسيق جهود شبكاتنا ومشاريعنا البحثية عبر خمسة محاور استراتيجية رئيسية.",
+        pillar_1_title: "الذاكرة والتراث",
+        pillar_1_desc: "دراسة مساحات التعاون التاريخي المشترك، وحركات الترجمة، وحفظ التراث المخطوط المتبادل.",
+        pillar_2_title: "الدبلوماسية والسلام",
+        pillar_2_desc: "صياغة أطر الوساطة المستدامة، ودبلوماسية المسار الثاني، وبناء مبادرات الثقة الإقليمية المشتركة.",
+        pillar_3_title: "الحكم والاقتصاد",
+        pillar_3_desc: "تحليل البنى التنظيمية متعددة الأطراف، والتكامل التجاري، وممرات العبور الأورومتوسطية الاقتصادية.",
+        pillar_4_title: "الشباب والتبادل الأكاديمي",
+        pillar_4_desc: "تطوير روابط ربط الجامعات، وشبكات إعداد القادة الشباب، وصناعة سياسات الأجيال القادمة.",
+        pillar_5_title: "القيم الدينية والمناصرة",
+        pillar_5_desc: "مواجهة الصور النمطية السلبية بين الحضارات، وتعزيز المناصرة القانونية لبناء مجتمع التسامح والقبول.",
+        
+        conf_title: "مشاركات دولية موثقة",
+        conf_subtitle: "أبرز المحافل والقمم الدولية واللقاءات التي شاركت فيها المبادرة خلال السنوات الثلاث الماضية (٢٠٢٤-٢٠٢٦).",
+        conf_1_date: "الرباط، المغرب • ٢٠٢٦",
+        conf_1_title: "اجتماع ربيع منتدى باريس للسلام",
+        conf_1_desc: "جمع الباحثين والشباب لبناء هيكل مستدام للتعاون الأخضر العابر للقارات في مجال المناخ وتطبيقات البيئة.",
+        conf_2_date: "أبوظبي، الإمارات • ٢٠٢٦",
+        conf_2_title: "منتدى حوار الحضارات والتسامح",
+        conf_2_desc: "إدارة جلسات تقييم الأثر الإعلامي والتمثيل الثقافي في الخطاب العام لمواجهة الاستقطاب المعاصر.",
+        conf_3_date: "الدوحة، قطر • ٢٠٢٥",
+        conf_3_title: "منتدى الدوحة ٢٠٢٥",
+        conf_3_desc: "استضافة طاولات مستديرة مغلقة لاستكشاف القيم المشتركة في نظم الحكم ومواءمة المفاهيم الغربية مع التقاليد المشرقية.",
+        conf_4_date: "المنامة، البحرين • ٢٠٢٥",
+        conf_4_title: "حوار المنامة للأمن الإقليمي",
+        conf_4_desc: "تقديم مساهمات بحثية استراتيجية لبناء نظم أمنية إقليمية تشاركية وتعزيز الثقة متعددة الأطراف.",
+        conf_5_date: "روما، إيطاليا • ٢٠٢٤",
+        conf_5_title: "حوارات روما المتوسطية",
+        conf_5_desc: "تقديم أوراق عمل حول إدارة الممرات التجارية وحوكمة الهجرة والربط التجاري المشترك بين أوروبا والمتوسط.",
+        
+        filter_by_type: "تصفية حسب النوع:",
+        filter_by_pillar: "تصفية حسب المحور:",
+        chip_all: "الكل",
+        chip_brief: "أوراق سياساتية",
+        chip_paper: "أوراق بحثية",
+        chip_article: "مقالات رأي",
+        chip_report: "تقارير علمية",
+        chip_analysis: "تحليلات استراتيجية",
+        pub_no_results: "لم يتم العثور على إصدارات مطابقة للبحث.",
+        pub_card_read: "اقرأ الإصدار بالكامل ←",
+        
+        admin_login_title: "الدخول إلى بوابة الإدارة",
+        admin_label_user: "اسم المستخدم",
+        admin_label_pass: "كلمة المرور",
+        admin_btn_login: "تسجيل الدخول",
+        admin_error_msg: "اسم المستخدم أو كلمة المرور غير صحيحة. يرجى إعادة المحاولة.",
+        admin_dash_title: "نشر مستند جديد",
+        admin_btn_logout: "تسجيل الخروج",
+        admin_list_title: "المستندات النشطة",
+        admin_ops_title: "عمليات النظام",
+        admin_ops_desc: "إعادة تعيين مصفوفة البيانات ومسح المستندات المضافة محلياً وإرجاع القيم الافتراضية.",
+        admin_btn_reset: "إعادة تعيين قاعدة البيانات",
+        
+        cms_label_title_en: "العنوان (باللغة الإنجليزية)",
+        cms_label_title_ar: "العنوان (باللغة العربية)",
+        cms_label_type: "نوع الإصدار",
+        cms_label_pillar: "المحور التابع له",
+        cms_label_author_en: "الكاتب (باللغة الإنجليزية)",
+        cms_label_author_ar: "الكاتب (باللغة العربية)",
+        cms_label_date_en: "التاريخ (باللغة الإنجليزية)",
+        cms_label_date_ar: "التاريخ (باللغة العربية)",
+        cms_label_abstract_en: "الملخص (باللغة الإنجليزية)",
+        cms_label_abstract_ar: "الملخص (باللغة العربية)",
+        cms_label_body_en: "المحتوى الرئيسي (باللغة الإنجليزية)",
+        cms_label_body_ar: "المحتوى الرئيسي (باللغة العربية)",
+        cms_btn_publish: "نشر المستند",
+        
+        footer_desc: "تعزيز البحث العلمي المستقل، والتبادل المعرفي، وحلقات النقاش وبناء التوافق الحضاري لخدمة مستقبل إنساني مشترك.",
+        footer_title_links: "البوابة",
+        footer_title_contact: "الاتصال",
+        footer_rights: "جميع الحقوق محفوظة."
+      }
+    };
+
+    // --------------------------------------------------------------------------
+    // DEFAULT PUBLICATIONS STATE DATA
+    // --------------------------------------------------------------------------
+    const defaultPublications = [
+      {
+        id: "default-1",
+        type: "paper",
+        pillar: "heritage",
+        title_en: "Echoes of Al-Andalus: Fostering Mediterranean Understanding",
+        title_ar: "أصداء الأندلس: تعزيز التفاهم المشترك في المتوسط",
+        author_en: "Dr. Sarah Fahmy",
+        author_ar: "د. سارة فهمي",
+        date_en: "February 2026",
+        date_ar: "فبراير ٢٠٢٦",
+        abstract_en: "A historical analysis of coexistence strategies in medieval Spain, presenting templates for modern cross-continental value negotiations.",
+        abstract_ar: "تحليل تاريخي لاستراتيجيات التعايش المشترك في إسبانيا العصور الوسطى، وتقديم نماذج لمفاوضات القيم الحديثة عابرة القارات.",
+        content_en: "<p>The historical model of Al-Andalus serves as a critical blueprint for contemporary dialogue. This research explores how intellectual networks of translation bridging Christian, Jewish, and Islamic traditions operated under institutional stability.</p><p>By evaluating the translation academies of Toledo, the paper builds contemporary dialogue structures based on collaborative creation rather than absolute theological convergence.</p>",
+        content_ar: "<p>يمثل النموذج التاريخي للأندلس مخططاً حيوياً للحوار المعاصر. يبحث هذا التقرير في كيفية عمل شبكات المترجمين والعلماء المسيحيين واليهود والمسلمين تحت مظلة من الاستقرار المؤسسي التاريخي.</p><p>من خلال تقييم مدارس الترجمة في طليطلة، يبني البحث هيكلاً للحوار المعاصر يعتمد على التعاون البنّاء بدلاً من محاولات إيجاد نقاط توافق عقائدية مطلقة.</p>"
+      },
+      {
+        id: "default-2",
+        type: "brief",
+        pillar: "diplomacy",
+        title_en: "Strategic Neutrality in Gulf Security: Fostering Trust",
+        title_ar: "الحياد الاستراتيجي في أمن الخليج: بناء الثقة",
+        author_en: "Dr. Salim Al-Harthi",
+        author_ar: "د. سليم الحارثي",
+        date_en: "November 2025",
+        date_ar: "نوفمبر ٢٠٢٥",
+        abstract_en: "This policy brief maps the transition of Gulf states toward multi-alignment frameworks, structuring constructive mediation channels with European partners.",
+        abstract_ar: "تحدد هذه الورقة السياساتية تحول دول الخليج نحو أطر الانحياز المتعدد وصياغة قنوات وساطة بناءة مع الشركاء الأوروبيين.",
+        content_en: "<p>As the international system transitions toward multipolarity, Gulf security policies increasingly incorporate track-two diplomatic routes. This brief examines how Middle Eastern states broker dialogue between Western institutions and local factions.</p><p>Key recommendations focus on creating permanent joint verification tables to monitor trust-building milestones.</p>",
+        content_ar: "<p>مع تحول النظام الدولي نحو التعددية القطبية، تدمج السياسات الأمنية في الخليج بشكل متزايد قنوات دبلوماسية المسار الثاني. تفحص هذه الورقة كيفية توسط دول الخليج لتسهيل الحوار بين المؤسسات الغربية والفصائل المحلية.</p><p>تركز التوصيات الرئيسية على إنشاء طاولات تحقق مشتركة دائمة لمراقبة مراحل بناء الثقة المتبادلة.</p>"
+      },
+      {
+        id: "default-3",
+        type: "report",
+        pillar: "governance",
+        title_en: "Reimagining Trade Routes: The New West-East Corridor",
+        title_ar: "إعادة تصور الممرات التجارية: الممر الغربي الشرقي الجديد",
+        author_en: "Prof. Lin Yao",
+        author_ar: "أ.د. لين ياو",
+        date_en: "August 2025",
+        date_ar: "أغسطس ٢٠٢٥",
+        abstract_en: "An analysis of regulatory harmonization requirements for Euro-Mediterranean maritime corridors, focusing on collaborative trade standards.",
+        abstract_ar: "تحليل لمتطلبات التنسيق التنظيمي للممرات الملاحية الأورومتوسطية، مع التركيز على المعايير التجارية المشتركة.",
+        content_en: "<p>The integration of maritime corridors between the Middle East and Southern Europe requires technical standardization and regulatory alignment. This report outlines how trade corridors act as stabilizers for broader political dialogue.</p><p>Through quantitative trade modeling, we prove that collaborative infrastructure projects directly decrease geopolitical tension indices.</p>",
+        content_ar: "<p>تتطلب مواءمة الممرات البحرية بين الشرق الأوسط وجنوب أوروبا تنسيقاً تقنياً ومعايير تنظيمية موحدة. يوضح هذا التقرير كيف تعمل ممرات التبادل التجاري كعوامل استقرار لتهيئة حوار سياسي أوسع عمقاً.</p><p>من خلال نماذج تجارية كمية، يثبت التقرير أن مشاريع البنية التحتية المشتركة تسهم بشكل مباشر في خفض مؤشرات التوتر الجيوسياسي.</p>"
+      }
+    ];
+
+    // --------------------------------------------------------------------------
+    // MAIN APP STATE & EVENT HANDLING ENGINE
+    // --------------------------------------------------------------------------
+    class GDCIApp {
+      constructor() {
+        this.state = {
+          currentLang: localStorage.getItem('gdci_lang') || 'en',
+          activeRoute: 'home',
+          publications: [],
+          typeFilter: 'all',
+          pillarFilter: 'all',
+          searchQuery: '',
+          isLoggedIn: sessionStorage.getItem('gdci_admin_logged') === 'true'
+        };
+        
+        this.init();
+      }
+
+      init() {
+        // Initialize publications database
+        const savedData = localStorage.getItem('gdci_custom_publications');
+        if (savedData) {
+          try {
+            const parsed = JSON.parse(savedData);
+            this.state.publications = [...defaultPublications, ...parsed];
+          } catch(e) {
+            this.state.publications = [...defaultPublications];
+          }
+        } else {
+          this.state.publications = [...defaultPublications];
+        }
+
+        // Setup route handling
+        window.addEventListener('hashchange', () => this.handleRouting());
+        this.handleRouting();
+
+        // Set initial language
+        this.setLanguage(this.state.currentLang);
+
+        // Check authentication state UI
+        this.updateAdminUI();
+      }
+
+      // Route handling logic
+      handleRouting() {
+        const hash = window.location.hash || '#home';
+        const route = hash.substring(1);
+        
+        // Hide all views, display active
+        document.querySelectorAll('.spa-view').forEach(view => {
+          view.classList.remove('active');
+        });
+        
+        const targetView = document.getElementById(`view-${route}`);
+        if (targetView) {
+          targetView.classList.add('active');
+          this.state.activeRoute = route;
+        } else {
+          document.getElementById('view-home').classList.add('active');
+          this.state.activeRoute = 'home';
+        }
+
+        // Sync header nav active link
+        document.querySelectorAll('.site-header .nav-link, .mobile-overlay .nav-link').forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === hash) {
+            link.classList.add('active');
+          }
+        });
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Navigation utility
+      navigate(route) {
+        window.location.hash = `#${route}`;
+      }
+
+      scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      // Language picker engine
+      setLanguage(lang) {
+        this.state.currentLang = lang;
+        localStorage.setItem('gdci_lang', lang);
+
+        // Update direction and lang attributes
+        document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+        document.documentElement.setAttribute('lang', lang);
+
+        // Toggle switcher active state
+        document.querySelectorAll('.lang-switcher span').forEach(el => {
+          el.classList.remove('active');
+        });
+        const activeEnSpan = document.getElementById(lang === 'en' ? 'lang-en' : 'lang-ar');
+        const activeArSpan = document.getElementById(lang === 'en' ? 'mobile-lang-en' : 'mobile-lang-ar');
+        if (activeEnSpan) activeEnSpan.classList.add('active');
+        if (activeArSpan) activeArSpan.classList.add('active');
+
+        // Translate UI
+        this.translateDOM();
+
+        // Render publications grid
+        this.renderPublicationsList();
+        
+        // Update admin lists
+        if (this.state.isLoggedIn) {
+          this.renderAdminArticles();
+        }
+      }
+
+      translateDOM() {
+        const dict = langProvider[this.state.currentLang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key]) {
+            el.textContent = dict[key];
+          }
+        });
+
+        // Set placeholders
+        const searchInput = document.getElementById('pub-search');
+        if (searchInput) {
+          searchInput.placeholder = this.state.currentLang === 'ar' ? "ابحث بالعنوان، الملخص، أو الكاتب..." : "Search title, abstract, or author...";
+        }
+      }
+
+      // Publications filters & render
+      setTypeFilter(type) {
+        this.state.typeFilter = type;
+        document.querySelectorAll('#type-chips .filter-chip').forEach(chip => {
+          chip.classList.remove('active');
+        });
+        // Highlight correct element
+        event.target.classList.add('active');
+        this.renderPublicationsList();
+      }
+
+      setPillarFilter(pillar) {
+        this.state.pillarFilter = pillar;
+        document.querySelectorAll('#pillar-chips .filter-chip').forEach(chip => {
+          chip.classList.remove('active');
+        });
+        event.target.classList.add('active');
+        this.renderPublicationsList();
+      }
+
+      handleSearch(val) {
+        this.state.searchQuery = val.toLowerCase().trim();
+        this.renderPublicationsList();
+      }
+
+      renderPublicationsList() {
+        const grid = document.getElementById('pub-grid');
+        const noResults = document.getElementById('pub-no-results');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+        let count = 0;
+
+        this.state.publications.forEach(pub => {
+          const title = (this.state.currentLang === 'ar' ? pub.title_ar : pub.title_en).toLowerCase();
+          const abstract = (this.state.currentLang === 'ar' ? pub.abstract_ar : pub.abstract_en).toLowerCase();
+          const author = (this.state.currentLang === 'ar' ? pub.author_ar : pub.author_en).toLowerCase();
+          
+          // Match search queries
+          const matchesSearch = !this.state.searchQuery || 
+                                title.includes(this.state.searchQuery) || 
+                                abstract.includes(this.state.searchQuery) || 
+                                author.includes(this.state.searchQuery);
+                                
+          const matchesType = this.state.typeFilter === 'all' || pub.type === this.state.typeFilter;
+          const matchesPillar = this.state.pillarFilter === 'all' || pub.pillar === this.state.pillarFilter;
+
+          if (matchesSearch && matchesType && matchesPillar) {
+            const card = document.createElement('article');
+            card.className = 'pub-card';
+            
+            const titleText = this.state.currentLang === 'ar' ? pub.title_ar : pub.title_en;
+            const authorText = this.state.currentLang === 'ar' ? pub.author_ar : pub.author_en;
+            const dateText = this.state.currentLang === 'ar' ? pub.date_ar : pub.date_en;
+            const abstractText = this.state.currentLang === 'ar' ? pub.abstract_ar : pub.abstract_en;
+            const typeLabel = langProvider[this.state.currentLang][`chip_${pub.type}`] || pub.type;
+            const readLabel = langProvider[this.state.currentLang]['pub_card_read'] || 'Read Publication →';
+
+            card.innerHTML = `
+              <div class="pub-meta-top">
+                <span class="pub-type-tag">${typeLabel}</span>
+                <span class="pub-date-tag">${dateText}</span>
+              </div>
+              <h3>${titleText}</h3>
+              <div class="pub-author-tag">${authorText}</div>
+              <p class="pub-abstract">${abstractText}</p>
+              <span class="pub-card-link" onclick="app.openModal('${pub.id}')">${readLabel}</span>
+            `;
+            grid.appendChild(card);
+            count++;
+          }
+        });
+
+        noResults.style.display = count === 0 ? 'block' : 'none';
+      }
+
+      // Modal viewer logic
+      openModal(id) {
+        const pub = this.state.publications.find(p => p.id === id);
+        if (!pub) return;
+
+        const body = document.getElementById('modal-body-content');
+        const titleText = this.state.currentLang === 'ar' ? pub.title_ar : pub.title_en;
+        const bodyContent = this.state.currentLang === 'ar' ? pub.content_ar : pub.content_en;
+        const authorText = this.state.currentLang === 'ar' ? pub.author_ar : pub.author_en;
+        const dateText = this.state.currentLang === 'ar' ? pub.date_ar : pub.date_en;
+
+        body.innerHTML = `
+          <div style="margin-bottom:var(--space-24);">
+            <span class="pub-type-tag" style="margin-inline-end: var(--space-12);">${langProvider[this.state.currentLang][`chip_${pub.type}`]}</span>
+            <span class="pub-date-tag">${dateText}</span>
+          </div>
+          <h2>${titleText}</h2>
+          <div class="pub-author-tag" style="font-size:1.0625rem; margin-bottom:var(--space-32); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-16);">${authorText}</div>
+          <div class="modal-content-text">${bodyContent}</div>
+        `;
+
+        const modal = document.getElementById('modal-viewer');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeModal(event) {
+        const modal = document.getElementById('modal-viewer');
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
+      // Admin logic
+      handleLogin(e) {
+        e.preventDefault();
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value.trim();
+        const errorDiv = document.getElementById('login-error');
+
+        // Verify credentials
+        if (user === 'admin' && pass === 'GDCI_Secure_2026!') {
+          this.state.isLoggedIn = true;
+          sessionStorage.setItem('gdci_admin_logged', 'true');
+          errorDiv.style.display = 'none';
+          this.updateAdminUI();
+          this.showToast("Signed in successfully!");
+        } else {
+          errorDiv.style.display = 'block';
+        }
+      }
+
+      handleLogout() {
+        this.state.isLoggedIn = false;
+        sessionStorage.removeItem('gdci_admin_logged');
+        this.updateAdminUI();
+        this.showToast("Signed out successfully!");
+      }
+
+      updateAdminUI() {
+        const loginView = document.getElementById('admin-login-view');
+        const dashView = document.getElementById('admin-dashboard-view');
+        
+        if (this.state.isLoggedIn) {
+          loginView.style.display = 'none';
+          dashView.style.display = 'block';
+          this.renderAdminArticles();
+        } else {
+          loginView.style.display = 'block';
+          dashView.style.display = 'none';
+          // Clear login form
+          document.getElementById('admin-login-form').reset();
+        }
+      }
+
+      // CMS Publish
+      handlePublish(e) {
+        e.preventDefault();
+        
+        const newPub = {
+          id: `custom-${Date.now()}`,
+          type: document.getElementById('doc-type').value,
+          pillar: document.getElementById('doc-pillar').value,
+          title_en: document.getElementById('doc-title-en').value.trim(),
+          title_ar: document.getElementById('doc-title-ar').value.trim(),
+          author_en: document.getElementById('doc-author-en').value.trim(),
+          author_ar: document.getElementById('doc-author-ar').value.trim(),
+          date_en: document.getElementById('doc-date-en').value.trim(),
+          date_ar: document.getElementById('doc-date-ar').value.trim(),
+          abstract_en: document.getElementById('doc-abstract-en').value.trim(),
+          abstract_ar: document.getElementById('doc-abstract-ar').value.trim(),
+          content_en: document.getElementById('doc-body-en').value.trim().split('\n').map(p => `<p>${p}</p>`).join(''),
+          content_ar: document.getElementById('doc-body-ar').value.trim().split('\n').map(p => `<p>${p}</p>`).join('')
+        };
+
+        // Append to state publications
+        this.state.publications.push(newPub);
+        
+        // Save to localStorage
+        this.saveCustomPublications();
+
+        // Refresh UI
+        this.renderPublicationsList();
+        this.renderAdminArticles();
+
+        // Reset form
+        document.getElementById('cms-publish-form').reset();
+        
+        this.showToast(this.state.currentLang === 'ar' ? "تم نشر المستند بنجاح!" : "Document published successfully!");
+      }
+
+      // Save custom items
+      saveCustomPublications() {
+        const customOnly = this.state.publications.filter(p => !p.id.startsWith('default-'));
+        localStorage.setItem('gdci_custom_publications', JSON.stringify(customOnly));
+      }
+
+      renderAdminArticles() {
+        const list = document.getElementById('admin-articles-list');
+        if (!list) return;
+
+        list.innerHTML = '';
+        this.state.publications.forEach(pub => {
+          const row = document.createElement('div');
+          row.className = 'article-item-row';
+
+          const title = this.state.currentLang === 'ar' ? pub.title_ar : pub.title_en;
+          const author = this.state.currentLang === 'ar' ? pub.author_ar : pub.author_en;
+          const typeLabel = langProvider[this.state.currentLang][`chip_${pub.type}`] || pub.type;
+          
+          const isDefault = pub.id.startsWith('default-');
+          const deleteButton = isDefault ? 
+            `<span style="font-size:0.75rem; opacity:0.6; font-family:var(--font-utility); font-weight:bold;">SYSTEM</span>` : 
+            `<button class="delete-btn-svg" onclick="app.deleteArticle('${pub.id}')" aria-label="Delete document">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>`;
+
+          row.innerHTML = `
+            <div>
+              <div class="article-item-title">${title}</div>
+              <div class="article-item-meta">${author} • <span style="font-weight:600;">${typeLabel}</span></div>
+            </div>
+            <div>
+              ${deleteButton}
+            </div>
+          `;
+          list.appendChild(row);
+        });
+      }
+
+      deleteArticle(id) {
+        const confirmMsg = this.state.currentLang === 'ar' ? 
+          "هل أنت متأكد من رغبتك في حذف هذا المستند؟" : 
+          "Are you sure you want to delete this document?";
+        
+        if (confirm(confirmMsg)) {
+          this.state.publications = this.state.publications.filter(p => p.id !== id);
+          this.saveCustomPublications();
+          this.renderPublicationsList();
+          this.renderAdminArticles();
+          this.showToast(this.state.currentLang === 'ar' ? "تم حذف المستند." : "Document deleted.");
+        }
+      }
+
+      resetSystemDatabase() {
+        const confirmMsg = this.state.currentLang === 'ar' ?
+          "تحذير: سيؤدي هذا إلى مسح كافة الإصدارات المضافة محلياً وإرجاع القيم الافتراضية. هل تريد الاستمرار؟" :
+          "Warning: This will clear all custom publications and restore system default settings. Do you want to continue?";
+
+        if (confirm(confirmMsg)) {
+          localStorage.removeItem('gdci_custom_publications');
+          this.state.publications = [...defaultPublications];
+          this.renderPublicationsList();
+          this.renderAdminArticles();
+          this.showToast("Database reset successfully.");
+        }
+      }
+
+      // Mobile menu toggling
+      toggleMobileMenu() {
+        const overlay = document.getElementById('mobile-overlay');
+        const hamburgerSvg = document.getElementById('hamburger-svg');
+        const isOpen = overlay.classList.toggle('open');
+        overlay.setAttribute('aria-hidden', !isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+
+        // Toggle icon path
+        if (isOpen) {
+          hamburgerSvg.innerHTML = `<path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>`;
+        } else {
+          hamburgerSvg.innerHTML = `<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>`;
+        }
+      }
+
+      // Global Toast notify
+      showToast(msg) {
+        const toast = document.getElementById('toast-notify');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2500);
+      }
+    }
+
+    // Instantiation
+    const app = new GDCIApp();
+  </script>
 </body>
 </html>
