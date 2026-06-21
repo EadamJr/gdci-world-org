@@ -377,6 +377,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 10;
     }
 
     /* Who We Are & Vision */
@@ -887,6 +888,7 @@
       grid-template-columns: 1.3fr 0.7fr;
       gap: var(--space-48);
       padding-block: var(--space-48);
+      width: 100%;
     }
 
     .dashboard-card {
@@ -1760,7 +1762,7 @@
         vision_title: "الرؤية والرسالة",
         vision_subtitle: "استبدال روايات الصراع التاريخي بالبحث الأكاديمي الرصين وبناء أطر ثقافية طويلة الأجل بين الحضارات.",
         vision_body_1: "في عصر يتسم بالاستقطاب الإعلامي الشديد، والفقاعات المغلقة، والتشرذم الجيوسياسي المؤقت، نركز في GDCI على الحوار الهيكلي الرصين. نؤمن بأن بناء تعاون مستدام بين الغرب والشرق الأوسط يتطلب عمقاً فكرياً ومصداقية تتسع لتنوع الحضارات.",
-        vision_body_2: "نبني مسارات للأبحاث التاريخية المشتركة، وتكامل النماذج الاقتصادية، ومجالس الحوار متعدد الأديان، وزمالات الشباب القيادية، لضمان صياغة السياسات المستقبلية على أسس الاحترام المتبادل والتسامح.",
+        vision_body_2: "نبني مسارات للأبحاث التاريخية المشحونة، وتكامل النماذج الاقتصادية، ومجالس الحوار متعدد الأديان، وزمالات الشباب القيادية، لضمان صياغة السياسات المستقبلية على أسس الاحترام المتبادل والتسامح.",
         
         pillars_title: "المحاور الاستراتيجية",
         pillars_subtitle: "تنسيق جهود شبكاتنا ومشاريعنا البحثية عبر خمسة محاور استراتيجية رئيسية.",
@@ -1771,7 +1773,7 @@
         pillar_3_title: "الحكم والاقتصاد",
         pillar_3_desc: "تحليل البنى التنظيمية متعددة الأطراف، والتكامل التجاري، وممرات العبور الأورومتوسطية الاقتصادية.",
         pillar_4_title: "الشباب والتبادل الأكاديمي",
-        pillar_4_desc: "تطوير روابط ربط الجامعات، وشبكات إعداد القادة الشباب، وصناعة سياسات الأجيال القادمة.",
+        pillar_4_desc: "تطوير روابط ربط الجامعات, وشبكات إعداد القادة الشباب، وصناعة سياسات الأجيال القادمة.",
         pillar_5_title: "القيم الدينية والمناصرة",
         pillar_5_desc: "مواجهة الصور النمطية السلبية بين الحضارات، وتعزيز المناصرة القانونية لبناء مجتمع التسامح والقبول.",
         
@@ -1995,15 +1997,16 @@
 
         // Initialize events database
         const savedEvents = localStorage.getItem('gdci_custom_events');
-        if (savedEvents) {
+        if (savedEvents !== null) {
           try {
-            const parsed = JSON.parse(savedEvents);
-            this.state.events = [...defaultEvents, ...parsed];
+            this.state.events = JSON.parse(savedEvents);
           } catch(e) {
             this.state.events = [...defaultEvents];
+            this.saveCustomEvents();
           }
         } else {
           this.state.events = [...defaultEvents];
+          this.saveCustomEvents();
         }
 
         // Setup route handling
@@ -2398,8 +2401,7 @@
       }
 
       saveCustomEvents() {
-        const customOnly = this.state.events.filter(e => !e.id.startsWith('default-event-'));
-        localStorage.setItem('gdci_custom_events', JSON.stringify(customOnly));
+        localStorage.setItem('gdci_custom_events', JSON.stringify(this.state.events));
       }
 
       renderAdminArticles() {
@@ -2447,10 +2449,7 @@
           const title = this.state.currentLang === 'ar' ? evt.title_ar : evt.title_en;
           const dateText = this.state.currentLang === 'ar' ? evt.date_ar : evt.date_en;
           
-          const isDefault = evt.id.startsWith('default-event-');
-          const deleteButton = isDefault ? 
-            `<span style="font-size:0.75rem; opacity:0.6; font-family:var(--font-utility); font-weight:bold;">SYSTEM</span>` : 
-            `<button class="delete-btn-svg" onclick="app.deleteEvent('${evt.id}')" aria-label="Delete event">
+          const deleteButton = `<button class="delete-btn-svg" onclick="app.deleteEvent('${evt.id}')" aria-label="Delete event">
               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </button>`;
 
@@ -2505,6 +2504,7 @@
           localStorage.removeItem('gdci_custom_events');
           this.state.publications = [...defaultPublications];
           this.state.events = [...defaultEvents];
+          this.saveCustomEvents();
           this.renderPublicationsList();
           this.renderEventsList();
           this.renderAdminArticles();
