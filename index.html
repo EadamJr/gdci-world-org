@@ -1098,6 +1098,28 @@
         font-size: 2.5rem;
       }
     }
+    
+    .btn-secondary.active {
+      background-color: var(--color-teal) !important;
+      color: var(--color-white) !important;
+    }
+
+    .conf-image-fallback {
+      height: 200px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-stone);
+      color: var(--color-navy);
+      font-family: var(--font-utility);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-16);
+      text-align: center;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 <body>
@@ -1271,70 +1293,26 @@
           </div>
         </div>
       </div>
-
-      <!-- Conference History Grid -->
-      <div class="section-padding">
-        <div class="container">
-          <div class="section-header">
-            <h2 class="section-title" data-i18n="conf_title">Verified Conference Engagements</h2>
-            <p style="margin-top: var(--space-24);" data-i18n="conf_subtitle">Key international forums and high-level collaborative tables held over the last three years (2024–2026).</p>
-          </div>
-          
-          <div class="conf-grid">
-            <!-- Event 1 -->
-            <article class="conf-card">
-              <img class="conf-image" src="assets/images/Paris%20Peace%20Forum%20Spring%20Meeting%202026.jpg" alt="Paris Peace Forum Spring Meeting" loading="lazy" onerror="app.handleImageError(this)">
-              <div class="conf-content">
-                <span class="conf-date-tag" data-i18n="conf_1_date">Rabat, Morocco • 2026</span>
-                <h3 data-i18n="conf_1_title">Paris Peace Forum Spring Meeting</h3>
-                <p data-i18n="conf_1_desc">Convened youth leaders and researchers to establish structured frameworks for cross-continental climate resilience and green technology collaborations.</p>
-              </div>
-            </article>
-            <!-- Event 2 -->
-            <article class="conf-card">
-              <img class="conf-image" src="assets/images/Civilizations%20%26%20Tolerance%20Forum%202026.jpg" alt="Abu Dhabi Conference" loading="lazy" onerror="app.handleImageError(this)">
-              <div class="conf-content">
-                <span class="conf-date-tag" data-i18n="conf_2_date">Abu Dhabi, UAE • 2026</span>
-                <h3 data-i18n="conf_2_title">Civilizations &amp; Tolerance Forum</h3>
-                <p data-i18n="conf_2_desc">Led panels evaluating media representation and cross-cultural discourse styles to combat modern polarization and media bias.</p>
-              </div>
-            </article>
-            <!-- Event 3 -->
-            <article class="conf-card">
-              <img class="conf-image" src="assets/images/The%20Doha%20Forum%202025.jpg" alt="The Doha Forum" loading="lazy" onerror="app.handleImageError(this)">
-              <div class="conf-content">
-                <span class="conf-date-tag" data-i18n="conf_3_date">Doha, Qatar • 2025</span>
-                <h3 data-i18n="conf_3_title">The Doha Forum</h3>
-                <p data-i18n="conf_3_desc">Hosted closed roundtables exploring foundational values in governance systems, matching Western human rights concepts with Middle Eastern traditions.</p>
-              </div>
-            </article>
-            <!-- Event 4 -->
-            <article class="conf-card">
-              <img class="conf-image" src="assets/images/IISS%20Manama%20Dialogue%202025.jpg" alt="Manama Dialogue" loading="lazy" onerror="app.handleImageError(this)">
-              <div class="conf-content">
-                <span class="conf-date-tag" data-i18n="conf_4_date">Manama, Bahrain • 2025</span>
-                <h3 data-i18n="conf_4_title">IISS Manama Dialogue</h3>
-                <p data-i18n="conf_4_desc">Contributed strategic research addressing collaborative regional security architectures and multilateral trust-building paths.</p>
-              </div>
-            </article>
-            <!-- Event 5 -->
-            <article class="conf-card">
-              <img class="conf-image" src="assets/images/Rome%20MED%20-%20Mediterranean%20Dialogues%202024.jpg" alt="Rome MED Dialogues" loading="lazy" onerror="app.handleImageError(this)">
-              <div class="conf-content">
-                <span class="conf-date-tag" data-i18n="conf_5_date">Rome, Italy • 2024</span>
-                <h3 data-i18n="conf_5_title">Rome MED - Mediterranean Dialogues</h3>
-                <p data-i18n="conf_5_desc">Delivered working papers exploring shared migratory corridors and commercial integrations bridging the EU and the Middle East.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- ==========================================================================
          PUBLICATIONS VIEW (#publications)
          ========================================================================== -->
     <section id="view-publications" class="spa-view">
+      <!-- Conference History Grid -->
+      <div class="section-padding" style="border-bottom: 1px solid var(--color-border); padding-bottom: var(--space-48);">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="conf_title">Verified Conference Engagements</h2>
+            <p style="margin-top: var(--space-24);" data-i18n="conf_subtitle">Key international forums and high-level collaborative tables held over the last three years (2024–2026).</p>
+          </div>
+          
+          <div id="events-dynamic-grid" class="conf-grid">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </div>
+
       <!-- Search & Filters -->
       <div class="search-filter-section">
         <div class="container pub-controls">
@@ -1409,103 +1387,175 @@
 
         <!-- Content Management Form & Dashboard -->
         <div class="container" id="admin-dashboard-view" style="display: none; max-width: 1100px;">
-          <div class="admin-dashboard-layout">
-            <!-- Article Creation Form -->
-            <div class="dashboard-card">
-              <div class="dashboard-header-flex">
-                <h2 data-i18n="admin_dash_title">Publish New Document</h2>
+          <!-- Top Dashboard Header with Title & Tab buttons & Logout -->
+          <div class="dashboard-card" style="margin-bottom: var(--space-24); padding: var(--space-24) var(--space-40);">
+            <div class="dashboard-header-flex" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-16);">
+              <h2 id="admin-dashboard-title" data-i18n="admin_tab_docs" style="margin: 0;">Manage Documents</h2>
+              <div style="display: flex; gap: var(--space-12); align-items: center; flex-wrap: wrap;">
+                <button class="btn btn-secondary active" id="tab-btn-docs" onclick="app.switchCmsTab('docs')" data-i18n="admin_tab_docs">Manage Documents</button>
+                <button class="btn btn-secondary" id="tab-btn-events" onclick="app.switchCmsTab('events')" data-i18n="admin_tab_events">Publish New Event</button>
                 <button class="btn btn-secondary" onclick="app.handleLogout()" data-i18n="admin_btn_logout">Sign Out</button>
               </div>
-              
-              <form id="cms-publish-form" onsubmit="app.handlePublish(event)">
-                <div class="form-group">
-                  <label for="doc-title-en" data-i18n="cms_label_title_en">Title (English)</label>
-                  <input type="text" id="doc-title-en" class="form-control" required>
-                </div>
-                <div class="form-group">
-                  <label for="doc-title-ar" data-i18n="cms_label_title_ar">Title (Arabic)</label>
-                  <input type="text" id="doc-title-ar" class="form-control" required>
-                </div>
+            </div>
+          </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+          <div class="admin-dashboard-layout">
+            <!-- Forms Left Panel -->
+            <div>
+              <!-- Form 1: Manage Documents -->
+              <div class="dashboard-card" id="cms-form-docs-wrapper">
+                <form id="cms-publish-form" onsubmit="app.handlePublish(event)">
                   <div class="form-group">
-                    <label for="doc-type" data-i18n="cms_label_type">Publication Type</label>
-                    <select id="doc-type" class="form-control">
-                      <option value="brief">Policy Brief</option>
-                      <option value="paper">Research Paper</option>
-                      <option value="article">Opinion Article</option>
-                      <option value="report">Report</option>
-                      <option value="analysis">Analysis</option>
-                    </select>
+                    <label for="doc-title-en" data-i18n="cms_label_title_en">Title (English)</label>
+                    <input type="text" id="doc-title-en" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <label for="doc-pillar" data-i18n="cms_label_pillar">Topic Pillar</label>
-                    <select id="doc-pillar" class="form-control">
-                      <option value="heritage">Memory &amp; Heritage</option>
-                      <option value="diplomacy">Diplomacy &amp; Peace</option>
-                      <option value="governance">Governance &amp; Economy</option>
-                      <option value="youth">Youth &amp; Exchange</option>
-                      <option value="faith">Faith &amp; Advocacy</option>
-                    </select>
+                    <label for="doc-title-ar" data-i18n="cms_label_title_ar">Title (Arabic)</label>
+                    <input type="text" id="doc-title-ar" class="form-control" required>
                   </div>
-                </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                    <div class="form-group">
+                      <label for="doc-type" data-i18n="cms_label_type">Publication Type</label>
+                      <select id="doc-type" class="form-control">
+                        <option value="brief">Policy Brief</option>
+                        <option value="paper">Research Paper</option>
+                        <option value="article">Opinion Article</option>
+                        <option value="report">Report</option>
+                        <option value="analysis">Analysis</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="doc-pillar" data-i18n="cms_label_pillar">Topic Pillar</label>
+                      <select id="doc-pillar" class="form-control">
+                        <option value="heritage">Memory &amp; Heritage</option>
+                        <option value="diplomacy">Diplomacy &amp; Peace</option>
+                        <option value="governance">Governance &amp; Economy</option>
+                        <option value="youth">Youth &amp; Exchange</option>
+                        <option value="faith">Faith &amp; Advocacy</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                    <div class="form-group">
+                      <label for="doc-author-en" data-i18n="cms_label_author_en">Author (English)</label>
+                      <input type="text" id="doc-author-en" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="doc-author-ar" data-i18n="cms_label_author_ar">Author (Arabic)</label>
+                      <input type="text" id="doc-author-ar" class="form-control" required>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                    <div class="form-group">
+                      <label for="doc-date-en" data-i18n="cms_label_date_en">Date (English)</label>
+                      <input type="text" id="doc-date-en" class="form-control" placeholder="e.g. June 2026" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="doc-date-ar" data-i18n="cms_label_date_ar">Date (Arabic)</label>
+                      <input type="text" id="doc-date-ar" class="form-control" placeholder="مثال: يونيو ٢٠٢٦" required>
+                    </div>
+                  </div>
+
                   <div class="form-group">
-                    <label for="doc-author-en" data-i18n="cms_label_author_en">Author (English)</label>
-                    <input type="text" id="doc-author-en" class="form-control" required>
+                    <label for="doc-abstract-en" data-i18n="cms_label_abstract_en">Abstract (English)</label>
+                    <textarea id="doc-abstract-en" class="form-control" rows="3" required></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="doc-author-ar" data-i18n="cms_label_author_ar">Author (Arabic)</label>
-                    <input type="text" id="doc-author-ar" class="form-control" required>
+                    <label for="doc-abstract-ar" data-i18n="cms_label_abstract_ar">Abstract (Arabic)</label>
+                    <textarea id="doc-abstract-ar" class="form-control" rows="3" required></textarea>
                   </div>
-                </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
                   <div class="form-group">
-                    <label for="doc-date-en" data-i18n="cms_label_date_en">Date (English)</label>
-                    <input type="text" id="doc-date-en" class="form-control" placeholder="e.g. June 2026" required>
+                    <label for="doc-body-en" data-i18n="cms_label_body_en">Main Body Content (English)</label>
+                    <textarea id="doc-body-en" class="form-control" rows="6" required></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="doc-date-ar" data-i18n="cms_label_date_ar">Date (Arabic)</label>
-                    <input type="text" id="doc-date-ar" class="form-control" placeholder="مثال: يونيو ٢٠٢٦" required>
+                    <label for="doc-body-ar" data-i18n="cms_label_body_ar">Main Body Content (Arabic)</label>
+                    <textarea id="doc-body-ar" class="form-control" rows="6" required></textarea>
                   </div>
-                </div>
 
-                <div class="form-group">
-                  <label for="doc-abstract-en" data-i18n="cms_label_abstract_en">Abstract (English)</label>
-                  <textarea id="doc-abstract-en" class="form-control" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="doc-abstract-ar" data-i18n="cms_label_abstract_ar">Abstract (Arabic)</label>
-                  <textarea id="doc-abstract-ar" class="form-control" rows="3" required></textarea>
-                </div>
+                  <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="cms_btn_publish">Publish Document</button>
+                </form>
+              </div>
 
-                <div class="form-group">
-                  <label for="doc-body-en" data-i18n="cms_label_body_en">Main Body Content (English)</label>
-                  <textarea id="doc-body-en" class="form-control" rows="6" required></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="doc-body-ar" data-i18n="cms_label_body_ar">Main Body Content (Arabic)</label>
-                  <textarea id="doc-body-ar" class="form-control" rows="6" required></textarea>
-                </div>
+              <!-- Form 2: Publish New Event -->
+              <div class="dashboard-card" id="cms-form-events-wrapper" style="display: none;">
+                <form id="cms-publish-event-form" onsubmit="app.handlePublishEvent(event)">
+                  <div class="form-group">
+                    <label for="event-title-en" data-i18n="cms_label_event_name_en">Event Name (English)</label>
+                    <input type="text" id="event-title-en" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="event-title-ar" data-i18n="cms_label_event_name_ar">Event Name (Arabic)</label>
+                    <input type="text" id="event-title-ar" class="form-control" required>
+                  </div>
 
-                <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="cms_btn_publish">Publish Document</button>
-              </form>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                    <div class="form-group">
+                      <label for="event-date-en" data-i18n="cms_label_event_date_en">Date Label (English)</label>
+                      <input type="text" id="event-date-en" class="form-control" placeholder="e.g. June 2026" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="event-date-ar" data-i18n="cms_label_event_date_ar">Date Label (Arabic)</label>
+                      <input type="text" id="event-date-ar" class="form-control" placeholder="مثال: يونيو ٢٠٢٦" required>
+                    </div>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+                    <div class="form-group">
+                      <label for="event-loc-en" data-i18n="cms_label_event_loc_en">Location (English)</label>
+                      <input type="text" id="event-loc-en" class="form-control" placeholder="e.g. Abu Dhabi, UAE" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="event-loc-ar" data-i18n="cms_label_event_loc_ar">Location (Arabic)</label>
+                      <input type="text" id="event-loc-ar" class="form-control" placeholder="مثال: أبوظبي، الإمارات" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="event-desc-en" data-i18n="cms_label_event_desc_en">Description Body (English)</label>
+                    <textarea id="event-desc-en" class="form-control" rows="4" required></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="event-desc-ar" data-i18n="cms_label_event_desc_ar">Description Body (Arabic)</label>
+                    <textarea id="event-desc-ar" class="form-control" rows="4" required></textarea>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="event-image" data-i18n="cms_label_event_image">Image Path or URL Link</label>
+                    <input type="text" id="event-image" class="form-control" placeholder="e.g. assets/images/filename.jpg" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary" style="width:100%; margin-top:var(--space-12);" data-i18n="cms_btn_publish_event">Publish Event</button>
+                </form>
+              </div>
             </div>
 
-            <!-- Document Management deck -->
+            <!-- Right Decks Panel -->
             <div style="display:flex; flex-direction:column; gap: var(--space-32);">
-              <div class="dashboard-card">
+              <!-- Active Documents List -->
+              <div class="dashboard-card" id="admin-docs-list-wrapper">
                 <h3 data-i18n="admin_list_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">Active Documents</h3>
                 <div class="articles-list-wrapper" id="admin-articles-list">
                   <!-- Dynamically rendered list with delete buttons -->
                 </div>
               </div>
 
+              <!-- Active Events List -->
+              <div class="dashboard-card" id="admin-events-list-wrapper" style="display: none;">
+                <h3 data-i18n="admin_list_events" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">Active Events</h3>
+                <div class="articles-list-wrapper" id="admin-events-list">
+                  <!-- Dynamically rendered list with delete buttons -->
+                </div>
+              </div>
+
+              <!-- Reset Operations Card -->
               <div class="dashboard-card" style="border-top-color: var(--color-amber);">
                 <h3 data-i18n="admin_ops_title" style="margin-bottom:var(--space-24); border-bottom:1px solid var(--color-border); padding-bottom:var(--space-12);">System Operations</h3>
-                <p style="font-size:0.875rem;" data-i18n="admin_ops_desc">Reset the dynamic local publications array to standard initialization values.</p>
+                <p style="font-size:0.875rem;" data-i18n="admin_ops_desc">Reset the dynamic local databases to standard initialization values.</p>
                 <button class="btn btn-secondary" onclick="app.resetSystemDatabase()" style="width:100%; border-color:#E74C3C; color:#E74C3C;" data-i18n="admin_btn_reset">Reset Database</button>
               </div>
             </div>
@@ -1672,6 +1722,21 @@
         cms_label_body_ar: "Main Body Content (Arabic)",
         cms_btn_publish: "Publish Document",
         
+        admin_tab_docs: "Manage Documents",
+        admin_tab_events: "Publish New Event",
+        admin_list_events: "Active Events",
+        
+        cms_label_event_name_en: "Event Name (English)",
+        cms_label_event_name_ar: "Event Name (Arabic)",
+        cms_label_event_date_en: "Date Label (English)",
+        cms_label_event_date_ar: "Date Label (Arabic)",
+        cms_label_event_loc_en: "Location (English)",
+        cms_label_event_loc_ar: "Location (Arabic)",
+        cms_label_event_desc_en: "Description Body (English)",
+        cms_label_event_desc_ar: "Description Body (Arabic)",
+        cms_label_event_image: "Image Path / Link",
+        cms_btn_publish_event: "Publish Event",
+        
         footer_desc: "Advancing strategic research, dialetic exchange, and policy alignment across LTR/RTL traditions for a shared human future.",
         footer_title_links: "Platform",
         footer_title_contact: "Contact",
@@ -1765,12 +1830,83 @@
         cms_label_body_ar: "المحتوى الرئيسي (باللغة العربية)",
         cms_btn_publish: "نشر المستند",
         
+        admin_tab_docs: "إدارة المستندات",
+        admin_tab_events: "نشر فعالية جديدة",
+        admin_list_events: "الفعاليات النشطة",
+        
+        cms_label_event_name_en: "اسم الفعالية (باللغة الإنجليزية)",
+        cms_label_event_name_ar: "اسم الفعالية (باللغة العربية)",
+        cms_label_event_date_en: "التاريخ (باللغة الإنجليزية)",
+        cms_label_event_date_ar: "التاريخ (باللغة العربية)",
+        cms_label_event_loc_en: "الموقع (باللغة الإنجليزية)",
+        cms_label_event_loc_ar: "الموقع (باللغة العربية)",
+        cms_label_event_desc_en: "الوصف (باللغة الإنجليزية)",
+        cms_label_event_desc_ar: "الوصف (باللغة العربية)",
+        cms_label_event_image: "مسار الصورة / الرابط",
+        cms_btn_publish_event: "نشر الفعالية",
+        
         footer_desc: "تعزيز البحث العلمي المستقل، والتبادل المعرفي، وحلقات النقاش وبناء التوافق الحضاري لخدمة مستقبل إنساني مشترك.",
         footer_title_links: "البوابة",
         footer_title_contact: "الاتصال",
         footer_rights: "جميع الحقوق محفوظة."
       }
     };
+
+    // --------------------------------------------------------------------------
+    // DEFAULT EVENTS STATE DATA
+    // --------------------------------------------------------------------------
+    const defaultEvents = [
+      {
+        id: "default-event-1",
+        title_en: "Paris Peace Forum Spring Meeting",
+        title_ar: "اجتماع ربيع منتدى باريس للسلام",
+        date_en: "Rabat, Morocco • 2026",
+        date_ar: "الرباط، المغرب • ٢٠٢٦",
+        desc_en: "Convened youth leaders and researchers to establish structured frameworks for cross-continental climate resilience and green technology collaborations.",
+        desc_ar: "جمع الباحثين والشباب لبناء هيكل مستدام للتعاون الأخضر العابر للقارات في مجال المناخ وتطبيقات البيئة.",
+        image: "assets/images/Paris%20Peace%20Forum%20Spring%20Meeting%202026.jpg"
+      },
+      {
+        id: "default-event-2",
+        title_en: "Civilizations & Tolerance Forum",
+        title_ar: "منتدى حوار الحضارات والتسامح",
+        date_en: "Abu Dhabi, UAE • 2026",
+        date_ar: "أبوظبي، الإمارات • ٢٠٢٦",
+        desc_en: "Led panels evaluating media representation and cross-cultural discourse styles to combat modern polarization and media bias.",
+        desc_ar: "إدارة جلسات تقييم الأثر الإعلامي والتمثيل الثقافي في الخطاب العام لمواجهة الاستقطاب المعاصر.",
+        image: "assets/images/Civilizations%20%26%20Tolerance%20Forum%202026.jpg"
+      },
+      {
+        id: "default-event-3",
+        title_en: "The Doha Forum",
+        title_ar: "منتدى الدوحة ٢٠٢٥",
+        date_en: "Doha, Qatar • 2025",
+        date_ar: "الدوحة، قطر • ٢٠٢٥",
+        desc_en: "Hosted closed roundtables exploring foundational values in governance systems, matching Western human rights concepts with Middle Eastern traditions.",
+        desc_ar: "استضافة طاولات مستديرة مغلقة لاستكشاف القيم المشتركة في نظم الحكم ومواءمة المفاهيم الغربية مع التقاليد المشرقية.",
+        image: "assets/images/The%20Doha%20Forum%202025.jpg"
+      },
+      {
+        id: "default-event-4",
+        title_en: "IISS Manama Dialogue",
+        title_ar: "حوار المنامة للأمن الإقليمي",
+        date_en: "Manama, Bahrain • 2025",
+        date_ar: "المنامة، البحرين • ٢٠٢٥",
+        desc_en: "Contributed strategic research addressing collaborative regional security architectures and multilateral trust-building paths.",
+        desc_ar: "تقديم مساهمات بحثية استراتيجية لبناء نظم أمنية إقليمية تشاركية وتعزيز الثقة متعددة الأطراف.",
+        image: "assets/images/IISS%20Manama%20Dialogue%202025.jpg"
+      },
+      {
+        id: "default-event-5",
+        title_en: "Rome MED - Mediterranean Dialogues",
+        title_ar: "حوارات روما المتوسطية",
+        date_en: "Rome, Italy • 2024",
+        date_ar: "روما، إيطاليا • ٢٠٢٤",
+        desc_en: "Delivered working papers exploring shared migratory corridors and commercial integrations bridging the EU and the Middle East.",
+        desc_ar: "تقديم أوراق عمل حول إدارة الممرات التجارية وحوكمة الهجرة والربط التجاري المشترك بين أوروبا والمتوسط.",
+        image: "assets/images/Rome%20MED%20-%20Mediterranean%20Dialogues%202024.jpg"
+      }
+    ];
 
     // --------------------------------------------------------------------------
     // DEFAULT PUBLICATIONS STATE DATA
@@ -1832,6 +1968,8 @@
           currentLang: localStorage.getItem('gdci_lang') || 'en',
           activeRoute: 'home',
           publications: [],
+          events: [],
+          activeCmsTab: 'docs',
           typeFilter: 'all',
           pillarFilter: 'all',
           searchQuery: '',
@@ -1853,6 +1991,19 @@
           }
         } else {
           this.state.publications = [...defaultPublications];
+        }
+
+        // Initialize events database
+        const savedEvents = localStorage.getItem('gdci_custom_events');
+        if (savedEvents) {
+          try {
+            const parsed = JSON.parse(savedEvents);
+            this.state.events = [...defaultEvents, ...parsed];
+          } catch(e) {
+            this.state.events = [...defaultEvents];
+          }
+        } else {
+          this.state.events = [...defaultEvents];
         }
 
         // Setup route handling
@@ -1951,10 +2102,14 @@
 
         // Render publications grid
         this.renderPublicationsList();
+
+        // Render events grid
+        this.renderEventsList();
         
         // Update admin lists
         if (this.state.isLoggedIn) {
           this.renderAdminArticles();
+          this.renderAdminEvents();
         }
       }
 
@@ -2117,6 +2272,8 @@
           loginView.style.display = 'none';
           dashView.style.display = 'block';
           this.renderAdminArticles();
+          this.renderAdminEvents();
+          this.switchCmsTab(this.state.activeCmsTab);
         } else {
           loginView.style.display = 'block';
           dashView.style.display = 'none';
@@ -2125,7 +2282,49 @@
         }
       }
 
-      // CMS Publish
+      // CMS Tab Switcher
+      switchCmsTab(tab) {
+        this.state.activeCmsTab = tab;
+        
+        const formDocs = document.getElementById('cms-form-docs-wrapper');
+        const formEvents = document.getElementById('cms-form-events-wrapper');
+        const listDocs = document.getElementById('admin-docs-list-wrapper');
+        const listEvents = document.getElementById('admin-events-list-wrapper');
+        const dashboardTitle = document.getElementById('admin-dashboard-title');
+        
+        const tabBtnDocs = document.getElementById('tab-btn-docs');
+        const tabBtnEvents = document.getElementById('tab-btn-events');
+        
+        if (tab === 'docs') {
+          if (formDocs) formDocs.style.display = 'block';
+          if (formEvents) formEvents.style.display = 'none';
+          if (listDocs) listDocs.style.display = 'block';
+          if (listEvents) listEvents.style.display = 'none';
+          
+          if (tabBtnDocs) tabBtnDocs.classList.add('active');
+          if (tabBtnEvents) tabBtnEvents.classList.remove('active');
+          
+          if (dashboardTitle) {
+            dashboardTitle.setAttribute('data-i18n', 'admin_tab_docs');
+            dashboardTitle.textContent = this.state.currentLang === 'ar' ? 'إدارة المستندات' : 'Manage Documents';
+          }
+        } else {
+          if (formDocs) formDocs.style.display = 'none';
+          if (formEvents) formEvents.style.display = 'block';
+          if (listDocs) listDocs.style.display = 'none';
+          if (listEvents) listEvents.style.display = 'block';
+          
+          if (tabBtnDocs) tabBtnDocs.classList.remove('active');
+          if (tabBtnEvents) tabBtnEvents.classList.add('active');
+          
+          if (dashboardTitle) {
+            dashboardTitle.setAttribute('data-i18n', 'admin_tab_events');
+            dashboardTitle.textContent = this.state.currentLang === 'ar' ? 'نشر فعالية جديدة' : 'Publish New Event';
+          }
+        }
+      }
+
+      // CMS Publish Publication
       handlePublish(e) {
         e.preventDefault();
         
@@ -2161,10 +2360,46 @@
         this.showToast(this.state.currentLang === 'ar' ? "تم نشر المستند بنجاح!" : "Document published successfully!");
       }
 
+      // CMS Publish Event
+      handlePublishEvent(e) {
+        e.preventDefault();
+        
+        const locEn = document.getElementById('event-loc-en').value.trim();
+        const dateEn = document.getElementById('event-date-en').value.trim();
+        const locAr = document.getElementById('event-loc-ar').value.trim();
+        const dateAr = document.getElementById('event-date-ar').value.trim();
+
+        const newEvent = {
+          id: `event-${Date.now()}`,
+          title_en: document.getElementById('event-title-en').value.trim(),
+          title_ar: document.getElementById('event-title-ar').value.trim(),
+          date_en: `${locEn} • ${dateEn}`,
+          date_ar: `${locAr} • ${dateAr}`,
+          desc_en: document.getElementById('event-desc-en').value.trim(),
+          desc_ar: document.getElementById('event-desc-ar').value.trim(),
+          image: document.getElementById('event-image').value.trim()
+        };
+
+        this.state.events.push(newEvent);
+        this.saveCustomEvents();
+
+        this.renderEventsList();
+        this.renderAdminEvents();
+
+        document.getElementById('cms-publish-event-form').reset();
+        
+        this.showToast(this.state.currentLang === 'ar' ? "تم نشر الفعالية بنجاح!" : "Event published successfully!");
+      }
+
       // Save custom items
       saveCustomPublications() {
         const customOnly = this.state.publications.filter(p => !p.id.startsWith('default-'));
         localStorage.setItem('gdci_custom_publications', JSON.stringify(customOnly));
+      }
+
+      saveCustomEvents() {
+        const customOnly = this.state.events.filter(e => !e.id.startsWith('default-event-'));
+        localStorage.setItem('gdci_custom_events', JSON.stringify(customOnly));
       }
 
       renderAdminArticles() {
@@ -2200,6 +2435,38 @@
         });
       }
 
+      renderAdminEvents() {
+        const list = document.getElementById('admin-events-list');
+        if (!list) return;
+
+        list.innerHTML = '';
+        this.state.events.forEach(evt => {
+          const row = document.createElement('div');
+          row.className = 'article-item-row';
+
+          const title = this.state.currentLang === 'ar' ? evt.title_ar : evt.title_en;
+          const dateText = this.state.currentLang === 'ar' ? evt.date_ar : evt.date_en;
+          
+          const isDefault = evt.id.startsWith('default-event-');
+          const deleteButton = isDefault ? 
+            `<span style="font-size:0.75rem; opacity:0.6; font-family:var(--font-utility); font-weight:bold;">SYSTEM</span>` : 
+            `<button class="delete-btn-svg" onclick="app.deleteEvent('${evt.id}')" aria-label="Delete event">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>`;
+
+          row.innerHTML = `
+            <div>
+              <div class="article-item-title">${title}</div>
+              <div class="article-item-meta">${dateText}</div>
+            </div>
+            <div>
+              ${deleteButton}
+            </div>
+          `;
+          list.appendChild(row);
+        });
+      }
+
       deleteArticle(id) {
         const confirmMsg = this.state.currentLang === 'ar' ? 
           "هل أنت متأكد من رغبتك في حذف هذا المستند؟" : 
@@ -2214,18 +2481,61 @@
         }
       }
 
+      deleteEvent(id) {
+        const confirmMsg = this.state.currentLang === 'ar' ? 
+          "هل أنت متأكد من رغبتك في حذف هذه الفعالية؟" : 
+          "Are you sure you want to delete this event?";
+        
+        if (confirm(confirmMsg)) {
+          this.state.events = this.state.events.filter(e => e.id !== id);
+          this.saveCustomEvents();
+          this.renderEventsList();
+          this.renderAdminEvents();
+          this.showToast(this.state.currentLang === 'ar' ? "تم حذف الفعالية." : "Event deleted.");
+        }
+      }
+
       resetSystemDatabase() {
         const confirmMsg = this.state.currentLang === 'ar' ?
-          "تحذير: سيؤدي هذا إلى مسح كافة الإصدارات المضافة محلياً وإرجاع القيم الافتراضية. هل تريد الاستمرار؟" :
-          "Warning: This will clear all custom publications and restore system default settings. Do you want to continue?";
+          "تحذير: سيؤدي هذا إلى مسح كافة الإصدارات والفعاليات المضافة محلياً وإرجاع القيم الافتراضية. هل تريد الاستمرار؟" :
+          "Warning: This will clear all custom publications and events and restore system default settings. Do you want to continue?";
 
         if (confirm(confirmMsg)) {
           localStorage.removeItem('gdci_custom_publications');
+          localStorage.removeItem('gdci_custom_events');
           this.state.publications = [...defaultPublications];
+          this.state.events = [...defaultEvents];
           this.renderPublicationsList();
+          this.renderEventsList();
           this.renderAdminArticles();
+          this.renderAdminEvents();
           this.showToast("Database reset successfully.");
         }
+      }
+
+      renderEventsList() {
+        const grid = document.getElementById('events-dynamic-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
+        this.state.events.forEach(evt => {
+          const card = document.createElement('article');
+          card.className = 'conf-card';
+          
+          const titleText = this.state.currentLang === 'ar' ? evt.title_ar : evt.title_en;
+          const dateText = this.state.currentLang === 'ar' ? evt.date_ar : evt.date_en;
+          const descText = this.state.currentLang === 'ar' ? evt.desc_ar : evt.desc_en;
+          
+          card.innerHTML = `
+            <img class="conf-image" src="${evt.image}" alt="${titleText.replace(/"/g, '&quot;')}" loading="lazy" onerror="app.handleImageError(this)" data-failed="false">
+            <div class="conf-content">
+              <span class="conf-date-tag">${dateText}</span>
+              <h3>${titleText}</h3>
+              <p>${descText}</p>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
       }
 
       // Mobile menu toggling
@@ -2254,13 +2564,16 @@
 
       handleImageError(imgElement) {
         console.error(`Asset Reading Error: Unable to render file at path: "${imgElement.src}". Please ensure this specific item matches the name and directory casing inside your folder structures.`);
-        // Apply a beautiful CSS placeholder styling background or an abstract indicator block so layout integrity does not break
         imgElement.style.display = 'none';
-        const errorBlock = document.createElement('div');
-        errorBlock.className = 'conf-image-fallback';
-        errorBlock.style.cssText = 'height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; background: var(--color-light-gray); color: var(--color-slate); font-family: var(--font-utility); font-size: 0.8125rem; font-weight: 600; border-bottom: 1px solid var(--color-border); padding: var(--space-16); text-align: center;';
-        errorBlock.textContent = `Asset Missing/Unreadable: [${imgElement.alt}]`;
-        imgElement.parentNode.insertBefore(errorBlock, imgElement);
+        imgElement.setAttribute('data-failed', 'true');
+        
+        const parent = imgElement.parentNode;
+        if (parent && !parent.querySelector('.conf-image-fallback')) {
+          const errorBlock = document.createElement('div');
+          errorBlock.className = 'conf-image-fallback';
+          errorBlock.textContent = `Asset Missing/Unreadable: [${imgElement.alt}]`;
+          parent.insertBefore(errorBlock, imgElement);
+        }
       }
     }
 
