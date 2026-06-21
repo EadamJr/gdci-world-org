@@ -1283,7 +1283,7 @@
           <div class="conf-grid">
             <!-- Event 1 -->
             <article class="conf-card">
-              <img class="conf-image" src="assets/images/paris-peace-forum.jpg" alt="Paris Peace Forum Spring Meeting" loading="lazy">
+              <img class="conf-image" src="assets/images/Paris%20Peace%20Forum%20Spring%20Meeting%202026.jpg" alt="Paris Peace Forum Spring Meeting" loading="lazy" onerror="app.handleImageError(this)">
               <div class="conf-content">
                 <span class="conf-date-tag" data-i18n="conf_1_date">Rabat, Morocco • 2026</span>
                 <h3 data-i18n="conf_1_title">Paris Peace Forum Spring Meeting</h3>
@@ -1292,7 +1292,7 @@
             </article>
             <!-- Event 2 -->
             <article class="conf-card">
-              <img class="conf-image" src="assets/images/civilizations-tolerance-forum.jpg" alt="Abu Dhabi Conference" loading="lazy">
+              <img class="conf-image" src="assets/images/Civilizations%20%26%20Tolerance%20Forum%202026.jpg" alt="Abu Dhabi Conference" loading="lazy" onerror="app.handleImageError(this)">
               <div class="conf-content">
                 <span class="conf-date-tag" data-i18n="conf_2_date">Abu Dhabi, UAE • 2026</span>
                 <h3 data-i18n="conf_2_title">Civilizations &amp; Tolerance Forum</h3>
@@ -1301,7 +1301,7 @@
             </article>
             <!-- Event 3 -->
             <article class="conf-card">
-              <img class="conf-image" src="assets/images/the-doha-forum.jpg" alt="The Doha Forum" loading="lazy">
+              <img class="conf-image" src="assets/images/The%20Doha%20Forum%202025.jpg" alt="The Doha Forum" loading="lazy" onerror="app.handleImageError(this)">
               <div class="conf-content">
                 <span class="conf-date-tag" data-i18n="conf_3_date">Doha, Qatar • 2025</span>
                 <h3 data-i18n="conf_3_title">The Doha Forum</h3>
@@ -1310,7 +1310,7 @@
             </article>
             <!-- Event 4 -->
             <article class="conf-card">
-              <img class="conf-image" src="assets/images/manama-dialogue.jpg" alt="Manama Dialogue" loading="lazy">
+              <img class="conf-image" src="assets/images/IISS%20Manama%20Dialogue%202025.jpg" alt="Manama Dialogue" loading="lazy" onerror="app.handleImageError(this)">
               <div class="conf-content">
                 <span class="conf-date-tag" data-i18n="conf_4_date">Manama, Bahrain • 2025</span>
                 <h3 data-i18n="conf_4_title">IISS Manama Dialogue</h3>
@@ -1319,7 +1319,7 @@
             </article>
             <!-- Event 5 -->
             <article class="conf-card">
-              <img class="conf-image" src="assets/images/rome-med-dialogues.jpg" alt="Rome MED Dialogues" loading="lazy">
+              <img class="conf-image" src="assets/images/Rome%20MED%20-%20Mediterranean%20Dialogues%202024.jpg" alt="Rome MED Dialogues" loading="lazy" onerror="app.handleImageError(this)">
               <div class="conf-content">
                 <span class="conf-date-tag" data-i18n="conf_5_date">Rome, Italy • 2024</span>
                 <h3 data-i18n="conf_5_title">Rome MED - Mediterranean Dialogues</h3>
@@ -2250,6 +2250,17 @@
         toast.textContent = msg;
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 2500);
+      }
+
+      handleImageError(imgElement) {
+        console.error(`Asset Reading Error: Unable to render file at path: "${imgElement.src}". Please ensure this specific item matches the name and directory casing inside your folder structures.`);
+        // Apply a beautiful CSS placeholder styling background or an abstract indicator block so layout integrity does not break
+        imgElement.style.display = 'none';
+        const errorBlock = document.createElement('div');
+        errorBlock.className = 'conf-image-fallback';
+        errorBlock.style.cssText = 'height: 200px; width: 100%; display: flex; align-items: center; justify-content: center; background: var(--color-light-gray); color: var(--color-slate); font-family: var(--font-utility); font-size: 0.8125rem; font-weight: 600; border-bottom: 1px solid var(--color-border); padding: var(--space-16); text-align: center;';
+        errorBlock.textContent = `Asset Missing/Unreadable: [${imgElement.alt}]`;
+        imgElement.parentNode.insertBefore(errorBlock, imgElement);
       }
     }
 
